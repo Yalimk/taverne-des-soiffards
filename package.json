@@ -1,0 +1,37 @@
+{
+  "name": "taverne-des-soiffards",
+  "version": "1.0.0",
+  "description": "Social network for pirates playing Sea Of Thieves",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "pirates",
+    "friends",
+    "event management",
+    "ifocop",
+    "project",
+    "training"
+  ],
+  "author": "Alexandre Masson",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
+    "express-validator": "^6.9.2",
+    "mongoose": "^5.11.13",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
