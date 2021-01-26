@@ -11,7 +11,6 @@ export const getPosts = async (req, res) => {
             error: error
         })
     }
-
 };
 
 export const createPost = async (req, res) => {

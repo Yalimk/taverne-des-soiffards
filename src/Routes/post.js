@@ -4,19 +4,28 @@ import {body, validationResult} from 'express-validator';
 
 //Personal modules imports
 import {getPosts, createPost}from '../Controllers/post.js';
+import {userById} from '../Controllers/user.js';
+import {requireSignin} from '../Controllers/auth.js';
 
 // Constants declaration
 const router = express.Router();
 
-router.get('/', getPosts);
-router.post("/post",
-  body("title", "Un titre, moussaillon !").not().isEmpty(),
-  body("title", "Le titre doit faire entre 5 et 300 caractères").isLength({
+// Getting the main page
+router.get(
+  '/',
+  getPosts);
+
+// Posting a new message
+router.post(
+  '/post',
+  requireSignin,
+  body('title', 'Un titre, moussaillon !').notEmpty(),
+  body('title', 'Le titre doit faire entre 5 et 300 caractères').isLength({
     min: 5,
     max: 300,
   }),
-  body("body", "Un message, moussaillon, un message !").not().isEmpty(),
-  body("body", "Le message doit faire entre 5 et 3000 caractères !").isLength({
+  body('body', 'Un message, moussaillon, un message !').notEmpty(),
+  body('body', 'Le message doit faire entre 5 et 3000 caractères !').isLength({
     min: 5,
     max: 3000,
   }),
@@ -30,5 +39,8 @@ router.post("/post",
   },
   createPost
 );
+
+// Router to check for user id in parameters
+router.param('userId', userById);
                     
 export default router
