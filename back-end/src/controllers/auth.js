@@ -1,10 +1,11 @@
-// Personal modules imports
-// import { Logger, logMoment } from '../Logger/logger.js';
-import User from '../Models/user.js';
+// Native modules import
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import dotenv from 'dotenv';
-import { Logger } from '../Logger/logger.js';
+
+// Personal modules import
+import User from '../models/user.js';
+import { Logger, logMoment } from '../logger/logger.js';
 
 // dotenv config
 dotenv.config();

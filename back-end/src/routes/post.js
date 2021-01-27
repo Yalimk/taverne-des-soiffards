@@ -1,11 +1,11 @@
-// Native modules imports
+// Native modules import
 import express from 'express';
 import {body, validationResult} from 'express-validator';
 
-//Personal modules imports
-import {getPosts, createPost, postsByUser, postById, isPoster, deletePost, updatePost}from '../Controllers/post.js';
-import {userById} from '../Controllers/user.js';
-import {requireSignin} from '../Controllers/auth.js';
+//Personal modules import
+import {getPosts, createPost, postsByUser, postById, isPoster, deletePost, updatePost} from '../controllers/post.js';
+import {userById} from '../controllers/user.js';
+import {requireSignin} from '../controllers/auth.js';
 
 // Constants declaration
 const router = express.Router();

@@ -1,9 +1,9 @@
-// Native modules imports
+// Native modules import
 import _ from 'lodash';
-import { Logger, logMoment } from '../Logger/logger.js';
 
-// Personal modules imports
-import User from '../Models/user.js';
+// Personal modules import
+import User from '../models/user.js';
+import { Logger, logMoment } from '../logger/logger.js';
 
 export const userById = (req, res, next, userId) => {
   User.findById(userId)

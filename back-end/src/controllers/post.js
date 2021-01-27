@@ -1,10 +1,10 @@
-// Native modules imports
+// Native modules import
 import formidable from 'formidable';
 import _ from 'lodash';
 
-// Personal modules imports
-import Post from "../Models/post.js";
-import { Logger, logMoment } from '../Logger/logger.js';
+// Personal modules import
+import Post from "../models/post.js";
+import { Logger, logMoment } from '../logger/logger.js';
 
 export const postById = (req, res, next, id) => {
   Post.findById(id)

@@ -1,4 +1,4 @@
-// Native modules imports
+// Native modules import
 import mongoose from "mongoose";
 
 // Constants declaration

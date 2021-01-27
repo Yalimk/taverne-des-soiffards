@@ -1,12 +1,12 @@
-// // Native modules imports
+// Native modules import
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 
-// //Personal modules imports
-import { signup, signin, signout } from '../Controllers/auth.js';
-import { userById } from '../Controllers/user.js';
+// Personal modules import
+import { signup, signin, signout } from '../controllers/auth.js';
+import { userById } from '../controllers/user.js';
 
-// // Constants declaration
+// Constants declaration
 const router = express.Router();
 
 // Route for user sign up
