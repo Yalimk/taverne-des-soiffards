@@ -35,14 +35,16 @@ export const allUsers = (req, res) => {
         error: err
       });
     }
-    return res.json({users});
+    return res.json(users);
   })
 };
 
 export const getUser = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
+  // return res.json(req.profile);
   return res.json({
+    _id: req.profile._id,
     pseudo: req.profile.pseudo,
     email: req.profile.email,
     created: req.profile.created,
@@ -64,7 +66,9 @@ export const updateUser = (req, res, next) => {
     user.hashed_password = undefined;
     user.salt = undefined;
     Logger.info(`${logMoment.dateAndTime} : L'utilisateur ${updatedUser.pseudo}, e-mail ${updatedUser.email}, id ${updatedUser._id} a été mise à jour avec succès. `);
+    // return res.json(req.profile);
     return res.json({
+      _id: req.profile._id,
       pseudo: user.pseudo,
       email: user.email,
       created: user.created,

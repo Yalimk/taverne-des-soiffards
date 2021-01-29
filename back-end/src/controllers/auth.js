@@ -38,34 +38,35 @@ export const signup = async (req, res) => {
 // Controller enabling signout functionality
 export const signin = (req, res) => {
   const {email, password} = req.body;
-  User.findOne({email}, (err, user) => {
-    if (err || !user) {
-      return res.status(401).json({
-        error: 'Aucun pirate lié à cet adresse de courrier. Enregistre-toi, moussaillon ! (erreur 401)'
+  if ('' !== email && '' !== password) {
+    User.findOne({email}, (err, user) => {
+      if (err || !user) {
+        return res.status(401).json({
+          error: `Aucun pirate ne correspond à ces informations. Vérifie-les ou crée un compte, sacrebleu ! (erreur 401)`
+        });
+      }
+      if (!user.authenticateUser(password)) {
+        return res.status(401).json({
+          error: `Adresse de courrier et mot de passe ne correspondent pas, marin d'eau douce ! (erreur 401)`
+        });
+      }
+      const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
+      res.cookie('t', token, {
+        expire: new Date() + 6000
       });
-    }
-    if (!user.authenticateUser(password)) {
-      return res.status(401).json({
-        error: `Adresse de courrier et mot de passe ne correspondent pas, marin d'eau douce ! (erreur 401)`
+      const {_id, pseudo, email} = user;
+      Logger.info(`${logMoment.dateAndTime}: L'utilisateur ${pseudo}, e-mail ${email}, id ${_id} vient de se connecter à la Taverne des Soiffards.`);
+      return res.json({
+        token,
+        user: user,
       });
-    }
-    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
-    res.cookie('t', token, {
-      expire: new Date() + 60000
     });
-    const {_id, pseudo, email} = user;
-    Logger.info(`L'utilisateur ${pseudo}, e-mail ${email}, id ${_id} vient de se connecter à la Taverne des Soiffards.`);
-    return res.json({
-      token,
-      user: {_id, email, pseudo}
-    });
-  });
+  }
 };
 
 // Controller enabling signout functionality
 export const signout = (req, res) => {
   res.clearCookie('t');
-  Logger.info(`L'utilisateur ${req.body.pseudo}, e-mail ${req.body.user.email}, id ${req.body.user._id} vient de se déconnecter de la Taverne des Soiffards.`);
   return res.json({
     message: `Tu viens de quitter la taverne, moussaillon. A bientôt !`
   });

@@ -1,6 +1,6 @@
 // Native modules import
 import express from 'express';
-import { body, validationResult } from 'express-validator';
+import { check, body, validationResult } from 'express-validator';
 
 // Personal modules import
 import { signup, signin, signout } from '../controllers/auth.js';
@@ -18,28 +18,30 @@ router.post(
       min: 4,
       max: 30,
     })
-    .withMessage('Un pseudonyme de 4 caractères au moins !'),
+    .withMessage(
+      `Un pseudonyme de 4 caractères au moins et 30 au maximum, marin d'eau douce !`
+    )
+    .trim(),
   body(
     'email',
     'Tu dois impérativement renseigner un courrier de contact, flibustier !'
   )
     .notEmpty()
     .isEmail()
-    .withMessage('Ton courrier de contact doit contenir un @ et une extension (.fr, .com, .pirate), moussaillon !')
+    .withMessage(
+      'Ton courrier de contact doit contenir un @ et une extension (.fr, .com, .pirate), moussaillon !'
+    )
     .normalizeEmail(),
   body(
     'password',
     `Il te faut un mot de passe pour pouvoir t'identifier par la suite !`
   )
     .notEmpty()
-    .isLength({
-      min: 8,
-    })
     .matches(
       /^(?=(?:[^A-Z]*[A-Z]){1,}(?![^A-Z]*[A-Z]))(?=(?:[^a-z]*[a-z]){1,}(?![^a-z]*[a-z]))(?=(?:[^0-9]*[0-9]){1,}(?![^0-9]*[0-9]))(?=(?:[^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]){1,}(?![^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])).{8,}$/
     )
     .withMessage(
-      `Ton mot de passe doit faire au moins 8 caractères et contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial, marin d'eau douce !`
+      `Pour plus de sécurité, ton mot de passe doit contenir au moins 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial, marin d'eau douce !`
     ),
 
   (req, res, next) => {
@@ -56,11 +58,20 @@ router.post(
 // Route for user sign in
 router.post(
   '/signin',
-  body('email', `Comment te contacter si on ne sait pas où t'écrire, moussaillon ?`)
-  .notEmpty(),
-  body('password', `Je dois vérifier que tu n'es pas un espion à la solde du gouvernement ! Donne ton mot de passe !`)
-  .notEmpty(),
-signin);
+  check('email')
+    .notEmpty()
+    .isEmail()
+    .withMessage(
+      `Ne me prends pas pour un louveteau de mer, ceci n'est pas une adresse de courrier électronique !`
+      )
+    .normalizeEmail(),
+  check('password')
+    .notEmpty()
+    .withMessage(
+      `Je dois vérifier que tu n'es pas un espion à la solde du gouvernement ! Donne ton mot de passe !`
+    ),
+  signin
+);
 
 // Route for user sign out
 router.get('/signout', signout);

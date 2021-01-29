@@ -12,8 +12,8 @@ const router = express.Router();
 // Route for getting all the users
 router.get('/users', allUsers);
 router.get('/user/:userId', requireSignin, getUser);
-router.put('/user/:userId', requireSignin, updateUser);
-router.delete('/user/:userId', requireSignin, deleteUser);
+router.put('/user/edit/:userId', requireSignin, updateUser);
+router.delete('/user/delete/:userId', requireSignin, deleteUser);
 
 // Router to check for user id in parameters
 router.param('userId', userById);
