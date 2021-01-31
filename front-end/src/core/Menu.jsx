@@ -20,19 +20,18 @@ const isActive = (history, path) => {
 
 const Menu = ({ history }) => (
   <div className="container">
-    <nav className="navbar navbar-light bg-light" style={{margin: 0}}>
+    <nav className="navbar navbar-light bg-light" style={{ margin: 0 }}>
       {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button> */}
       <ul className="nav nav-tabs">
-
-      <li className="nav-item">
+        <li className="nav-item">
           <Link
             className="navbar-link mr-3"
             style={isActive(history, "/")}
             to="/"
           >
-            Accueil
+            Taverne
           </Link>
         </li>
 
@@ -42,7 +41,7 @@ const Menu = ({ history }) => (
             style={isActive(history, "/users")}
             to="/users"
           >
-            Pirates
+            Les Pirates
           </Link>
         </li>
 
@@ -74,10 +73,28 @@ const Menu = ({ history }) => (
           <>
             <li className="nav-item">
               <Link
+                to="/posts"
+                style={isActive(history, `/posts`)}
                 className="navbar-link mr-3"
-                style={
-                  (isActive(history, `/user/${isLoggedIn().user._id}`))
-                }
+              >
+                Messages
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                to="/post/create"
+                style={isActive(history, `/post/create`)}
+                className="navbar-link mr-3"
+              >
+                Envoyer un message
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="navbar-link mr-3"
+                style={(isActive(history, `/user/${isLoggedIn().user._id}`), {fontWeight: "bold",  color: "#81A65D"})}
                 to={`/user/${isLoggedIn().user._id}`}
               >
                 {`Planque ${
@@ -92,8 +109,8 @@ const Menu = ({ history }) => (
               <Link
                 to="/"
                 onClick={() => signout(() => history.push("/"))}
-                className="navbar-link mr-3"
-                style={(isActive(history, "/signout"), { color: "#8C0303" })}
+                className="navbar-link mr-5"
+                style={(isActive(history, "/signout"), { color: "#8C0303", fontWeight: "bold" })}
               >
                 Déconnexion
               </Link>
@@ -101,7 +118,7 @@ const Menu = ({ history }) => (
           </>
         )}
       </ul>
-      <form className="form-inline my-2 my-lg-0">
+      {/* <form className="form-inline my-2 my-lg-0">
         <input
           className="form-control mr-sm-2"
           type="search"
@@ -111,7 +128,7 @@ const Menu = ({ history }) => (
         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
           Trouver un pirate
         </button>
-      </form>
+      </form> */}
     </nav>
   </div>
 );

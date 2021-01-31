@@ -8,9 +8,13 @@ import Signup from './user/Signup';
 import Signin from './user/Signin';
 import Menu from './core/Menu';
 import Profile from './user/Profile';
-import Users from './user/User';
+import Users from './user/Users';
 import EditProfile from './user/EditProfile';
-import DeleteUser from './user/DeleteUser';
+import Posts from './post/Posts';
+import NewPost from './post/NewPost';
+import OnePost from './post/OnePost';
+import EditPost from './post/EditPost';
+import PrivateRoute from './auth/PrivateRoute';
 
 const MainRouter = () => (
   <div>
@@ -18,12 +22,14 @@ const MainRouter = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/users" component={Users} />
+      <PrivateRoute exact path="/posts" component={Posts} />
+      <PrivateRoute exact path="/post/create" component={NewPost} />
+      <PrivateRoute exact path="/post/:postId" component={OnePost} />
+      <PrivateRoute exact path="/post/edit/:postId" component={EditPost} />
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/signin" component={Signin} />
-      {/* <Route exact path="/signout" component={Signin} /> */}
-      <Route exact path="/user/:userId" component={Profile} />
-      <Route exact path="/user/edit/:userId" component={EditProfile} />
-      <Route exact path="/user/delete/:userId" component={DeleteUser} />
+      <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
+      <PrivateRoute exact path="/user/:userId" component={Profile} />
     </Switch>
   </div>
 )

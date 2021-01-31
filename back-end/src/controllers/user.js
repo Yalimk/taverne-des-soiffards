@@ -1,5 +1,7 @@
 // Native modules import
 import _ from 'lodash';
+import formidable from 'formidable';
+import fs from 'fs';
 
 // Personal modules import
 import User from '../models/user.js';
@@ -14,12 +16,13 @@ export const userById = (req, res, next, userId) => {
       })
     }
     req.profile = user;
+    // Logger.silly(`user dans findById de userById du controller user: ${user}`);
     next();
   });
 };
 
 export const hasAuthorization = (req, res, next) => {
-  const authorized = req.profile && req.auth && req.profile._id === req.auth._id;
+  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!authorized) {
     return res.status(403).json({
       error: `Tu n'as pas la permission de faire ça, moussaillon, où est-ce que tu te crois ?! Chez mémé ?!`
@@ -28,7 +31,7 @@ export const hasAuthorization = (req, res, next) => {
 };
 
 export const allUsers = (req, res) => {
-  User.find({}, {email: true, pseudo: true, updated: true, created: true}, (err, users) => {
+  User.find((err, users) => {
     if (err) {
       Logger.error(`${logMoment.dateAndTime} : La méthode allUsers a rencontré une erreur : ${err}.`);
       return res.status(400).json({
@@ -42,39 +45,50 @@ export const allUsers = (req, res) => {
 export const getUser = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
-  // return res.json(req.profile);
-  return res.json({
-    _id: req.profile._id,
-    pseudo: req.profile.pseudo,
-    email: req.profile.email,
-    created: req.profile.created,
-    updated: req.profile.updated,
-  });
+  return res.json(req.profile);
 };
 
 export const updateUser = (req, res, next) => {
-  let user = req.profile;
-  user = _.assignIn(user, req.body);
-  user.updated = Date.now();
-  user.save((err, updatedUser) => {
+  let form = formidable({multiples: true});
+  // let form = new formidable.IncomingForm();
+  // form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
     if (err) {
-      Logger.error(`${logMoment.dateAndTime} : La méthode updateUser a rencontré une erreur : ${err}.`);
       return res.status(400).json({
-        error: `Tu n'as pas le droit de faire ça, marin d'eau douce !`
-      });
+        error: `Photo was not uploaded because of error : ${err}`
+      })
     }
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    Logger.info(`${logMoment.dateAndTime} : L'utilisateur ${updatedUser.pseudo}, e-mail ${updatedUser.email}, id ${updatedUser._id} a été mise à jour avec succès. `);
-    // return res.json(req.profile);
-    return res.json({
-      _id: req.profile._id,
-      pseudo: user.pseudo,
-      email: user.email,
-      created: user.created,
-      updated: user.updated,
-    });
-  });
+    let user = req.profile;
+    user = _.assignIn(user, fields);
+    user.updated = Date.now();
+
+    if (files.photo) {
+      // Logger.info('A PHOTO HAS BEEN FOUND IN UPDATE USER');
+      user.photo.data = fs.readFileSync(files.photo.path);
+      user.photo.contentType = files.photo.type;
+    }
+    user.save((err, updatedUser) => {
+      // Logger.info(`INSIDE USER.SAVE`)
+      if (err) {
+        return res.status(400).json({
+          error: err
+        });
+      }
+      user.hashed_password = undefined;
+      user.salt = undefined;
+      res.json(user);
+      // Logger.info(`updatedUser dans updateUser: ${updatedUser}`);
+      // Logger.silly(`user dans udpateUser: ${JSON.stringify(user)}`);
+    })
+  })
+};
+
+export const userPhoto = (req, res, next) => {
+  if (req.profile.photo.data) {
+    res.set('Content-Type', req.profile.photo.contentType);
+    return res.send(req.profile.photo.data);
+  }
+  next();
 };
 
 export const deleteUser = (req, res, next) => {

@@ -32,3 +32,46 @@ Dans votre page de profil, vous pourrez modifier les informations relatives à v
 ### Tchat en direct
 
 Sur la page de tchat en direct, vous serez connecté avec tous les utilisateurs présents et pourrez échanger sans temps de rechargement avec eux, comme sur n'importe quelle plateforme de réseau social connue, type Facebook ou Twitter.
+
+----------------------------------------------------------------------------------------------
+
+# Bugs à résoudre avant de rendre le projet :
+
+## Issue 1 : Photo de profil n'apparaît (résolu)
+Lors de la mise à jour du profil d'un utilisateur, les informations relatives à la photo de profil sont bien envoyées au back end (visibles dans la bdd) mais ne s'affichent pas dans le profil de l'utilisateur.
+
+### Update issue 1
+Le problème venait du fait que j'avais oublié que j'avais appelé la variable d'environnement de liaison à l'API back end "APP_REACT_API_URI" et j'avais écrit "APP_REACT_API_URL", comme un gros couillon...
+
+----------------------------------------------
+
+## Issue 2 : Bio n'apparaît pas (résolu)
+Lors de la mise à jour du profil d'un utilisateur, les informations relatives à la description de l'utilisateur (sa bio) sont bien envoyées au back end (visibles dans la bdd) mais ne s'affichent pas dans le profil de l'utilisateur.
+
+### Update issue 2
+C'était encore une fois une connerie de ma part... Lorsque j'ai écrit le back-end, lorsque je cherchais un utilisateur, je ne voulais pas voir apparaitre un paramètre "__v" qui donne toujours "0" comme valeur. Du coup, au lieu de renvoyer le profil entier de l'utilisateur, je renvoyas un objet composé de plusieurs paramètres récupérés depuis le profil. 
+SAUF QUE j'ai par la suite ajouté des choses : la photo, la biographie, etc. Du coup, ces valeurs qui étaient bien récupérées depuis la bdd, n'étaient pas transmises au front-end. Du coup, si le front end n'a pas les infos, il ne risque pas de les afficher -_- Bravo, couillon !
+
+---------------------------------------------
+
+## Issue 3 : Posts fantômes
+Lorsqu'un post est supprimé par l'utilisateur qui l'a créé, l'utilisateur est ensuite redirigé vers la page des messages, mais le message supprimé apparaît toujours (erreur : cannot GET post/:postId), alors qu'il devrait avoir été supprimé.
+
+### Update issue 3
+
+
+----------------------------------------------
+
+## Issue 4 : GET request 404 pour les photos
+Lorsque je charge les pages qui contiennent une photo, je reçois une erreur GET http://localhost:9092/user/photo/:photoId (vérifier qu'il ne s'agit pas de userId qui est envoyé dans la requête !) mais les photos sont malgré tout bien affichées...
+
+### Update issue 4
+1. Il semblerait que l'erreur n'apparaisse pas sur la page de Profile.jsx (regarder dedans pour voir ce qui est différent)
+2. L'erreur n'apparaît QUE sur la page des Pirates.
+3. Il semblerait également que cette erreur soit due aux photos par défaut : l'erreur n'apparaît que trois fois sur la page des Pirates : exactement le même nombre que de photos par défaut !
+4. Si l'utilisateur n'a pas mis de photo, une requête GET est quand même envoyée au serveur en lui passant undefined pour le paramètre userId, ce qui cause une erreur 404.
+5. Le même problème est présent sur la page d'édition d'un Post (GET http://localhost:9092/oist.photo/...)
+6. Aucun souci de chargement des images dans Posts ni dans OnePost... étrange.
+
+-----------------------------------------------
+

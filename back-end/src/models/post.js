@@ -22,10 +22,11 @@ const postSchema = new Schema({
     type: ObjectId,
     ref: "User",
   },
-  date: {
+  created: {
     type: Date,
     default: Date.now(),
   },
+  updated: Date,
 });
 
 export default mongoose.model("Post", postSchema);

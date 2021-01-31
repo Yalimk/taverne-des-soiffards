@@ -15,28 +15,20 @@ class Users extends Component {
   }
 
   componentDidMount = async () => {
-    let allUsers;
     try {
-      allUsers = await listAllUsers();
-    } catch (error) {
-      console.error(
-        `The list of all users couldn't be retrieved because of error: ${error}.`
-      );
-    }
-    if (allUsers) {
-      try {
-        this.setState({
-          users: allUsers,
-        });
-      } catch (error) {
+      const allUsers = await listAllUsers();
+      if (allUsers) {
+          this.setState({
+            users: allUsers,
+          });
+          // console.log('all users: ', allUsers);
+        } else {
         console.error(
-          `Couldn't change state of users because of error: ${error}.`
+          `No users were retrieved from the server because of error.`
         );
       }
-    } else {
-      console.error(
-        `No users were retrieved from the server because of error.`
-      );
+    } catch (error) {
+      console.error(`Couldn't list all users because of error: ${error}.`)
     }
   };
 
@@ -44,19 +36,24 @@ class Users extends Component {
     <div className="row">
       {users.map((user, i) => (
         <div
-          className="card col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
-          key={i}
+        className="card card-block col-sm-12 col-md-6 col-lg-4 col-xl-3"
+        key={i}
+        style={{
+          backgroundColor: "#D5E5F2",
+          marginRight: "30px",
+          marginBottom: "30px",
+        }}
         >
           <img
-            className="card-img-top"
-            src={defaultProfilePic}
-            style={{ width: "100%", heigth: "15vw", objectFit: "cover" }}
+            style={{ height: "auto", width: "auto" }}
+            src={`${process.env.REACT_APP_API_URI}/user/photo/${user._id}`}
+            onError={(img) => (img.target.src = `${defaultProfilePic}`)}
+            className="img-thumbnail mb-3"
             alt={user.pseudo}
           />
           <div className="card-body" key={i}>
             <h5 className="card-title">{user.pseudo}</h5>
-            <p className="card-text">{user.email}</p>
-            <p className="card-text">{user.backstory}</p>
+            <p className="card-text">{user.about}</p>
             <Link
               to={`/user/${user._id}`}
               className="btn btn-raised btn-sm"

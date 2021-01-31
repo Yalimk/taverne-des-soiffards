@@ -67,8 +67,8 @@ app.get('/', (req, res) => {
   })
 })
 
-app.listen(CONST.PORT, () => {
-  Logger.info(`${logMoment.dateAndTime}: app listening on port ${CONST.PORT}.`);
+app.listen(process.env.PORT, () => {
+  Logger.info(`${logMoment.dateAndTime}: app listening on port ${process.env.PORT}.`);
 });
 
 // Handling different types of errors and logging to log files

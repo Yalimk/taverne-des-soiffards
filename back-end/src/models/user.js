@@ -28,6 +28,14 @@ const userSchema = new Schema({
     default: Date.now,
   },
   updated: Date,
+  photo: {
+    data: Buffer,
+    contentType: String,
+  },
+  about: {
+    type: String,
+    trim: true,
+  }
 });
 
 // Creating a virtual field to hash the password

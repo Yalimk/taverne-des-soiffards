@@ -1,7 +1,6 @@
 export const read = async (userId, token) => {
-  let response;
   try {
-    response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -9,76 +8,61 @@ export const read = async (userId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return await response.json();
   } catch (error) {
-    console.error(`Couldn't get response from api because of error: ${error}.`);
-  }
-  if (response) {
-    try {
-      return response.json();
-    } catch (error) {
-      console.error(
-        `Couldn't send the response.json() because of error: ${error}.`
-      );
-    }
-  } else {
-    console.error(`Couldn't find any response for some reason...`);
+    return console.error(
+      `Couldn't get response from api because of error: ${error}.`
+    );
   }
 };
 
 export const listAllUsers = async () => {
-  let response;
   try {
-    response = await fetch(`${process.env.REACT_APP_API_URI}/users`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/users`, {
       method: "GET",
     });
+    return await response.json();
   } catch (error) {
-    console.error(`Couldn't get response from api because of error: ${error}.`);
-  }
-  if (response) {
-    try {
-      return response.json();
-    } catch (error) {
-      console.error(
-        `Couldn't send the response.json() because of error: ${error}.`
+    return console.error(
+      `Couldn't get response from api because of error: ${error}.`
       );
     }
-  } else {
-    console.error(`Couldn't find any response for some reason...`);
-  }
 };
 
 export const updateUser = async (userId, token, user) => {
-  let response;
+  // console.log(`INSIDE UPDATEUSER: userId: ${userId}, token: ${token}, user: ${user}`);
   try {
-    response = await fetch(`${process.env.REACT_APP_API_URI}/user/edit/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(user)
+      body: user,
     });
+    return await response.json();
   } catch (error) {
-    console.error(`Couldn't put date to api because of error: ${error}.`);
+    return console.error(
+      `Couldn't put data to api because of error: ${error}.`
+    );
   }
-  if (response) {
-    try {
-      return response.json();
-    } catch (error) {
-      console.error(
-        `Couldn't send the response.json() because of error: ${error}.`
-      );
+};
+
+export const updateInfo = (user, next) => {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("jwt")) {
+      // console.log(`INSIDE SECOND IF INSIDE UPDATEINFO`);
+      let auth = JSON.parse(localStorage.getItem("jwt"));
+      auth.user = user;
+      localStorage.setItem("jwt", JSON.stringify(auth));
+      next();
     }
-  } else {
-    console.error(`Couldn't find any response for some reason...`);
   }
 };
 
 export const remove = async (userId, token) => {
-  let response;
   try {
-    response = await fetch(`${process.env.REACT_APP_API_URI}/user/delete/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -86,18 +70,10 @@ export const remove = async (userId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return await response.json();
   } catch (error) {
-    console.error(`Couldn't get response from api because of error: ${error}.`);
-  }
-  if (response) {
-    try {
-      return response.json();
-    } catch (error) {
-      console.error(
-        `Couldn't send the response.json() because of error: ${error}.`
-      );
-    }
-  } else {
-    console.error(`Couldn't find any response for some reason...`);
+    return console.error(
+      `Couldn't get response from api because of error: ${error}.`
+    );
   }
 };

@@ -13,22 +13,10 @@ class DeleteUser extends Component {
   };
 
   deleteAccount = async () => {
-    let token;
-    let response;
     try {
-      token = isLoggedIn().token;
-    } catch (error) {
-      console.error(`Couldn't get the token because of error: ${error}.`);
-    }
-    if (token) {
+      const token = isLoggedIn().token;
       const userId = this.props.userId;
-      try {
-        response = await remove(userId, token);
-      } catch (error) {
-        console.error(
-          `COuldn't get a response from server because of error: ${error}.`
-        );
-      }
+      const response = await remove(userId, token);
       if (response.error) {
         console.error(
           `An error occured during account deletion: ${response.error}.`
@@ -40,13 +28,15 @@ class DeleteUser extends Component {
           });
           this.setState({
             redirection: true,
-          })
+          });
         } catch (error) {
-          console.error(`Couldn't signout because of error: ${error}.`)
+          console.error(`Couldn't signout because of error: ${error}.`);
         }
       }
-    } else {
-      console.error(`There is no valid token.`);
+    } catch (error) {
+      console.error(
+        `COuldn't get a response from server because of error: ${error}.`
+      );
     }
   };
 
@@ -68,7 +58,7 @@ class DeleteUser extends Component {
         onClick={this.deleteConfirmation}
         className="btn btn-raised btn-danger"
       >
-        Supprimer
+        Quitter définitivement la Taverne
       </button>
     );
   }

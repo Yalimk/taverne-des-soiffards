@@ -3,7 +3,7 @@ import express from 'express';
 import {body, validationResult} from 'express-validator';
 
 //Personal modules import
-import {getPosts, createPost, postsByUser, postById, isPoster, deletePost, updatePost} from '../controllers/post.js';
+import {getPosts, createPost, postsByUser, postById, isPoster, deletePost, updatePost, postPhoto, displayPost} from '../controllers/post.js';
 import {userById} from '../controllers/user.js';
 import {requireSignin} from '../controllers/auth.js';
 
@@ -43,11 +43,17 @@ router.post(
 // Route for getting all posts from a certain user
 router.get('/posts/by/:userId', requireSignin, postsByUser);
 
+// Route for getting a single post
+router.get('/post/:postId', displayPost);
+
 // Route for updating a post
 router.put('/post/:postId', requireSignin, isPoster, updatePost);
 
 // Route for deleting a post
 router.delete('/post/:postId', requireSignin, isPoster, deletePost);
+
+// Route for getting the photo inside a post
+router.get('/post/photo/:postId', postPhoto);
 
 // Router to check for user id in parameters
 router.param('userId', userById);
