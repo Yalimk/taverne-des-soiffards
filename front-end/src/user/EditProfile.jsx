@@ -177,6 +177,7 @@ class EditProfile extends Component {
           className="form-control"
           value={pseudo}
           placeholder="Laisser vide pour conserver le pseudo actuel."
+          autoFocus
         />
       </div>
       <div className="form-group">

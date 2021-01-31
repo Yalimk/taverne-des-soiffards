@@ -2,12 +2,14 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 
+// Components import
+import DeleteUser from "./DeleteUser";
+import ProfileTabs from "./ProfileTabs";
+
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
 import { read } from "./apiUser";
 import defaultProfilePic from "../images/default-image.png";
-import DeleteUser from "./DeleteUser";
-import ProfileTabs from "./ProfileTabs";
 import { listUserPosts } from "../post/apiPost";
 
 class Profile extends Component {
@@ -101,7 +103,7 @@ class Profile extends Component {
         <div className="row">
           <div className="col-md-4">
             <img
-              style={{ height: "300px", width: "auto" }}
+              style={{ height: "300px", width: "auto", borderRadius: "50%" }}
               className="img-thumbnail"
               src={photoUrl}
               onError={(img) => (img.target.src =`${defaultProfilePic}`)}
@@ -142,8 +144,6 @@ class Profile extends Component {
             <hr />
 
             <ProfileTabs
-              followers={user.followers}
-              following={user.following}
               posts={posts}
             />
           </div>

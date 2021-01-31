@@ -35,6 +35,10 @@ const userSchema = new Schema({
   about: {
     type: String,
     trim: true,
+  },
+  resetPasswordLink: {
+    data: String,
+    default: "",
   }
 });
 

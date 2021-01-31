@@ -1,6 +1,6 @@
 // Native modules import
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 // Personal modules import
 import { signin, logUserIn } from "../auth/index";
@@ -79,34 +79,22 @@ class Signin extends Component {
         console.error(`Couldn't retrive data using signin method.`);
       }
       if (response.error) {
-        try {
-          this.setState({
-            loading: false,
-            error: response.error,
-          });
-        } catch (error) {
-          console.error(`Couldn't change state because of error: ${error}.`);
-        }
-      } else {
-        try {
-          logUserIn(response, () => {
-            this.setState({
-              redirection: true,
-            });
-          });
-        } catch (error) {
-          console.error(`Couldn't change state because of error: ${error}.`);
-        }
-      }
-    } else {
-      try {
         this.setState({
           loading: false,
-          error: `Tu dois renseigner un e-mail et un mot de passe, sacrebleu !`,
+          error: response.error,
         });
-      } catch (error) {
-        console.error(`Couldn't change state because of error: ${error}.`);
+      } else {
+        logUserIn(response, () => {
+          this.setState({
+            redirection: true,
+          });
+        });
       }
+    } else {
+      this.setState({
+        loading: false,
+        error: `Tu dois renseigner un e-mail et un mot de passe, sacrebleu !`,
+      });
     }
   };
 
@@ -152,6 +140,11 @@ class Signin extends Component {
             </div>
 
             {this.signinForm(email, password)}
+            <button className="btn btn-raised btn-danger btn-sm">
+              <Link to="/forgot-password" className="text" style={{color: "#ffffff"}}>
+                Mot de passe oublié
+              </Link>
+            </button>
           </div>
         )}
       </div>

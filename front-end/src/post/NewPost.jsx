@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
 import { createPost } from "./apiPost";
-// import defaultProfilePic from "../images/default-image.png";
 
 class NewPost extends Component {
   constructor() {

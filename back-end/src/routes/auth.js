@@ -3,7 +3,7 @@ import express from 'express';
 import { check, body, validationResult } from 'express-validator';
 
 // Personal modules import
-import { signup, signin, signout } from '../controllers/auth.js';
+import { signup, signin, signout, forgotPassword, resetPassword } from '../controllers/auth.js';
 import { userById } from '../controllers/user.js';
 
 // Constants declaration
@@ -72,6 +72,9 @@ router.post(
     ),
   signin
 );
+
+router.put('/forgot-password', forgotPassword);
+router.put('/reset-password', resetPassword);
 
 // Route for user sign out
 router.get('/signout', signout);

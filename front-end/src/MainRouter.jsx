@@ -4,16 +4,17 @@ import {Route, Switch} from 'react-router-dom';
 
 // Components import
 import Home from './core/Homepage';
+import Menu from './core/Menu';
+import Users from './user/Users';
 import Signup from './user/Signup';
 import Signin from './user/Signin';
-import Menu from './core/Menu';
 import Profile from './user/Profile';
-import Users from './user/Users';
 import EditProfile from './user/EditProfile';
 import Posts from './post/Posts';
 import NewPost from './post/NewPost';
 import OnePost from './post/OnePost';
 import EditPost from './post/EditPost';
+import ForgotPassword from './user/ForgotPassword';
 import PrivateRoute from './auth/PrivateRoute';
 
 const MainRouter = () => (
@@ -30,6 +31,7 @@ const MainRouter = () => (
       <Route exact path="/signin" component={Signin} />
       <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
       <PrivateRoute exact path="/user/:userId" component={Profile} />
+      <Route exact path="/forgot-password" component={ForgotPassword} />
     </Switch>
   </div>
 )

@@ -65,3 +65,27 @@ export const isLoggedIn = () => {
     return false;
   }
 };
+
+export const forgotPassword = async (email) => {
+  console.info(
+    `E-mail retrieved as an argument of forgotPassword in auth/index: ${email}`
+  );
+  try {
+    const response = fetch(
+      `${process.env.REACT_APP_API_URI}/forgot-password/`,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
+    return (await response).json();
+  } catch (error) {
+    console.error(
+      `The method forgotPassword encountered an error of type: ${error}.`
+    );
+  }
+};

@@ -140,6 +140,7 @@ class EditPost extends Component {
           type="text"
           className="form-control"
           value={title}
+          autoFocus
         />
       </div>
       <div className="form-group">
@@ -171,9 +172,7 @@ class EditPost extends Component {
       // console.log(`redirection vers /user/${isLoggedIn().user._id}` );
       // console.log(`redirection bis vers ${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}` );
       // <Redirect to={`${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}`}/>;
-      <Redirect to={`${process.env.REACT_APP_API_URI}/post/${id}`}/>;
-
-      console.log(`Redirection vers ${process.env.REACT_APP_API_URI}/post/${id}`)
+      return <Redirect to={`/post/${id}`}/>;
     }
     return (
       <div>
@@ -197,7 +196,7 @@ class EditPost extends Component {
             style={{ height: "200px", width: "auto" }}
             className="img-thumbnail mb-3"
             // src={`${defaultPostPic}`}
-            src={`${process.env.REACT_APP_API_URI}/post/photo/${id}`}
+            src={`${process.env.REACT_APP_API_URI}/post/photo/${id}?${new Date().getTime()}`}
             onError={(img) => (img.target.src = `${defaultPostPic}`)}
             alt={title}
           />

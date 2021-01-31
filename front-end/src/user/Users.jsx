@@ -45,7 +45,7 @@ class Users extends Component {
         }}
         >
           <img
-            style={{ height: "auto", width: "auto" }}
+            style={{ height: "auto", width: "auto", marginTop: "15px", borderRadius: "50%" }}
             src={`${process.env.REACT_APP_API_URI}/user/photo/${user._id}`}
             onError={(img) => (img.target.src = `${defaultProfilePic}`)}
             className="img-thumbnail mb-3"
@@ -56,8 +56,12 @@ class Users extends Component {
             <p className="card-text">{user.about}</p>
             <Link
               to={`/user/${user._id}`}
-              className="btn btn-raised btn-sm"
-              style={{ color: "#5E8C5D" }}
+              className="btn btn-raised btn-primary btn-sm"
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "0.9rem",
+                  marginBottom: "15px",
+                }}
             >
               Visiter sa planque
             </Link>

@@ -3,9 +3,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
+import { isLoggedIn, signout } from "../auth/index";
 import { remove } from "./apiUser";
-import { signout } from "../auth/index";
 
 class DeleteUser extends Component {
   state = {
