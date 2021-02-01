@@ -8,13 +8,13 @@ import { remove } from "./apiUser";
 
 class DeleteUser extends Component {
   state = {
-    redirection: false,
+    redirectionSignIn: false,
   };
 
   deleteAccount = async () => {
+    const token = isLoggedIn().token;
+    const userId = this.props.userId;
     try {
-      const token = isLoggedIn().token;
-      const userId = this.props.userId;
       const response = await remove(userId, token);
       if (response.error) {
         console.error(
@@ -26,7 +26,7 @@ class DeleteUser extends Component {
             console.log(`User has been deleted.`);
           });
           this.setState({
-            redirection: true,
+            redirectionSignIn: true,
           });
         } catch (error) {
           console.error(`Couldn't signout because of error: ${error}.`);
@@ -49,8 +49,9 @@ class DeleteUser extends Component {
   };
 
   render() {
-    if (this.state.redirection) {
-      return <Redirect to="/"/>
+    const { redirectionSignIn } = this.state;
+    if (redirectionSignIn) {
+      return <Redirect to="/signin"/>
     }
     return (
       <button

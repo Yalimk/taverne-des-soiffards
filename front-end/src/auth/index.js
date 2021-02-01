@@ -71,7 +71,7 @@ export const forgotPassword = async (email) => {
     `E-mail retrieved as an argument of forgotPassword in auth/index: ${email}`
   );
   try {
-    const response = fetch(
+    const response = await fetch(
       `${process.env.REACT_APP_API_URI}/forgot-password/`,
       {
         method: "PUT",
@@ -82,10 +82,27 @@ export const forgotPassword = async (email) => {
         body: JSON.stringify({ email }),
       }
     );
-    return (await response).json();
+    return await response.json();
   } catch (error) {
     console.error(
       `The method forgotPassword encountered an error of type: ${error}.`
     );
   }
 };
+
+export const resetPassword = async (newCredentials) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
+      method: "PUT",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newCredentials)
+    });
+    console.log('forgot password response: ', response);
+    return await response.json();
+  } catch (error) {
+    console.error(`The method resetPassword inside auth/index encountered and error of type: ${error}.`)
+  }
+}

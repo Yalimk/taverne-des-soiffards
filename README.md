@@ -34,6 +34,10 @@ Dans votre page de profil, vous pourrez modifier les informations relatives à v
 Dans la Taverne, vous serez connecté avec tous les utilisateurs présents et pourrez échanger sans temps de rechargement avec eux, comme sur n'importe quelle plateforme de réseau social connue, type Facebook ou Twitter.
 
 ----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+                                  LES BUGS (mais pas Bunny...)
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 
 # Principaux bugs rencontrés lors du développement du projet :
 
@@ -57,15 +61,42 @@ SAUF QUE j'ai par la suite ajouté des choses : la photo, la biographie, etc. Du
 
 ---------------------------------------------
 
-## Problème 3 : Posts supprimés fantômes/persistants
+## Problème 3 : Posts supprimés fantômes/persistants (résolu)
 Lorsqu'un post est supprimé par l'utilisateur qui l'a créé, l'utilisateur est ensuite redirigé vers la page des messages, mais le message supprimé apparaît toujours (erreur : cannot GET post/:postId), alors qu'il devrait avoir été supprimé.
 
 ### Update problème 3
 
+Problème résolu. Du coup, pour changer, c'est moi qui avais fait de la merde. En effet, comme un gros abruti, j'avais écrit l'implémentation de la fonction remove (qui s'occupe d'effacer un post) dans le code de OnePost comme ça :
+```javascript
+const response = remove(postId, token);
+```
+
+SAUF QUE voici la définition de la fonction remove :
+```javascript
+export const remove = async (postId, token) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/post/${postId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    return console.error(
+      `Couldn't get response from api because of error: ${error}.`
+    );
+  }
+};
+```
+
+Du coup, comme j'avais oublié d'ajouter le mot clef `await` devant le `remove(...)`, la fonction était asynchrone, et du coup la redirection avait lieu avant même que la fonction remove ait eu le temps de terminer son boulot. Cela explique pourquoi il fallait rafraîchir pour voir le post effacé : la fonction terminait son boulot tranquille en fond et le reste du site avait déjà été affiché avec des informations pas à jour.
 
 ----------------------------------------------
 
-## Problème 4 : GET request 404 pour les photos par défaut
+## Problème 4 : GET request 404 pour les photos par défaut (résolu)
 Lorsque je charge les pages qui contiennent une photo, je reçois une erreur GET http://localhost:9092/user/photo/:photoId (vérifier qu'il ne s'agit pas de userId qui est envoyé dans la requête !) mais les photos sont malgré tout bien affichées...
 
 ### Update problème 4
@@ -108,6 +139,13 @@ webpackJsonpCallback	@	bootstrap:32
 (anonymous)	@	main.chunk.js:1
 
 ``` 
+9. Je pense qu'il n'y a pas grand chose que je puisse faire pour ça, à part implémenter une condition avant l'envoi des requêtes fetch de récupération des photos des posts. Du style :
+
+if trying fetch post/postId return true
+  launch real fetch request for post/postId
+else load default picture
+
+10. La solution proposée a fonctionné : je n'ai plus aucune requête GET 404 ^^
 
 -----------------------------------------------
 
@@ -125,3 +163,38 @@ return <Redirect to={`${process.env.REACT_APP_API_URI}/post/${id}`}/>;
 
 ------------------------------------------------
  
+ ## Problème 6 : modification mdp impossible depuis ResetPassword
+
+Lorsque l'utilisateur tente de modifier son mot de passe sur la page prévue à cet effet, sur laquelle il aura été envoyé par le lien dans l'e-mail reçu suite à sa demande de réinitialisation, on obtient une erreur :
+```bash
+index.js:95 PUT http://localhost:9092/reset-password/ net::ERR_CONNECTION_REFUSED
+The method resetPassword inside auth/index encountered and error of type: TypeError: Failed to fetch.
+Password couldn't be reset because of error: TypeError: Cannot read property 'error' of undefined.
+```
+Je ne vois pas du tout pourquoi j'ai cette erreur...
+
+### Update problème 6 :
+
+
+------------------------------------------------
+ 
+ ## Problème 7 : GET requests nombreuses à modification des champs (résolu ?)
+
+A chaque fois que l'utilisateur modifie un champ sur les pages de modification des infos persos, des posts, etc, le serveur envoie plein de requêtes GET (une pour chaque modification). C'est peut-être inhérent à la méthode onChange qui est appliquée sur tous les champs... Ce n'est pas un bug en soi, mais niveau performances c'est préoccupant...
+
+### Update problème 7 :
+
+1. Si je retire la méthode onChange, les champs deviennent read-only, ce qui va à l'encontre du but d'un formulaire, lol.
+
+
+------------------------------------------------
+ 
+ ## Problème 8 : Modification mdp impossible depuis EditProfile
+
+Si l'utilisateur modifie n'importe quelle information à part le mot de passe, tout se passe bien. Si il veut modifier le mot de passe en revanche, la requête fetch reste en statut "pending", pour une raison inconnue... Pas d'erreur, rien, et les données lui sont pourtant bien transmises.
+
+### Update problème 8 :
+
+
+
+------------------------------------------------

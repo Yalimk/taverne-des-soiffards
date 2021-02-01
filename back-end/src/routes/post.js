@@ -20,13 +20,17 @@ router.post(
   '/post/new/:userId',
   requireSignin,
   createPost,
-  body('title', 'Un titre, moussaillon !').notEmpty(),
-  body('title', 'Le titre doit faire entre 5 et 300 caractères').isLength({
+  body('title', 'Un titre, moussaillon !')
+  .notEmpty(),
+  body('title', 'Le titre doit faire entre 5 et 300 caractères')
+  .isLength({
     min: 5,
     max: 300,
   }),
-  body('body', 'Un message, moussaillon, un message !').notEmpty(),
-  body('body', 'Le message doit faire entre 5 et 3000 caractères !').isLength({
+  body('body', 'Un message, moussaillon, un message !')
+  .notEmpty(),
+  body('body', 'Le message doit faire entre 5 et 3000 caractères !')
+  .isLength({
     min: 5,
     max: 3000,
   }),

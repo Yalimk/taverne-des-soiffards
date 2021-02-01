@@ -31,7 +31,7 @@ const Menu = ({ history }) => (
             style={isActive(history, "/")}
             to="/"
           >
-            Taverne
+            La Taverne
           </Link>
         </li>
 
@@ -41,7 +41,7 @@ const Menu = ({ history }) => (
             style={isActive(history, "/users")}
             to="/users"
           >
-            Les Pirates
+            Les Pirates de la Taverne
           </Link>
         </li>
 

@@ -19,6 +19,15 @@ class ForgotPassword extends Component {
   //   };
   // }
 
+  handleChange = (name) => (event) => {
+    this.setState({
+      error: "",
+    });
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   forgotPassword = async (event) => {
     event.preventDefault();
     this.setState({
@@ -50,15 +59,16 @@ class ForgotPassword extends Component {
   };
 
   render() {
+    const { email, message, error } = this.state;
     return (
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Réinitialisation du mot de passe</h2>
 
-        {this.state.message && (
-          <h5 className="alert alert-warning">{this.state.message}</h5>
+        {message && (
+          <h5 className="alert alert-info">{message}</h5>
         )}
-        {this.state.error && (
-          <h5 className="alert alert-danger">{this.state.error}</h5>
+        {error && (
+          <h5 className="alert alert-danger">{error}</h5>
         )}
 
         <form>
@@ -67,15 +77,9 @@ class ForgotPassword extends Component {
               type="email"
               className="form-control"
               placeholder="L'adresse e-mail liée à votre compte sur la Taverne des Soiffards."
-              value={this.state.email}
+              value={email}
               name="email"
-              onChange={(event) =>
-                this.setState({
-                  email: event.target.value,
-                  message: "",
-                  error: "",
-                })
-              }
+              onChange={this.handleChange("email")}
               autoFocus
             />
           </div>

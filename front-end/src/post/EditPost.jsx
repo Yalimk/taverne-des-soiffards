@@ -126,7 +126,9 @@ class EditPost extends Component {
           redirectionProfile: true,
         });
       } catch (error) {
-        console.error(`updatePost in EditPost coudldn't retrive data because of error: ${error}.`)
+        console.error(
+          `updatePost in EditPost coudldn't retrive data because of error: ${error}.`
+        );
       }
     }
   };
@@ -138,6 +140,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("photo")}
           type="file"
+          name="photo"
           accept="image/*"
           className="form-control"
         />
@@ -147,6 +150,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("title")}
           type="text"
+          name="title"
           className="form-control"
           value={title}
           autoFocus
@@ -156,7 +160,8 @@ class EditPost extends Component {
         <label className="text-muted">Message</label>
         <textarea
           onChange={this.handleChange("body")}
-          type="body"
+          type="text"
+          name="body"
           className="form-control"
           value={body}
         />
@@ -181,41 +186,78 @@ class EditPost extends Component {
       // console.log(`redirection vers /user/${isLoggedIn().user._id}` );
       // console.log(`redirection bis vers ${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}` );
       // <Redirect to={`${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}`}/>;
-      return <Redirect to={`/post/${id}`}/>;
+      return <Redirect to={`/post/${id}`} />;
     }
-    return (
-      <div>
-        {/* {JSON.stringify(this.state)} */}
-        <div className="card-body">
-          <div
-            className="alert alert-danger"
-            style={{ display: error ? "" : "none" }}
-          >
-            {error}
-          </div>
-
-          {loading ? (
-            <div className="jumbotron text-center">
-              <h2>Loading...</h2>
+    if (id) {
+      return (
+        <div>
+          {/* {JSON.stringify(this.state)} */}
+          <div className="card-body">
+            <div
+              className="alert alert-danger"
+              style={{ display: error ? "" : "none" }}
+            >
+              {error}
             </div>
-          ) : (
-            ""
-          )}
-          <img
-            style={{ height: "200px", width: "auto" }}
-            className="img-thumbnail mb-3"
-            // src={`${defaultPostPic}`}
-            src={`${process.env.REACT_APP_API_URI}/post/photo/${id}?${new Date().getTime()}`}
-            onError={(img) => (img.target.src = `${defaultPostPic}`)}
-            alt={title}
-          />
 
-          <h3 className="card-title mt-3 mb-3">{title}</h3>
+            {loading ? (
+              <div className="jumbotron text-center">
+                <h2>Loading...</h2>
+              </div>
+            ) : (
+              ""
+            )}
+            <img
+              style={{ height: "200px", width: "auto" }}
+              className="img-thumbnail mb-3"
+              // src={`${defaultPostPic}`}
+              src={`${
+                process.env.REACT_APP_API_URI
+              }/post/photo/${id}?${new Date().getTime()}`}
+              onError={(img) => (img.target.src = `${defaultPostPic}`)}
+              alt={title}
+            />
 
-          {this.postUpdateForm(title, body)}
+            <h3 className="card-title mt-3 mb-3">{title}</h3>
+
+            {this.postUpdateForm(title, body)}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          {/* {JSON.stringify(this.state)} */}
+          <div className="card-body">
+            <div
+              className="alert alert-danger"
+              style={{ display: error ? "" : "none" }}
+            >
+              {error}
+            </div>
+
+            {loading ? (
+              <div className="jumbotron text-center">
+                <h2>Loading...</h2>
+              </div>
+            ) : (
+              ""
+            )}
+            <img
+              style={{ height: "200px", width: "auto" }}
+              className="img-thumbnail mb-3"
+              src={`${defaultPostPic}`}
+              onError={(img) => (img.target.src = `${defaultPostPic}`)}
+              alt={title}
+            />
+
+            <h3 className="card-title mt-3 mb-3">{title}</h3>
+
+            {this.postUpdateForm(title, body)}
+          </div>
+        </div>
+      );
+    }
   }
 }
 

@@ -34,8 +34,10 @@ class Signin extends Component {
           <input
             onChange={this.handleChange("email")}
             type="email"
+            name="email"
             className="form-control"
             value={email}
+            autoFocus
             required
           />
         </div>
@@ -46,6 +48,7 @@ class Signin extends Component {
           <input
             onChange={this.handleChange("password")}
             type="password"
+            name="password"
             className="form-control"
             value={password}
             required
@@ -83,7 +86,7 @@ class Signin extends Component {
       try {
         response = await signin(user);
       } catch (error) {
-        console.error(`Couldn't retrive data using signin method.`);
+        console.error(`Couldn't retrieve data using signin method.`);
       }
       if (response.error) {
         this.setState({

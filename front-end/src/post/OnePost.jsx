@@ -36,12 +36,12 @@ class OnePost extends Component {
     }
   };
 
-  deletePost = () => {
+  deletePost = async () => {
     try {
       const postId = this.props.match.params.postId;
       const token = isLoggedIn().token;
-      const response = remove(postId, token);
-      // console.log(`dans la méthode deletePost: ${response}, ${postId}, ${token}`);
+      const response = await remove(postId, token);
+      // console.log(`dans la méthode deletePost de OnePost: response: ${response}, postId: ${postId}, token: ${token}`);
       if (response.error) {
         console.log(`The response couldn't be retrieved from the server. `);
       } else {
@@ -118,8 +118,6 @@ class OnePost extends Component {
                   cursor: "pointer",
                 }}
                 onClick={this.deleteConfirmation}
-                data-toggle="modal"
-                data-target="postDeletion"
               >
                 Supprimer
               </button>
@@ -134,7 +132,7 @@ class OnePost extends Component {
   render() {
     const { post, redirectionPosts } = this.state;
     if (redirectionPosts) {
-      return <Redirect to={"/posts"} />;
+      return <Redirect to={`/posts/`} />;
     }
     return (
       <div className="jumbotron">

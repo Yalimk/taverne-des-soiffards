@@ -90,71 +90,145 @@ class Profile extends Component {
 
   render() {
     const { redirectionSignIn, user, posts } = this.state;
+    const { _id, pseudo, email, photo, about, created, role, hobbies } = user;
     // console.log('user.about dans render de Profile: ', user.about);
     // console.log('user dans render de Profile: ', user);
     if (redirectionSignIn) {
       return <Redirect to="/signin" />;
     }
 
-    const photoUrl = user._id
-      ? `${process.env.REACT_APP_API_URI}/user/photo/${
-          user._id
-        }?${new Date().getTime()}`
-      : defaultProfilePic;
+    if (photo) {
+      const photoUrl = _id
+        ? `${
+            process.env.REACT_APP_API_URI
+          }/user/photo/${_id}?${new Date().getTime()}`
+        : defaultProfilePic;
 
-    return (
-      <div className="container">
-        <h3 className="mb-5 mt-5">{user.pseudo}</h3>
-        <div className="row">
-          <div className="col-md-4">
-            <img
-              style={{ height: "300px", width: "auto", borderRadius: "50%" }}
-              className="img-thumbnail"
-              src={photoUrl}
-              onError={(img) => (img.target.src =`${defaultProfilePic}`)}
-              alt={user.pseudo}
-            />
-          </div>
-
-          <div className="col-md-8">
-            <div className="lead mt-2">
-              <p>{`Inscription : ${new Date(
-                user.created
-              ).toLocaleDateString()}`}</p>
-              <p>{`E-mail : ${user.email}`}</p>
+      return (
+        <div className="container">
+          <h3 className="mb-5 mt-5">{pseudo}</h3>
+          <div className="row">
+            <div className="col-md-4">
+              <img
+                style={{ height: "300px", width: "auto", borderRadius: "50%" }}
+                className="img-thumbnail"
+                src={photoUrl}
+                onError={(img) => (img.target.src = `${defaultProfilePic}`)}
+                alt={pseudo}
+              />
             </div>
-            {isLoggedIn().user && isLoggedIn().user._id === user._id && (
-              <div className="d-inline-block">
-                <Link
-                  to={`/post/create`}
-                  className="btn btn-raised btn-info mr-5 mb-3"
-                >
-                  Poster un message
-                </Link>
-                <Link
-                  to={`/user/edit/${user._id}`}
-                  className="btn btn-raised btn-success mr-5 mb-3"
-                >
-                  Modifier les informations
-                </Link>
-                <DeleteUser userId={user._id} />
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12 mt-5">
-            <hr />
-            <p className="lead">{user.about}</p>
-            <hr />
 
-            <ProfileTabs
-              posts={posts}
-            />
+            <div className="col-md-8">
+              <div className="lead mt-2">
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Inscription :&nbsp;</p>
+                  <p>{` ${new Date(created).toLocaleDateString()}`}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Email :&nbsp;</p>
+                  <p>{email}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Rôle favori :&nbsp;</p>
+                  <p>{role}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Loisirs :&nbsp;</p>
+                  <p>{hobbies}</p>
+                </div>
+              </div>
+
+              {isLoggedIn().user && isLoggedIn().user._id === _id && (
+                <div className="d-inline-block">
+                  <Link
+                    to={`/post/create`}
+                    className="btn btn-raised btn-info mr-5 mb-3"
+                  >
+                    Poster un message
+                  </Link>
+                  <Link
+                    to={`/user/edit/${_id}`}
+                    className="btn btn-raised btn-success mr-5 mb-3"
+                  >
+                    Modifier les informations
+                  </Link>
+                  <DeleteUser userId={_id} />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 mt-5">
+              <hr />
+              <p className="lead" style={{ fontWeight: "bold" }}>
+                A propos de moi :&nbsp;
+              </p>
+              <p className="lead">{about}</p>
+              <hr />
+
+              <ProfileTabs posts={posts} />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="container">
+          <h3 className="mb-5 mt-5">{pseudo}</h3>
+          <div className="row">
+            <div className="col-md-4">
+              <img
+                style={{ height: "300px", width: "auto", borderRadius: "50%" }}
+                className="img-thumbnail"
+                src={`${defaultProfilePic}`}
+                onError={(img) => (img.target.src = `${defaultProfilePic}`)}
+                alt={pseudo}
+              />
+            </div>
+
+            <div className="col-md-8">
+              <div className="lead mt-2">
+                <p>{`Inscription : ${new Date(
+                  created
+                ).toLocaleDateString()}`}</p>
+                <p style={{ color: "#5E8C5D" }}>{`E-mail : ${email}`}</p>
+                {/* <p style={{color: "#5E8C5D"}}>{`Rôle favori : ${role}`}</p>
+                <p style={{color: "#5E8C5D"}}>{`Hobbies : ${hobbies}`}</p> */}
+              </div>
+              {isLoggedIn().user && isLoggedIn().user._id === _id && (
+                <div className="d-inline-block">
+                  <Link
+                    to={`/post/create`}
+                    className="btn btn-raised btn-info mr-5 mb-3"
+                  >
+                    Poster un message
+                  </Link>
+                  <Link
+                    to={`/user/edit/${_id}`}
+                    className="btn btn-raised btn-success mr-5 mb-3"
+                  >
+                    Modifier les informations
+                  </Link>
+                  <DeleteUser userId={_id} />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 mt-5">
+              <hr />
+              <p className="lead">{about}</p>
+              <hr />
+
+              <ProfileTabs posts={posts} />
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

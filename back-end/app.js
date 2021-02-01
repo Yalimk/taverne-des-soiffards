@@ -11,7 +11,7 @@ import fs from 'fs';
 
 // Personal modules imports
 import { Logger, logMoment } from './src/Logger/logger.js';
-import * as CONST from './src/Helpers/CONSTANTS.js';
+// import * as CONST from './src/Helpers/CONSTANTS.js';
 
 // dotenv config to get access to all environment variables
 dotenv.config();
@@ -31,9 +31,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-app.use('/', authRoutes);
-app.use('/', postRoutes);
-app.use('/', userRoutes);
+app.use('/tds', authRoutes);
+app.use('/tds', postRoutes);
+app.use('/tds', userRoutes);
 app.use(checkSigninToken);
 app.use('/css', express.static('public/assets/css'));
 app.use('/img', express.static('public/images'));

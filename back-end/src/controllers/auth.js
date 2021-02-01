@@ -49,17 +49,17 @@ export const signin = (req, res) => {
           error: `Adresse de courrier et mot de passe ne correspondent pas, marin d'eau douce ! (erreur 401)`,
         });
       }
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ _id: user._id, right: user.right }, process.env.JWT_SECRET);
       res.cookie('t', token, {
         expire: new Date() + 6000,
       });
-      const { _id, pseudo, email } = user;
+      const { _id, pseudo, email, right } = user;
       Logger.info(
         `${logMoment.dateAndTime}: L'utilisateur ${pseudo}, e-mail ${email}, id ${_id} vient de se connecter à la Taverne des Soiffards.`
       );
       return res.json({
         token,
-        user: user,
+        user: { _id, email, pseudo, right }, // I used to send the whole user but changed.
       });
     });
   }
@@ -120,9 +120,9 @@ export const forgotPassword = (req, res) => {
       from: 'alexandremasson33@gmail.com',
       to: email,
       subject: 'Réinitialisation du mot de passe',
-      text: `Clique ici pour réinitialiser ton mot de passe, puisque tu n'as pas de tête :
-
-${process.env.CLIENT_URI}/reset-password/${token}`,
+      text: `Clique ICI pour réinitialiser ton mot de passe, puisque tu n'as pas de tête : 
+      ${process.env.CLIENT_URI}/reset-password/${token}`,
+      html: `<h2>Clique <a href="${process.env.CLIENT_URI}/reset-password/${token}">ICI</a> pour réinitialiser ton mot de passe, puisque tu n'as pas de tête...</h2>`,
     }
 
     return user.updateOne({resetPasswordLink: token}, (err, success) => {
@@ -164,7 +164,7 @@ export const resetPassword = (req, res) => {
         })
       }
       res.json({
-        message: `Ton mot de passe a bien été mis à jour, matelot ! Tu peux à présent te connecter à la Taverne !`
+        message: `<strong>Ton mot de passe a bien été mis à jour, matelot !</strong> Tu peux à présent te <a href="/"connecter à la Taverne</a> !`
       });
     });
   });

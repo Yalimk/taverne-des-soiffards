@@ -30,7 +30,7 @@ export const listAllUsers = async () => {
 };
 
 export const updateUser = async (userId, token, user) => {
-  // console.log(`INSIDE UPDATEUSER: userId: ${userId}, token: ${token}, user: ${user}`);
+  console.log(`INSIDE UPDATEUSER: userId: ${userId}, token: ${token}, user: ${user}`);
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
       method: "PUT",

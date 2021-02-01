@@ -36,6 +36,18 @@ const userSchema = new Schema({
     type: String,
     trim: true,
   },
+  hobbies: {
+    type: String,
+    trim: true
+  },
+  role: {
+    type: String,
+    trim: true
+  },
+  right: {
+    type: String,
+    default: `Pirate`
+  },
   resetPasswordLink: {
     data: String,
     default: "",

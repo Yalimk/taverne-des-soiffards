@@ -104,8 +104,18 @@ export const postsByUser = (req, res) => {
 };
 
 export const isPoster = (req, res, next) => {
-  const isPoster =
-    req.post && req.auth && req.post.author._id == req.auth._id;
+  const sameUser = req.post && req.auth && req.post.author._id == req.auth._id;
+  const adminUser = req.post && req.auth && req.auth.right === 'admin';
+  const isPoster = sameUser || adminUser;
+
+  Logger.debug(`
+  Inside isPoster function in post controller: 
+  req.post: ${req.post}
+  req.auth: ${req.auth}
+  sameUser: ${sameUser}
+  adminUser: ${adminUser}
+  `);
+
   if (!isPoster) {
     Logger.error(
       `${logMoment.dateAndTime}: The method isPoster in post controller encountered the error: ${err}.`
