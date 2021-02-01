@@ -28,7 +28,7 @@ const Menu = ({ history }) => (
         <li className="nav-item">
           <Link
             className="navbar-link mr-3"
-            style={isActive(history, "/")}
+            style={(isActive(history, "/"), {fontWeight: "bold"})}
             to="/"
           >
             La Taverne

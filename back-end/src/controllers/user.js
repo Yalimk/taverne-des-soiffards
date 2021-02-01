@@ -22,12 +22,25 @@ export const userById = (req, res, next, userId) => {
 };
 
 export const hasAuthorization = (req, res, next) => {
-  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+  const sameUser = req.post && req.auth && req.post.author._id == req.auth._id;
+  const adminUser = req.post && req.auth && req.auth.right === process.env.ADMIN_TITLE;
+  const authorized = sameUser || adminUser;
+
+  Logger.debug(`
+  Inside hasAuthorization function in user controller: 
+  req.post: ${req.post}
+  req.auth: ${JSON.stringify(req.auth)}
+  sameUser: ${sameUser}
+  adminUser: ${adminUser}
+  adminTitle: ${process.env.ADMIN_TITLE}
+  `);
+
   if (!authorized) {
     return res.status(403).json({
       error: `Tu n'as pas la permission de faire ça, moussaillon, où est-ce que tu te crois ?! Chez mémé ?!`
     });
   }
+  next();
 };
 
 export const allUsers = (req, res) => {

@@ -34,14 +34,9 @@ export const signout = async (redirect) => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
     redirect();
-    let response;
-    try {
-      response = await fetch(`${process.env.REACT_APP_API_URI}/signout`, {
-        method: "GET",
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/signout`, {
+      method: "GET",
+    });
     return response.json({
       message: "User disconnected",
     });

@@ -110,7 +110,7 @@ class Profile extends Component {
           <div className="row">
             <div className="col-md-4">
               <img
-                style={{ height: "300px", width: "auto", borderRadius: "50%" }}
+                style={{ height: "300px", width: "auto", borderRadius: "25%" }}
                 className="img-thumbnail"
                 src={photoUrl}
                 onError={(img) => (img.target.src = `${defaultProfilePic}`)}

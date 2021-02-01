@@ -56,7 +56,7 @@ class Posts extends Component {
               <div className="card-body" key={i}>
                 <img
                   className="img-thumbnail mb-3"
-                  style={{ height: "200px", width: "auto" }}
+                  style={{ height: "200px", width: "auto", borderRadius: "50%" }}
                   // src={`${defaultPostPic}`}
                   src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
                   alt={post.title}

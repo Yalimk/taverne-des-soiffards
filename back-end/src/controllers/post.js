@@ -9,7 +9,7 @@ import { Logger, logMoment } from "../logger/logger.js";
 
 export const postById = (req, res, next, id) => {
   Post.findById(id)
-    .populate("author", "_id pseudo")
+    .populate("author", "_id pseudo right")
     .select("_id title body created photo")
     .exec((err, post) => {
       if (err || !post) {
@@ -28,7 +28,7 @@ export const postById = (req, res, next, id) => {
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate("author", "_id pseudo")
+      .populate("author", "_id pseudo right")
       .select("_id title body created")
       .sort({ created: -1 });
     return res.json(posts);
@@ -105,15 +105,16 @@ export const postsByUser = (req, res) => {
 
 export const isPoster = (req, res, next) => {
   const sameUser = req.post && req.auth && req.post.author._id == req.auth._id;
-  const adminUser = req.post && req.auth && req.auth.right === 'admin';
+  const adminUser = req.post && req.auth && req.auth.right === process.env.ADMIN_TITLE;
   const isPoster = sameUser || adminUser;
 
   Logger.debug(`
   Inside isPoster function in post controller: 
   req.post: ${req.post}
-  req.auth: ${req.auth}
+  req.auth: ${JSON.stringify(req.auth)}
   sameUser: ${sameUser}
   adminUser: ${adminUser}
+  adminTitle: ${process.env.ADMIN_TITLE}
   `);
 
   if (!isPoster) {
