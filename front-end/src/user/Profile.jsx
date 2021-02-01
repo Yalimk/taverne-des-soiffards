@@ -158,6 +158,25 @@ class Profile extends Component {
                   <DeleteUser userId={_id} />
                 </div>
               )}
+              <div>
+                {isLoggedIn().user && isLoggedIn().user.right === "Roi des Pirates" && (
+                  <div className="card mt-5 jumbotron" style={{boxShadow:"3px 3px 10px grey", borderRadius: "10%"}}>
+                    <div className="card-body">
+                      <h5 className="card-title">Interface du Roi des Pirates</h5>
+                      <p className="mb-3 lead" style={{color: "#9662E3", fontWeight: "bold"}}>
+                        Modifier/Supprimer en tant que Roi
+                      </p>
+                      <Link
+                        className="btn btn-raised btn-info mr-5"
+                        to={`/user/edit/${_id}`}
+                      >
+                        Modifier en tant que Roi
+                      </Link>
+                      <DeleteUser userId={_id} />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="row">

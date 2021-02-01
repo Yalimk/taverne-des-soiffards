@@ -28,7 +28,7 @@ const Menu = ({ history }) => (
         <li className="nav-item">
           <Link
             className="navbar-link mr-3"
-            style={(isActive(history, "/"), {fontWeight: "bold"})}
+            style={(isActive(history, "/"), { fontWeight: "bold" })}
             to="/"
           >
             La Taverne
@@ -94,7 +94,10 @@ const Menu = ({ history }) => (
             <li className="nav-item">
               <Link
                 className="navbar-link mr-3"
-                style={(isActive(history, `/user/${isLoggedIn().user._id}`), {fontWeight: "bold",  color: "#81A65D"})}
+                style={
+                  (isActive(history, `/user/${isLoggedIn().user._id}`),
+                  { fontWeight: "bold", color: "#81A65D" })
+                }
                 to={`/user/${isLoggedIn().user._id}`}
               >
                 {`Planque ${
@@ -110,11 +113,28 @@ const Menu = ({ history }) => (
                 to="/"
                 onClick={() => signout(() => history.push("/"))}
                 className="navbar-link mr-5"
-                style={(isActive(history, "/signout"), { color: "#8C0303", fontWeight: "bold" })}
+                style={
+                  (isActive(history, "/signout"),
+                  { color: "#8C0303", fontWeight: "bold" })
+                }
               >
                 Déconnexion
               </Link>
             </li>
+            {isLoggedIn() && isLoggedIn().user.right === "Roi des Pirates" && (
+              <li className="nav-item">
+                <Link
+                  to="/admin"
+                  className="navbar-link mr-5"
+                  style={
+                    (isActive(history, "/admin"),
+                    { color: "#9662E3", fontWeight: "bold" })
+                  }
+                >
+                  Roi des Pirates
+                </Link>
+              </li>
+            )}
           </>
         )}
       </ul>

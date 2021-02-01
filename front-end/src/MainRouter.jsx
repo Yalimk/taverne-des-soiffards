@@ -16,6 +16,7 @@ import OnePost from './post/OnePost';
 import EditPost from './post/EditPost';
 import ForgotPassword from './user/ForgotPassword';
 import ResetPassword from './user/ResetPassword';
+import AdminInterface from './admin/Admin';
 import PrivateRoute from './auth/PrivateRoute';
 
 const MainRouter = () => (
@@ -23,6 +24,7 @@ const MainRouter = () => (
     <Menu></Menu>
     <Switch>
       <Route exact path="/" component={Home} />
+      <PrivateRoute exact path="/admin" component={AdminInterface} />
       <Route exact path="/forgot-password" component={ForgotPassword} />
       <Route exact path="/reset-password/:resetPasswordToken" component={ResetPassword} />
       <Route exact path="/users" component={Users} />

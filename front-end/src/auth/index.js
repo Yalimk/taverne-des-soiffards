@@ -63,7 +63,7 @@ export const isLoggedIn = () => {
 
 export const forgotPassword = async (email) => {
   console.info(
-    `E-mail retrieved as an argument of forgotPassword in auth/index: ${email}`
+    `[index.js forgotPassword (front-end)] : E-mail retrieved as an argument of forgotPassword in auth/index: ${email}`
   );
   try {
     const response = await fetch(
@@ -86,6 +86,7 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (newCredentials) => {
+  console.log(`[index.js resetPassword (front-end)] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
       method: "PUT",
@@ -95,9 +96,9 @@ export const resetPassword = async (newCredentials) => {
       },
       body: JSON.stringify(newCredentials)
     });
-    console.log('forgot password response: ', response);
+    console.log('[index.js resetPassword (front-end)] : response: ', response);
     return await response.json();
   } catch (error) {
     console.error(`The method resetPassword inside auth/index encountered and error of type: ${error}.`)
   }
-}
+};

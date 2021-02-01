@@ -51,7 +51,7 @@ export const signin = (req, res) => {
       }
       const token = jwt.sign({ _id: user._id, right: user.right }, process.env.JWT_SECRET);
       res.cookie('t', token, {
-        expire: new Date() + 6000,
+        expire: new Date() + 3600000,
       });
       const { _id, pseudo, email, right } = user;
       Logger.info(
@@ -60,6 +60,7 @@ export const signin = (req, res) => {
       return res.json({
         token,
         user: { _id, email, pseudo, right }, // I used to send the whole user but changed.
+        // user,
       });
     });
   }
@@ -112,10 +113,15 @@ export const forgotPassword = (req, res) => {
     const token = jwt.sign(
       {
         _id: user._id,
-        iss: 'TAVERNE-DES-SOIFFARDS',
+        iss: process.env.APP_NAME,
       },
       process.env.JWT_SECRET
     );
+
+
+    Logger.silly(`token (should be same as resetPasswordLink) inside forgot password: ${token}`)
+
+
     const emailData = {
       from: 'alexandremasson33@gmail.com',
       to: email,
@@ -143,9 +149,12 @@ export const forgotPassword = (req, res) => {
 // Function allowing the user to reset their password
 export const resetPassword = (req, res) => {
   const { resetPasswordLink, newPassword} = req.body;
-
+  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : req.body: ${JSON.stringify(req.body)}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : newPassword: ${newPassword}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : resetPasswordLink: ${resetPasswordLink}.`)
   User.findOne({resetPasswordLink}, (err, user) => {
     if (err || !user) {
+      Logger.debug(` [auth resetPassword (back-end)] : inside if (err || !user)`)
       return res.status(401).json({
         error: `The token for password reset is invalid.`
       })
@@ -156,7 +165,6 @@ export const resetPassword = (req, res) => {
     }
     user = _.assignIn(user, fieldsToUpdate);
     user.updated = Date.now();
-
     user.save((err, savedUser) => {
       if (err) {
         return res.status(400).json({
@@ -164,7 +172,7 @@ export const resetPassword = (req, res) => {
         })
       }
       res.json({
-        message: `<strong>Ton mot de passe a bien été mis à jour, matelot !</strong> Tu peux à présent te <a href="/"connecter à la Taverne</a> !`
+        message: `Ton mot de passe a bien été mis à jour, matelot ! Tu peux à présent te connecter à la Taverne !`
       });
     });
   });

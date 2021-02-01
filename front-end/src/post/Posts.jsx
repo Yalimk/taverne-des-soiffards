@@ -51,6 +51,7 @@ class Posts extends Component {
                 backgroundColor: "#D5E5F2",
                 marginRight: "30px",
                 marginBottom: "30px",
+                boxShadow: "3px 3px 5px grey"
               }}
             >
               <div className="card-body" key={i}>
@@ -78,6 +79,7 @@ class Posts extends Component {
                   fontWeight: "bold",
                   fontSize: "1.2rem",
                   marginBottom: "15px",
+                  boxShadow: "3px 3px 5px grey"
                 }}
               >
                 Lire plus

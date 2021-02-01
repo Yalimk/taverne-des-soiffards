@@ -9,6 +9,13 @@ import { remove } from "./apiUser";
 class DeleteUser extends Component {
   state = {
     redirectionSignIn: false,
+    allMighty: true,
+  };
+
+  componentDidMount() {
+    if (isLoggedIn().user.right === "Roi des Pirates") {
+      this.setState({ allMighty: true });
+    }
   };
 
   deleteAccount = async () => {
@@ -49,18 +56,30 @@ class DeleteUser extends Component {
   };
 
   render() {
-    const { redirectionSignIn } = this.state;
+    const { redirectionSignIn, allMighty } = this.state;
     if (redirectionSignIn) {
-      return <Redirect to="/signin"/>
+      return <Redirect to="/signin" />;
     }
-    return (
-      <button
-        onClick={this.deleteConfirmation}
-        className="btn btn-raised btn-danger"
-      >
-        Quitter définitivement la Taverne
-      </button>
-    );
+    
+    if (allMighty) {
+      return (
+        <button
+          onClick={this.deleteConfirmation}
+          className="btn btn-raised btn-danger"
+        >
+          Supprimer en tant que Roi
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={this.deleteConfirmation}
+          className="btn btn-raised btn-danger"
+        >
+          Quitter définitivement la Taverne
+        </button>
+      );
+    }
   }
 }
 

@@ -6,7 +6,6 @@ import { Link, Redirect } from "react-router-dom";
 import { viewPost, remove } from "./apiPost";
 import defaultPostPic from "../images/beautiful-sea.jpg";
 import { isLoggedIn } from "../auth/index";
-// import ConfirmDelete from '../components/ConfirmDelete';
 
 class OnePost extends Component {
   state = {
@@ -121,9 +120,33 @@ class OnePost extends Component {
               >
                 Supprimer
               </button>
-              {/* <ConfirmDelete/> */}
             </>
           )}
+          <div>
+            {isLoggedIn().user &&
+              isLoggedIn().user.right === "Roi des Pirates" && (
+                <div className="card mt-5">
+                  <div className="card-body">
+                    <h5 className="card-title">Interface du Roi des Pirates</h5>
+                    <p className="mb-2 text-danger">
+                      Modifier/Supprimer en tant que Roi
+                    </p>
+                    <Link
+                      to={`/post/edit/${post._id}`}
+                      className="btn btn-raised btn-info mr-5"
+                    >
+                      Modifier en tant que Roi
+                    </Link>
+                    <button
+                      onClick={this.deleteConfirmation}
+                      className="btn btn-raised btn-danger"
+                    >
+                      Supprimer en tant que Roi
+                    </button>
+                  </div>
+                </div>
+              )}
+          </div>
         </div>
       </div>
     );

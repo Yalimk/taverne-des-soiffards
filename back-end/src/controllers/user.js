@@ -22,13 +22,14 @@ export const userById = (req, res, next, userId) => {
 };
 
 export const hasAuthorization = (req, res, next) => {
-  const sameUser = req.post && req.auth && req.post.author._id == req.auth._id;
-  const adminUser = req.post && req.auth && req.auth.right === process.env.ADMIN_TITLE;
+  const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
+  const adminUser = req.profile && req.auth && req.auth.right === process.env.ADMIN_TITLE;
+  
   const authorized = sameUser || adminUser;
 
   Logger.debug(`
   Inside hasAuthorization function in user controller: 
-  req.post: ${req.post}
+  req.user: ${req.profile}
   req.auth: ${JSON.stringify(req.auth)}
   sameUser: ${sameUser}
   adminUser: ${adminUser}
@@ -72,7 +73,7 @@ export const updateUser = (req, res, next) => {
       })
     }
     let user = req.profile;
-    user = _.assignIn(user, fields);
+    user = _.extend(user, fields);
     user.updated = Date.now();
 
     if (files.photo) {
@@ -90,8 +91,8 @@ export const updateUser = (req, res, next) => {
       user.hashed_password = undefined;
       user.salt = undefined;
       res.json(user);
-      // Logger.info(`updatedUser dans updateUser: ${updatedUser}`);
-      // Logger.silly(`user dans udpateUser: ${JSON.stringify(user)}`);
+      Logger.info(`${logMoment.dateAndTime}: updatedUser dans updateUser: ${updatedUser}`);
+      Logger.silly(`${logMoment.dateAndTime}: user dans udpateUser: ${JSON.stringify(user)}`);
     })
   })
 };
