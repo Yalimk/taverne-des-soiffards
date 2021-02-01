@@ -6,16 +6,23 @@ import { Link, Redirect } from "react-router-dom";
 import { signin, logUserIn } from "../auth/index";
 
 class Signin extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      error: "",
-      loading: false,
-      redirection: false,
-    };
-  }
+  state = {
+    email: "",
+    password: "",
+    error: "",
+    loading: false,
+    redirection: false,
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     email: "",
+  //     password: "",
+  //     error: "",
+  //     loading: false,
+  //     redirection: false,
+  //   };
+  // }
 
   signinForm = (email, password) => {
     return (

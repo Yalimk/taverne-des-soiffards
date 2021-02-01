@@ -65,7 +65,7 @@ Lorsqu'un post est supprimé par l'utilisateur qui l'a créé, l'utilisateur est
 
 ----------------------------------------------
 
-## Problème 4 : GET request 404 pour les photos
+## Problème 4 : GET request 404 pour les photos par défaut
 Lorsque je charge les pages qui contiennent une photo, je reçois une erreur GET http://localhost:9092/user/photo/:photoId (vérifier qu'il ne s'agit pas de userId qui est envoyé dans la requête !) mais les photos sont malgré tout bien affichées...
 
 ### Update problème 4

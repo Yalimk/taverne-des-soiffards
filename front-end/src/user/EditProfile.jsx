@@ -9,20 +9,31 @@ import { read, updateUser, updateInfo } from "./apiUser";
 import defaultProfilePic from "../images/default-image.png";
 
 class EditProfile extends Component {
-  constructor() {
-    super();
-    this.state = {
-      id: "",
-      pseudo: "",
-      email: "",
-      password: "",
-      redirectionProfile: false,
-      error: "",
-      fileSize: 0,
-      loading: false,
-      about: "",
-    };
-  }
+  state = {
+    id: "",
+    pseudo: "",
+    email: "",
+    password: "",
+    redirectionProfile: false,
+    error: "",
+    fileSize: 0,
+    loading: false,
+    about: "",
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     id: "",
+  //     pseudo: "",
+  //     email: "",
+  //     password: "",
+  //     redirectionProfile: false,
+  //     error: "",
+  //     fileSize: 0,
+  //     loading: false,
+  //     about: "",
+  //   };
+  // }
 
   init = async (userId) => {
     try {

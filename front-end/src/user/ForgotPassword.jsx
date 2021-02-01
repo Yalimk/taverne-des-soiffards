@@ -5,14 +5,19 @@ import React, { Component } from "react";
 import { forgotPassword } from "../auth/index";
 
 class ForgotPassword extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      message: "",
-      error: "",
-    };
-  }
+  state = {
+    email: "",
+    message: "",
+    error: "",
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     email: "",
+  //     message: "",
+  //     error: "",
+  //   };
+  // }
 
   forgotPassword = async (event) => {
     event.preventDefault();
@@ -52,7 +57,9 @@ class ForgotPassword extends Component {
         {this.state.message && (
           <h5 className="alert alert-warning">{this.state.message}</h5>
         )}
-        {this.state.error && <h5 className="alert alert-danger">{this.state.error}</h5>}
+        {this.state.error && (
+          <h5 className="alert alert-danger">{this.state.error}</h5>
+        )}
 
         <form>
           <div className="form-group mt-5">
@@ -82,6 +89,6 @@ class ForgotPassword extends Component {
       </div>
     );
   }
-};
+}
 
 export default ForgotPassword;

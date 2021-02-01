@@ -8,19 +8,29 @@ import { isLoggedIn } from "../auth/index";
 import { createPost } from "./apiPost";
 
 class NewPost extends Component {
-  constructor() {
-    super();
-    this.state = {
-      title: "",
-      body: "",
-      photo: "",
-      error: "",
-      user: {},
-      fileSize: 0,
-      loading: false,
-      redirectionProfile: false,
-    };
-  }
+  state = {
+    title: "",
+    body: "",
+    photo: "",
+    error: "",
+    user: {},
+    fileSize: 0,
+    loading: false,
+    redirectionProfile: false,
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     title: "",
+  //     body: "",
+  //     photo: "",
+  //     error: "",
+  //     user: {},
+  //     fileSize: 0,
+  //     loading: false,
+  //     redirectionProfile: false,
+  //   };
+  // }
 
   componentDidMount() {
     this.postData = new FormData();

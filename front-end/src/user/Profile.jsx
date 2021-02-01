@@ -13,14 +13,19 @@ import defaultProfilePic from "../images/default-image.png";
 import { listUserPosts } from "../post/apiPost";
 
 class Profile extends Component {
-  constructor() {
-    super();
-    this.state = {
-      user: "",
-      redirectionSignIn: false,
-      posts: [],
-    };
-  }
+  state = {
+    user: "",
+    redirectionSignIn: false,
+    posts: [],
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     user: "",
+  //     redirectionSignIn: false,
+  //     posts: [],
+  //   };
+  // }
 
   init = async (userId) => {
     try {

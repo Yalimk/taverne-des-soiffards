@@ -1,5 +1,7 @@
 // Native modules import
 import nodeMailer from 'nodemailer';
+
+// Personal modules import
 import { Logger, logMoment } from '../logger/logger.js';
 
 export const sendEmail = async (emailData) => {

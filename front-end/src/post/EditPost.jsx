@@ -8,18 +8,27 @@ import { viewPost, updatePost } from "./apiPost";
 import defaultPostPic from "../images/beautiful-sea.jpg";
 
 class EditPost extends Component {
-  constructor() {
-    super();
-    this.state = {
-      id: "",
-      title: "",
-      body: "",
-      redirectionProfile: false,
-      error: "",
-      loading: false,
-      fileSize: 0,
-    };
-  }
+  state = {
+    id: "",
+    title: "",
+    body: "",
+    redirectionProfile: false,
+    error: "",
+    loading: false,
+    fileSize: 0,
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     id: "",
+  //     title: "",
+  //     body: "",
+  //     redirectionProfile: false,
+  //     error: "",
+  //     loading: false,
+  //     fileSize: 0,
+  //   };
+  // }
 
   init = async (postId) => {
     console.info(`postId dans la méthode init de EditPost : ${postId}`);

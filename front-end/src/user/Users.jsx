@@ -7,12 +7,15 @@ import { listAllUsers } from "./apiUser";
 import defaultProfilePic from "../images/default-image.png";
 
 class Users extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-    };
-  }
+  state = {
+    users: [],
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     users: [],
+  //   };
+  // }
 
   componentDidMount = async () => {
     try {

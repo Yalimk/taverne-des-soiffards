@@ -7,12 +7,15 @@ import { listAllPosts } from "./apiPost";
 import defaultPostPic from "../images/beautiful-sea.jpg";
 
 class Posts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      posts: [],
-    };
-  }
+  state = {
+    posts: [],
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     posts: [],
+  //   };
+  // }
 
   componentDidMount = async () => {
     try {

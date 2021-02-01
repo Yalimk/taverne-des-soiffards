@@ -6,16 +6,23 @@ import { Link } from 'react-router-dom';
 import { signup } from "../auth/index";
 
 class Signup extends Component {
-  constructor() {
-    super();
-    this.state = {
-      pseudo: "",
-      email: "",
-      password: "",
-      error: "",
-      success: false,
-    };
-  }
+  state = {
+    pseudo: "",
+    email: "",
+    password: "",
+    error: "",
+    success: false,
+  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     pseudo: "",
+  //     email: "",
+  //     password: "",
+  //     error: "",
+  //     success: false,
+  //   };
+  // }
 
   handleChange = (name) => (event) => {
     this.setState({
