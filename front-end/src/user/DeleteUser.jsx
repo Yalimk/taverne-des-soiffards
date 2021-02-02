@@ -9,7 +9,7 @@ import { remove } from "./apiUser";
 class DeleteUser extends Component {
   state = {
     redirectionSignIn: false,
-    allMighty: true,
+    allMighty: false,
   };
 
   componentDidMount() {
@@ -28,27 +28,24 @@ class DeleteUser extends Component {
           `An error occured during account deletion: ${response.error}.`
         );
       } else {
-        try {
-          signout(() => {
-            console.log(`User has been deleted.`);
-          });
-          this.setState({
-            redirectionSignIn: true,
-          });
-        } catch (error) {
-          console.error(`Couldn't signout because of error: ${error}.`);
-        }
+        signout(() => {
+          console.log(`User has been deleted.`);
+        });
+        this.setState({
+          redirectionSignIn: true,
+        });
       }
     } catch (error) {
       console.error(
-        `COuldn't get a response from server because of error: ${error}.`
+        `Couldn't get a response from server because of error: ${error}.`
       );
     }
   };
 
   deleteConfirmation = () => {
     let answer = window.confirm(
-      "Tu vas détruire ton profil, moussaillon, tu es sûr ?"
+      `Tu vas supprimer ton profil de façon TOTALEMENT définitive, moussaillon, tu es sûr ?
+       Même le Roi des Pirates n'y pourra plus rien, j'te préviens...`
     );
     if (answer) {
       this.deleteAccount();

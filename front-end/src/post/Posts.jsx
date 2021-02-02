@@ -12,25 +12,6 @@ class Posts extends Component {
     page: 1,
   };
 
-  // componentDidMount = async () => {
-  //   try {
-  //     const allPosts = await listAllPosts();;
-  //     if (allPosts) {
-  //       this.setState({
-  //         posts: allPosts,
-  //       });
-  //     } else {
-  //       console.error(
-  //         `No posts were retrieved from the server because of error.`
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error(
-  //       `Couldn't change state of posts because of error: ${error}.`
-  //     );
-  //   }
-  // };
-
   loadPosts = async (page) => {
     try {
       const allPosts = await postsPerPage(page);
@@ -95,19 +76,19 @@ class Posts extends Component {
                 />
               </div>
               <hr />
-              <h5 className="card-title text-center font-weight-bold">
+              <h5 className="card-title text-center font-weight-bold mb-3">
                 {post.title}
               </h5>
-              <p className="card-text text-justify lead">
-                {post.body.substring(0, 50)}
+              <p className="card-text text-justify mb-5">
+                {post.body.substring(0, 100)}
               </p>
-              <p className="font-italic">
+              <p className="font-italic mb-0">
                 Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
                 {new Date(post.created).toLocaleDateString()}
               </p>
               <Link
                 to={`/post/${post._id}`}
-                className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
+                className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold mb-3"
               >
                 Lire plus
               </Link>

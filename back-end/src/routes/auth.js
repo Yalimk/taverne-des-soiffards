@@ -90,10 +90,6 @@ router.get('/signout', signout);
 router.param('userId', userById);
 
 export default router;
-  // body(
-  //   'password',
-  //   'Tu dois renseigner un mot de passe pour... changer ton mot de passe, moussaillon !'
-  // ).notEmpty(),
   // body('password')
   //   .matches(
   //     /^(?=(?:[^A-Z]*[A-Z]){1,}(?![^A-Z]*[A-Z]))(?=(?:[^a-z]*[a-z]){1,}(?![^a-z]*[a-z]))(?=(?:[^0-9]*[0-9]){1,}(?![^0-9]*[0-9]))(?=(?:[^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]){1,}(?![^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])).{8,}$/

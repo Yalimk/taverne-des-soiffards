@@ -331,7 +331,7 @@ class EditProfile extends Component {
         />
         {isLoggedIn().user.right === "Roi des Pirates" ||
           (isLoggedIn().user._id === id &&
-            this.signupForm(pseudo, email, password, about, role, hobbies))}
+            this.updateForm(pseudo, email, password, about, role, hobbies))}
       </div>
     );
   }

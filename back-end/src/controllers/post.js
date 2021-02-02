@@ -29,7 +29,7 @@ export const postById = (req, res, next, id) => {
 
 export const getPosts = async (req, res) => {
   const currentPage = req.query.page || 1;
-  const perPage = 5;
+  const perPage = Number(process.env.PER_PAGE) || 5;
   let totalPosts;
 
   const posts = await Post.find()
@@ -129,7 +129,7 @@ export const isPoster = (req, res, next) => {
 
   if (!isPoster) {
     Logger.error(
-      `${logMoment.dateAndTime}: The method isPoster in post controller encountered the error: ${err}.`
+      `${logMoment.dateAndTime}: Someone is trying to modify someone else's post...`
     );
     return res.status(403).json({
       error: `Tu n'as pas posté ce message, pirate ! (erreur 403)`,

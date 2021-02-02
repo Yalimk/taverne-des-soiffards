@@ -17,25 +17,12 @@ class EditPost extends Component {
     loading: false,
     fileSize: 0,
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     id: "",
-  //     title: "",
-  //     body: "",
-  //     redirectionProfile: false,
-  //     error: "",
-  //     loading: false,
-  //     fileSize: 0,
-  //   };
-  // }
 
   init = async (postId) => {
     console.info(`[front-end/src/post/EditPost.jsx => init:34] : postId: ${postId}`);
     try {
       const data = await viewPost(postId);
       if (data.error) {
-        // console.error("dans le If data.error de init dans EditPost");
         this.setState({
           redirectionProfile: true,
         });
@@ -140,7 +127,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("photo")}
           type="file"
-          name="photo"
+          // name="photo"
           accept="image/*"
           className="form-control"
         />
@@ -150,7 +137,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("title")}
           type="text"
-          name="title"
+          // name="title"
           className="form-control"
           value={title}
           autoFocus
@@ -161,7 +148,7 @@ class EditPost extends Component {
         <textarea
           onChange={this.handleChange("body")}
           type="text"
-          name="body"
+          // name="body"
           className="form-control"
           value={body}
         />
@@ -185,7 +172,6 @@ class EditPost extends Component {
     if (id) {
       return (
         <div>
-          {/* {JSON.stringify(this.state)} */}
           <div className="card-body">
             <div
               className="alert alert-danger"
@@ -204,7 +190,6 @@ class EditPost extends Component {
             <img
               style={{ height: "200px", width: "auto" }}
               className="img-thumbnail mb-3"
-              // src={`${defaultPostPic}`}
               src={`${
                 process.env.REACT_APP_API_URI
               }/post/photo/${id}?${new Date().getTime()}`}
@@ -214,14 +199,14 @@ class EditPost extends Component {
 
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
-            {this.postUpdateForm(title, body)}
+            {isLoggedIn().user.right === "Roi des Pirates" ||
+              (isLoggedIn().user._id === id && this.postUpdateForm(title, body))}
           </div>
         </div>
       );
     } else {
       return (
         <div>
-          {/* {JSON.stringify(this.state)} */}
           <div className="card-body">
             <div
               className="alert alert-danger"
@@ -248,7 +233,7 @@ class EditPost extends Component {
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
             {isLoggedIn().user.right === "Roi des Pirates" ||
-              (isLoggedIn().user._id === id && this.submitPostUpdate(title, body))}
+              (isLoggedIn().user._id === id && this.postUpdateForm(title, body))}
           </div>
         </div>
       );

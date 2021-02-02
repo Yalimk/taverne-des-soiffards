@@ -45,35 +45,35 @@ export const hasAuthorization = (req, res, next) => {
   next();
 };
 
-export const allUsers = async (req, res) => {
-  try {
-    const allUsers = await User.find()
-    return res.json(allUsers);
-  } catch (error) {
-    Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
-  }
-};
-
 // export const allUsers = async (req, res) => {
-//   const currentPage = req.query.page || 1;
-//   const perPage = process.env.PER_PAGE || 1;
-//   let totalUsers;
-
-//   const posts = await User.find()
-//     .countDocuments()
-//     .then(count => {
-//       totalUsers = count;
-//       return User.find()
-//         .skip((currentPage - 1) * perPage)
-//         .limit(perPage)
-//         // .sort({ created: -1 })
-//         .select('_id pseudo email');
-//     })
-//     .then(users => {
-//       return res.json(users);
-//     })
-//     .catch(err => console.log(err));
+//   try {
+//     const allUsers = await User.find()
+//     return res.json(allUsers);
+//   } catch (error) {
+//     Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
+//   }
 // };
+
+export const allUsers = async (req, res) => {
+  const currentPage = req.query.page || 1;
+  const perPage = Number(process.env.PER_PAGE) || 1;
+  let totalUsers;
+
+  const posts = await User.find()
+    .countDocuments()
+    .then(count => {
+      totalUsers = count;
+      return User.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage)
+        .sort({ created: -1 })
+        .select('_id pseudo email about role hobbies photo');
+    })
+    .then(users => {
+      return res.json(users);
+    })
+    .catch(err => console.log(err));
+};
 
 export const getUser = (req, res) => {
   req.profile.hashed_password = undefined;

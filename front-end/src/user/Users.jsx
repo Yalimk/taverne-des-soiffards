@@ -3,23 +3,22 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { /*usersPerPage*/ listAllUsers } from "./apiUser";
+import { usersPerPage /*listAllUsers*/ } from "./apiUser";
 import defaultProfilePic from "../images/default-image.png";
 
 class Users extends Component {
   state = {
     users: [],
-    // page: 1
+    page: 1
   };
 
-  listAllUsers = async () => {
+  loadUsers = async (page) => {
     try {
-      const allUsers = await listAllUsers();
+      const allUsers = await usersPerPage(page);
       if (allUsers) {
         this.setState({
           users: allUsers,
         });
-        // console.log('all users: ', allUsers);
       } else {
         console.error(
           `No users were retrieved from the server because of error.`
@@ -30,36 +29,18 @@ class Users extends Component {
     }
   };
 
-  // getMoreUsers = (num) => {
-  //   this.setState({ page: this.state.page + 1 });
-  //   this.loadUsers(this.state.page + num);
-  // };
+  getMoreUsers = (num) => {
+    this.setState({ page: this.state.page + 1 });
+    this.loadUsers(this.state.page + num);
+  };
 
-  // getLessUsers = (num) => {
-  //   this.setState({ page: this.state.page - 1 });
-  //   this.loadUsers(this.state.page - num);
-  // };
-
-  // componentDidMount = async () => {
-  //   this.loadUsers(this.state.page);
-  // };
+  getLessUsers = (num) => {
+    this.setState({ page: this.state.page - 1 });
+    this.loadUsers(this.state.page - num);
+  };
 
   componentDidMount = async () => {
-    try {
-      const allUsers = await listAllUsers();
-      if (allUsers) {
-        this.setState({
-          users: allUsers,
-        });
-        // console.log('all users: ', allUsers);
-      } else {
-        console.error(
-          `No users were retrieved from the server because of error.`
-        );
-      }
-    } catch (error) {
-      console.error(`Couldn't list all users because of error: ${error}.`);
-    }
+    this.loadUsers(this.state.page);
   };
 
   renderUsers = (users) => (
@@ -98,13 +79,13 @@ class Users extends Component {
               />
               </div>
                 <hr/>
-                <h5 className="card-title text-center font-weight-bold">
+                <h5 className="card-title text-center font-weight-bold mb-3">
                   {pseudo}
                 </h5>
-                <p className="card-text text-justify lead">{about}</p>
+                <p className="card-text text-justify mb-5">{about}</p>
               <Link
                 to={`/user/${_id}`}
-                className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
+                className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold mb-3"
               >
                 Visiter sa planque
               </Link>
@@ -135,10 +116,10 @@ class Users extends Component {
               />
               <div className="card-body d-flex flex-column" key={i}>
                 <h5 className="card-title text-center">{pseudo}</h5>
-                <p className="card-text lead mb-3">{about}</p>
+                <p className="card-text mb-5">{about}</p>
                 <Link
                   to={`/user/${_id}`}
-                  className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
+                  className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold mb-3"
                 >
                   Visiter sa planque
                 </Link>
@@ -151,15 +132,17 @@ class Users extends Component {
   );
 
   render() {
-    const { users/*, page*/} = this.state;
+    const { users, page} = this.state;
     return (
       <div className="jumbotron">
         <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
-          Les pirates de la Taverne
+        {!users.length
+            ? "Plus de pirates !"
+            : "Les Pirates de la Taverne"}
         </h2>
         {this.renderUsers(users)}
 
-        {/* <div className="row">
+        <div className="row">
           <div className="col text-right">
             {page > 1 ? (
               <button
@@ -175,7 +158,7 @@ class Users extends Component {
           </div>
 
           <div className="col text-left">
-            {users.length > page ? (
+            {users.length > (page - 1) ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
                 onClick={() => this.getMoreUsers(1)}
@@ -187,7 +170,7 @@ class Users extends Component {
               ""
             )}
           </div>
-        </div> */}
+        </div>
       </div>
     );
   }
