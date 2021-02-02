@@ -10,14 +10,6 @@ class ForgotPassword extends Component {
     message: "",
     error: "",
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: "",
-  //     message: "",
-  //     error: "",
-  //   };
-  // }
 
   handleChange = (name) => (event) => {
     this.setState({
@@ -44,9 +36,6 @@ class ForgotPassword extends Component {
           error: data.error,
         });
       } else {
-        console.info(
-          `This is data.message inside forgotPassword in ForgotPassword: ${data.message}.`
-        );
         this.setState({
           message: data.message,
         });

@@ -63,7 +63,7 @@ export const isLoggedIn = () => {
 
 export const forgotPassword = async (email) => {
   console.info(
-    `[index.js forgotPassword (front-end)] : E-mail retrieved as an argument of forgotPassword in auth/index: ${email}`
+    `[auth/index.js forgotPassword (front-end)] : email: ${email}`
   );
   try {
     const response = await fetch(
@@ -77,6 +77,7 @@ export const forgotPassword = async (email) => {
         body: JSON.stringify({ email }),
       }
     );
+    console.log('[auth/index.js forgotPassword (front-end)] : response: ', response);
     return await response.json();
   } catch (error) {
     console.error(
@@ -86,7 +87,7 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (newCredentials) => {
-  console.log(`[index.js resetPassword (front-end)] : newCredentials: ${JSON.stringify(newCredentials)}`)
+  console.log(`[auth/index.js resetPassword (front-end)] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
       method: "PUT",

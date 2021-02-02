@@ -20,7 +20,7 @@ const isActive = (history, path) => {
 
 const Menu = ({ history }) => (
   <div className="container">
-    <nav className="navbar navbar-light bg-light" style={{ margin: 0 }}>
+    <nav className="navbar navbar-light bg-light">
       {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button> */}

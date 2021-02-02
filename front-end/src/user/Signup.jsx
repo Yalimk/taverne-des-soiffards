@@ -13,16 +13,6 @@ class Signup extends Component {
     error: "",
     success: false,
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     pseudo: "",
-  //     email: "",
-  //     password: "",
-  //     error: "",
-  //     success: false,
-  //   };
-  // }
 
   handleChange = (name) => (event) => {
     this.setState({

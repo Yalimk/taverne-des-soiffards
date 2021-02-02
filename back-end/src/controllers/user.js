@@ -16,7 +16,7 @@ export const userById = (req, res, next, userId) => {
       })
     }
     req.profile = user;
-    // Logger.silly(`user dans findById de userById du controller user: ${user}`);
+    // Logger.debug(`[back-end/src/controllers/user.js => userById:19] : user: ${user}`);
     next();
   });
 };
@@ -27,8 +27,8 @@ export const hasAuthorization = (req, res, next) => {
   
   const authorized = sameUser || adminUser;
 
-  Logger.debug(`
-  Inside hasAuthorization function in user controller: 
+  Logger.debug(`${logMoment.dateAndTime}: 
+  [back-end/src/controllers/user.js => hasAuthorization:31] :  
   req.user: ${req.profile}
   req.auth: ${JSON.stringify(req.auth)}
   sameUser: ${sameUser}
@@ -41,13 +41,14 @@ export const hasAuthorization = (req, res, next) => {
       error: `Tu n'as pas la permission de faire ça, moussaillon, où est-ce que tu te crois ?! Chez mémé ?!`
     });
   }
+  Logger.info(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js => hasAuthorization:44] : successfully authorized to proceed`);
   next();
 };
 
 export const allUsers = (req, res) => {
   User.find((err, users) => {
     if (err) {
-      Logger.error(`${logMoment.dateAndTime} : La méthode allUsers a rencontré une erreur : ${err}.`);
+      Logger.error(`${logMoment.dateAndTime} : [back-end/src/controllers/user.js => allUsers:51] : error: ${err}.`);
       return res.status(400).json({
         error: err
       });
@@ -91,8 +92,8 @@ export const updateUser = (req, res, next) => {
       user.hashed_password = undefined;
       user.salt = undefined;
       res.json(user);
-      Logger.info(`${logMoment.dateAndTime}: updatedUser dans updateUser: ${updatedUser}`);
-      Logger.silly(`${logMoment.dateAndTime}: user dans udpateUser: ${JSON.stringify(user)}`);
+      Logger.debug(`${logMoment.dateAndTime}:[back-end/src/controllers/user.js => updateUser:95] : updatedUser: ${updatedUser}`);
+      // Logger.debug(`${logMoment.dateAndTime}:[back-end/src/controllers/user.js => updateUser:96] : user: ${JSON.stringify(user)}`);
     })
   })
 };

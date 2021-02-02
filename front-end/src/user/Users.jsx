@@ -10,12 +10,6 @@ class Users extends Component {
   state = {
     users: [],
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     users: [],
-  //   };
-  // }
 
   componentDidMount = async () => {
     try {
@@ -36,9 +30,12 @@ class Users extends Component {
   };
 
   renderUsers = (users) => (
-    <div className="row">
+    <div
+      className="row"
+      style={{ justifyContent: "center", position: "relative" }}
+    >
       {users.map((user, i) => {
-        const {photo, _id, pseudo, about} = user;
+        const { photo, _id, pseudo, about } = user;
         if (photo) {
           return (
             <div
@@ -48,7 +45,7 @@ class Users extends Component {
                 backgroundColor: "#D5E5F2",
                 marginRight: "30px",
                 marginBottom: "30px",
-                boxShadow: "3px 3px 5px grey"
+                boxShadow: "3px 3px 5px grey",
               }}
             >
               <img
@@ -63,21 +60,34 @@ class Users extends Component {
                 className="img-thumbnail mb-3"
                 alt={pseudo}
               />
-              <div className="card-body" key={i}>
-                <h5 className="card-title">{pseudo}</h5>
-                <p className="card-text">{about}</p>
-                <Link
-                  to={`/user/${_id}`}
-                  className="btn btn-raised btn-primary btn-sm"
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "0.9rem",
-                    marginBottom: "15px",
-                    boxShadow: "3px 3px 5px grey"
-                  }}
-                >
-                  Visiter sa planque
-                </Link>
+              <div
+                className="card-body col"
+                key={i}
+                style={{ dispaly: "flex", alignItems: "center", justifyContent: "center" }}
+              >
+                <div className="row">
+                  <h5 className="card-title text-center" style={{ fontWeight: "bold", alignItems: "center", justifyContent: "center" }}>
+                    {pseudo}
+                  </h5>
+                  <p className="card-text text-center lead">{about}</p>
+                </div>
+                <div className="row">
+                  <Link
+                    to={`/user/${_id}`}
+                    className="btn btn-raised btn-primary btn-sm"
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "0.9rem",
+                      marginBottom: "15px",
+                      boxShadow: "3px 3px 5px grey",
+                      backgroundColor: "#81A65D",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                  >
+                    Visiter sa planque
+                  </Link>
+                </div>
               </div>
             </div>
           );
@@ -130,7 +140,9 @@ class Users extends Component {
     const { users } = this.state;
     return (
       <div className="jumbotron">
-        <h2 className="mt-3 mb-3">Les pirates de la Taverne</h2>
+        <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
+          Les pirates de la Taverne
+        </h2>
         {this.renderUsers(users)}
       </div>
     );

@@ -11,18 +11,18 @@ export const sendEmail = async (emailData) => {
     secure: false,
     requireTLS: true,
     auth: {
-      user: 'alexandremasson33@gmail.com',
-      pass: 'dnuhhsjbztqbtjca',
+      user: process.env.GOOGLE_ACCOUNT,
+      pass: process.env.GOOGLE_APP_PASSWORD,
     },
   });
   try {
     const info = await transporter.sendMail(emailData);
     return Logger.info(
-      `${logMoment.dateAndTime}: Message de récupération de mot de passe envoyé: ${info.response}`
+      `${logMoment.dateAndTime}: [front-end/src/helpers/HELPERS.js => sendEmail] : info.response: ${info.response}`
     );
   } catch (err) {
     return Logger.error(
-      `${logMoment.dateAndTime}: Une erreur est survenue pendant l'envoi de l'e-mail : ${err}`
+      `${logMoment.dateAndTime}: [front-end/src/helpers/HELPERS.js => sendEmail] : error: ${err}`
     );
   }
 };

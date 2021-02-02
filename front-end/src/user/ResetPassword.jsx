@@ -12,15 +12,6 @@ class ResetPassword extends Component {
     error: "",
     redirectionHome: false,
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     newPassword: "",
-  //     message: "",
-  //     error: "",
-  //     redirectionHome: false,
-  //   };
-  // }
 
   resetPassword = async (event) => {
     event.preventDefault();

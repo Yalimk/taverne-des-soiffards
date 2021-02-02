@@ -13,7 +13,7 @@ class EditProfile extends Component {
     id: "",
     pseudo: "",
     email: "",
-    // password: "",
+    password: "",
     about: "",
     role: "",
     hobbies: "",
@@ -22,20 +22,6 @@ class EditProfile extends Component {
     fileSize: 0,
     loading: false,
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     id: "",
-  //     pseudo: "",
-  //     email: "",
-  //     password: "",
-  //     redirectionProfile: false,
-  //     error: "",
-  //     fileSize: 0,
-  //     loading: false,
-  //     about: "",
-  //   };
-  // }
 
   init = async (userId) => {
     try {
@@ -46,7 +32,7 @@ class EditProfile extends Component {
           redirectionProfile: true,
         };
       } else {
-        // console.log('data inside init in EditProfile', data)
+        console.log('[front-end/src/user/EditProfile => init => data: ', data)
         this.setState({
           id: data._id,
           pseudo: data.pseudo,
@@ -54,7 +40,6 @@ class EditProfile extends Component {
           about: data.about, // this used to be data.about || "" (don't rembember why I wrote it as such, maybe this will solve my bug of the bio not being rendered)
           role: data.role,
           hobbies: data.hobbies,
-          // password: data.password,
           error: "",
         });
       }
@@ -178,12 +163,14 @@ class EditProfile extends Component {
       const userId = this.props.match.params.userId;
       const token = isLoggedIn().token;
       console.log(
-        `INSIDE UPDATESUBMIT, userId: ${userId} and token: ${token} and this.userData: ${this.userData}`
+        `[front-end/src/user/EditProfile => updateSubmit:180] => userId: ${userId} and token: ${token} and this.userData: ${this.userData}`
       );
       const data = await updateUser(userId, token, this.userData);
+      // console.info(`[front-end/src/user/EditProfile => updateSubmit => after updateUser:183]: data: ${data}`)
       if (data.error) {
         this.setState({ error: data.error });
       } else {
+        // console.info(`[front-end/src/user/EditProfile => updateSubmit => before updateInfo:190]: data: ${data}`)
         updateInfo(data, () => {
           this.setState({ redirectionProfile: true });
         });

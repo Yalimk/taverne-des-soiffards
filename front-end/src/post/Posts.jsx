@@ -10,17 +10,10 @@ class Posts extends Component {
   state = {
     posts: [],
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     posts: [],
-  //   };
-  // }
 
   componentDidMount = async () => {
     try {
-      const allPosts = await listAllPosts();
-      // console.log("All posts from server", allPosts);
+      const allPosts = await listAllPosts();;
       if (allPosts) {
         this.setState({
           posts: allPosts,
@@ -39,26 +32,26 @@ class Posts extends Component {
 
   renderPosts = (posts) => {
     return (
-      <div className="row">
+      <div className="row" style={{justifyContent: "center"}}>
         {posts.map((post, i) => {
           const posterId = post.author ? `/user/${post.author._id}` : "";
           const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
           return (
             <div
-              className="card card-block col-sm-12 col-md-6 col-lg-4 col-xl-3"
+              className="card card-block col-md-3"
               key={i}
               style={{
                 backgroundColor: "#D5E5F2",
                 marginRight: "30px",
                 marginBottom: "30px",
-                boxShadow: "3px 3px 5px grey"
+                boxShadow: "3px 3px 5px grey",
+                width: "300px"
               }}
             >
               <div className="card-body" key={i}>
                 <img
                   className="img-thumbnail mb-3"
                   style={{ height: "auto", width: "auto", borderRadius: "50%" }}
-                  // src={`${defaultPostPic}`}
                   src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
                   alt={post.title}
                   onError={(img) => img.target.src = `${defaultPostPic}`}
@@ -79,7 +72,8 @@ class Posts extends Component {
                   fontWeight: "bold",
                   fontSize: "1.2rem",
                   marginBottom: "15px",
-                  boxShadow: "3px 3px 5px grey"
+                  boxShadow: "3px 3px 5px grey",
+                  backgroundColor: "#81A65D"
                 }}
               >
                 Lire plus
@@ -95,7 +89,7 @@ class Posts extends Component {
     const { posts } = this.state;
     return (
       <div className="jumbotron">
-        <h2 className="mt-3 mb-3">
+        <h2 className="mt-3 mb-3 text-center" style={{fontWeight: "bold"}}>
           {!posts.length
             ? "Chargement..."
             : "Messages des Pirates de la Taverne"}

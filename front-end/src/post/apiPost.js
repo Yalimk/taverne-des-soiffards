@@ -11,7 +11,7 @@ export const createPost = async (userId, token, post) => {
         body: post,
       }
     );
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't post data to api because of error: ${error}.`
@@ -24,7 +24,7 @@ export const listAllPosts = async () => {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/posts`, {
       method: "GET",
     });
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
@@ -37,7 +37,7 @@ export const viewPost = async (postId) => {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/post/${postId}`, {
       method: "GET",
     });
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't get response from api in viewPost because of error: ${error}.`
@@ -55,7 +55,7 @@ export const listUserPosts = async (userId, token) => {
         Authorization: `Bearer ${token}`
       }
     });
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
@@ -73,7 +73,7 @@ export const remove = async (postId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
@@ -92,7 +92,7 @@ export const updatePost = async (postId, token, post) => {
       body: post,
     });
     console.info('INSIDE UPDATEPOST APRES LE FETCH MAIS AVANT LE RETOUR DE LA REPONSE')
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't put data to api because of error: ${error}.`

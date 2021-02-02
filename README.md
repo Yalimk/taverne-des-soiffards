@@ -1,5 +1,27 @@
 # La Taverne des Soiffards
 
+## Démarrage du projet
+
+Afin de pouvoir utiliser le projet, il vous faudra d'abord cloner le dépôt distant sur votre machine. Ensuite, il est impératif de créer un fichier `.env` à la racine de chacun des deux dossiers `back-end`et `front-end`. Voici le contenu à écrire dans chacun des fichiers :
+
+Back-end .env :
+```bash
+PORT=9092
+MONGO_URI=http://localhost:27017/tds
+JWT_SECRET=(le secret pour la génération du token web json)
+CLIENT_URI=http://localhost:3000
+ADMIN_TITLE=(le nom que vous souhaitez donner au titre de votre admin)
+APP_NAME=TAVERNE-DES-SOIFFARDS
+GOOGLE_ACCOUNT=(votre adresse e-mail google)
+GOOGLE_APP_PASSWORD=(le mot de passe d\'application pour cet e-mail. Plus de détails [ici](https://www.lifewire.com/get-a-password-to-access-gmail-by-pop-imap-2-1171882))
+```
+
+Front-end .env :
+```bash
+APP_NAME=TAVERNE-DES-SOIFFARDS
+REACT_APP_API_URI=http://localhost:9092/tds
+```
+
 ## Explication du projet
 
 Ceci est le dernier projet à réalisé pour valider la formation de reconversion que j'ai entamée en juin 2020. 

@@ -22,7 +22,7 @@ export const signup = async (req, res) => {
       error: `Tu es amnésique ou tu essaies de voler l'identité de quelqu'un, moussaillon ? Cet e-mail ou/et ce pseudo est/sont déjà pris ! (erreur 403)`,
     });
   } else {
-    const user = new User(req.body);
+    const user = await new User(req.body);
     await user.save();
     Logger.info(
       `L'utilisateur ${user.pseudo}, e-mail ${user.email}, id ${user._id} a été créé en base de données avec succès.`
@@ -59,7 +59,7 @@ export const signin = (req, res) => {
       );
       return res.json({
         token,
-        user: { _id, email, pseudo, right }, // I used to send the whole user but changed.
+        user: { _id, email, pseudo, right }, // I used to send the whole user but changed for safety reasons.
         // user,
       });
     });

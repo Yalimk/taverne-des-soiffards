@@ -13,16 +13,6 @@ class Signin extends Component {
     loading: false,
     redirection: false,
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: "",
-  //     password: "",
-  //     error: "",
-  //     loading: false,
-  //     redirection: false,
-  //   };
-  // }
 
   signinForm = (email, password) => {
     return (

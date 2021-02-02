@@ -18,14 +18,6 @@ class Profile extends Component {
     redirectionSignIn: false,
     posts: [],
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     user: "",
-  //     redirectionSignIn: false,
-  //     posts: [],
-  //   };
-  // }
 
   init = async (userId) => {
     try {
@@ -36,7 +28,6 @@ class Profile extends Component {
           redirectionSignIn: true,
         };
       } else {
-        // console.log("data (user) dans else de init de Profile: ", data);
         this.setState({
           user: data,
         });
@@ -106,7 +97,7 @@ class Profile extends Component {
 
       return (
         <div className="container jumbotron">
-          <h3 className="mb-5 mt-5">{pseudo}</h3>
+          <h3 className="mb-5">{pseudo}</h3>
           <div className="row">
             <div className="col-md-4">
               <img

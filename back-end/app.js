@@ -8,6 +8,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
+// import * as SocketIO from 'socket.io';
+// import http from 'http';
 
 // Personal modules imports
 import { Logger, logMoment } from './src/Logger/logger.js';
@@ -24,6 +26,7 @@ import { checkSigninToken } from './src/Controllers/auth.js';
 
 // Constants definition
 const app = express();
+const port = process.env.PORT || 9092;
 
 // Middlewares definition
 app.use(morgan('dev'));
@@ -66,10 +69,56 @@ app.get('/', (req, res) => {
   })
 })
 
-app.listen(process.env.PORT, () => {
-  Logger.info(`${logMoment.dateAndTime}: app listening on port ${process.env.PORT}.`);
+const server = app.listen(port, () => {
+  Logger.info(`${logMoment.dateAndTime}: app listening on port ${port}.`);
 });
 
+// **************** Live chat code attempt ****************
+
+// Constants definition
+// Couldn't find how to import using ES6 syntax...
+// const io = require('socket.io')(server, {
+//   transports: ['websocket', 'polling']
+// });
+const io = require('socket.io')(server);
+const allPirates = {};
+
+io.on('connection', (client) => {
+  client.on('pseudo', (pseudo) => {
+    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('pseudo')] : pseudo: ${pseudo}`);
+    const user = {
+      pseudo: pseudo,
+      id: client.id
+    };
+
+    allPirates[client.id] = user;
+
+    io.emit('connected', user);
+    io.emit('users', Object.values(allPirates));
+  });
+
+  client.on('send', (message) => {
+    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('send')] : message: ${message}`);
+    io.emit('message', {
+      text: message,
+      date: logMoment.dateAndTime,
+      user: allPirates[client.id]
+    })
+  });
+
+  client.on('disconnect', () => {
+    const pirateName = allPirates[client.id];
+    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('disconnect')] : disconnected Pirate: ${pirateName}`);
+    delete allPirates[client.id];
+    io.emit('disconnected', client.id)
+  });
+});
+
+server.listen(`http://localhost:${port}/socket.io`, () => {
+  Logger.info(`io server listening on port ${port}`)
+});
+
+// Commented that out until I figure out what's wrong with the password thing.
 // Handling different types of errors and logging to log files
 // const errorTypes = ['unhandledRejection', 'uncaughtException'];
 // errorTypes.map((type) => {
