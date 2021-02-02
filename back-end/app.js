@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
   })
 })
 
-const server = app.listen(port, () => {
+/*const server = */app.listen(port, () => {
   Logger.info(`${logMoment.dateAndTime}: app listening on port ${port}.`);
 });
 
@@ -80,43 +80,47 @@ const server = app.listen(port, () => {
 // const io = require('socket.io')(server, {
 //   transports: ['websocket', 'polling']
 // });
-const io = require('socket.io')(server);
-const allPirates = {};
 
-io.on('connection', (client) => {
-  client.on('pseudo', (pseudo) => {
-    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('pseudo')] : pseudo: ${pseudo}`);
-    const user = {
-      pseudo: pseudo,
-      id: client.id
-    };
+// const io = require('socket.io')(server);
+// const allPirates = {};
 
-    allPirates[client.id] = user;
+// io.on('connection', (client) => {
+//   client.on('pseudo', (pseudo) => {
+//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('pseudo')] : pseudo: ${pseudo}`);
+//     const user = {
+//       pseudo: pseudo,
+//       id: client.id
+//     };
 
-    io.emit('connected', user);
-    io.emit('users', Object.values(allPirates));
-  });
+//     allPirates[client.id] = user;
 
-  client.on('send', (message) => {
-    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('send')] : message: ${message}`);
-    io.emit('message', {
-      text: message,
-      date: logMoment.dateAndTime,
-      user: allPirates[client.id]
-    })
-  });
+//     io.emit('connected', user);
+//     io.emit('users', Object.values(allPirates));
+//   });
 
-  client.on('disconnect', () => {
-    const pirateName = allPirates[client.id];
-    Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('disconnect')] : disconnected Pirate: ${pirateName}`);
-    delete allPirates[client.id];
-    io.emit('disconnected', client.id)
-  });
-});
+//   client.on('send', (message) => {
+//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('send')] : message: ${message}`);
+//     io.emit('message', {
+//       text: message,
+//       date: logMoment.dateAndTime,
+//       user: allPirates[client.id]
+//     })
+//   });
 
-server.listen(`http://localhost:${port}/socket.io`, () => {
-  Logger.info(`io server listening on port ${port}`)
-});
+//   client.on('disconnect', () => {
+//     const pirateName = allPirates[client.id];
+//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('disconnect')] : disconnected Pirate: ${pirateName}`);
+//     delete allPirates[client.id];
+//     io.emit('disconnected', client.id)
+//   });
+// });
+
+// server.listen(`http://localhost:${port}/socket.io`, () => {
+//   Logger.info(`io server listening on port ${port}`)
+// });
+
+
+
 
 // Commented that out until I figure out what's wrong with the password thing.
 // Handling different types of errors and logging to log files

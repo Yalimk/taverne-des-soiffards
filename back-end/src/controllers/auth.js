@@ -22,11 +22,11 @@ export const signup = async (req, res) => {
       error: `Tu es amnésique ou tu essaies de voler l'identité de quelqu'un, moussaillon ? Cet e-mail ou/et ce pseudo est/sont déjà pris ! (erreur 403)`,
     });
   } else {
-    const user = await new User(req.body);
+    const user = new User(req.body);
     await user.save();
-    Logger.info(
-      `L'utilisateur ${user.pseudo}, e-mail ${user.email}, id ${user._id} a été créé en base de données avec succès.`
-    );
+    // Logger.info(
+    //   `L'utilisateur ${user.pseudo}, e-mail ${user.email}, id ${user._id} a été créé en base de données avec succès.`
+    // );
     return res.json({
       message:
         'Tes papiers sont en règles, moussaillon. Tu peux entrer dans la taverne, maintenant...',
@@ -54,9 +54,9 @@ export const signin = (req, res) => {
         expire: new Date() + 3600000,
       });
       const { _id, pseudo, email, right } = user;
-      Logger.info(
-        `${logMoment.dateAndTime}: L'utilisateur ${pseudo}, e-mail ${email}, id ${_id} vient de se connecter à la Taverne des Soiffards.`
-      );
+      // Logger.info(
+      //   `${logMoment.dateAndTime}: L'utilisateur ${pseudo}, e-mail ${email}, id ${_id} vient de se connecter à la Taverne des Soiffards.`
+      // );
       return res.json({
         token,
         user: { _id, email, pseudo, right }, // I used to send the whole user but changed for safety reasons.
@@ -117,11 +117,7 @@ export const forgotPassword = (req, res) => {
       },
       process.env.JWT_SECRET
     );
-
-
-    Logger.silly(`token (should be same as resetPasswordLink) inside forgot password: ${token}`)
-
-
+    // Logger.silly(`token (should be same as resetPasswordLink) inside forgot password: ${token}`)
     const emailData = {
       from: 'alexandremasson33@gmail.com',
       to: email,
@@ -155,7 +151,7 @@ export const resetPassword = (req, res) => {
   // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : resetPasswordLink: ${resetPasswordLink}.`)
   User.findOne({resetPasswordLink}, (err, user) => {
     if (err || !user) {
-      Logger.debug(` [auth resetPassword (back-end)] : inside if (err || !user)`)
+      // Logger.debug(` [auth resetPassword (back-end)] : inside if (err || !user)`)
       return res.status(401).json({
         error: `The token for password reset is invalid.`
       })

@@ -19,9 +19,22 @@ export const createPost = async (userId, token, post) => {
   }
 };
 
-export const listAllPosts = async () => {
+// export const listAllPosts = async () => {
+//   try {
+//     const response = await fetch(`${process.env.REACT_APP_API_URI}/posts`, {
+//       method: "GET",
+//     });
+//     return response.json();
+//   } catch (error) {
+//     return console.error(
+//       `Couldn't get response from api because of error: ${error}.`
+//       );
+//     }
+// };
+
+export const postsPerPage = async (page) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URI}/posts`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/posts/?page=${page}`, {
       method: "GET",
     });
     return response.json();

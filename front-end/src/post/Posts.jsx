@@ -3,17 +3,37 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { listAllPosts } from "./apiPost";
+import { postsPerPage /*, listAllPosts*/ } from "./apiPost";
 import defaultPostPic from "../images/beautiful-sea.jpg";
 
 class Posts extends Component {
   state = {
     posts: [],
+    page: 1,
   };
 
-  componentDidMount = async () => {
+  // componentDidMount = async () => {
+  //   try {
+  //     const allPosts = await listAllPosts();;
+  //     if (allPosts) {
+  //       this.setState({
+  //         posts: allPosts,
+  //       });
+  //     } else {
+  //       console.error(
+  //         `No posts were retrieved from the server because of error.`
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error(
+  //       `Couldn't change state of posts because of error: ${error}.`
+  //     );
+  //   }
+  // };
+
+  loadPosts = async (page) => {
     try {
-      const allPosts = await listAllPosts();;
+      const allPosts = await postsPerPage(page);
       if (allPosts) {
         this.setState({
           posts: allPosts,
@@ -30,9 +50,23 @@ class Posts extends Component {
     }
   };
 
+  getMorePosts = (num) => {
+    this.setState({ page: this.state.page + 1 });
+    this.loadPosts(this.state.page + num);
+  };
+
+  getLessPosts = (num) => {
+    this.setState({ page: this.state.page - 1 });
+    this.loadPosts(this.state.page - num);
+  };
+
+  componentDidMount() {
+    this.loadPosts(this.state.page);
+  }
+
   renderPosts = (posts) => {
     return (
-      <div className="row" style={{justifyContent: "center"}}>
+      <div className="row" style={{ justifyContent: "center" }}>
         {posts.map((post, i) => {
           const posterId = post.author ? `/user/${post.author._id}` : "";
           const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
@@ -45,7 +79,7 @@ class Posts extends Component {
                 marginRight: "30px",
                 marginBottom: "30px",
                 boxShadow: "3px 3px 5px grey",
-                width: "300px"
+                width: "300px",
               }}
             >
               <div className="card-body" key={i}>
@@ -54,7 +88,7 @@ class Posts extends Component {
                   style={{ height: "auto", width: "auto", borderRadius: "50%" }}
                   src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
                   alt={post.title}
-                  onError={(img) => img.target.src = `${defaultPostPic}`}
+                  onError={(img) => (img.target.src = `${defaultPostPic}`)}
                 />
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text lead">{post.body.substring(0, 50)}</p>
@@ -73,7 +107,7 @@ class Posts extends Component {
                   fontSize: "1.2rem",
                   marginBottom: "15px",
                   boxShadow: "3px 3px 5px grey",
-                  backgroundColor: "#81A65D"
+                  backgroundColor: "#81A65D",
                 }}
               >
                 Lire plus
@@ -86,15 +120,45 @@ class Posts extends Component {
   };
 
   render() {
-    const { posts } = this.state;
+    const { posts, page } = this.state;
     return (
       <div className="jumbotron">
-        <h2 className="mt-3 mb-3 text-center" style={{fontWeight: "bold"}}>
+        <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
           {!posts.length
-            ? "Chargement..."
+            ? "Plus de postes !"
             : "Messages des Pirates de la Taverne"}
         </h2>
         {this.renderPosts(posts)}
+
+        <div className="row">
+          <div className="col text-right">
+            {page > 1 ? (
+              <button
+                className="btn btn-raised btn-info mr-5 mt-5 mb-5"
+                onClick={() => this.getLessPosts(1)}
+                style={{boxShadow: "3px 3px 5px grey"}}
+              >
+                Page précédente
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div className="col text-left">
+            {posts.length > page ? (
+              <button
+                className="btn btn-raised btn-info mt-5 mb-5"
+                onClick={() => this.getMorePosts(1)}
+                style={{boxShadow: "3px 3px 5px grey"}}
+              >
+                Page suivante
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </div>
     );
   }

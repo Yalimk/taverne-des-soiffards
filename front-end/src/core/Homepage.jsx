@@ -1,10 +1,11 @@
+/* eslint-disable no-lone-blocks */
 // Native modules import
 import React, { useEffect, useState } from "react";
 // import ReactDOM from "react-dom";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
+// import { isLoggedIn } from "../auth/index";
 
 // const socket = io(process.env.CLIENT_URI, {
 //   transports: ["websocket", "polling"],
@@ -16,74 +17,74 @@ import { isLoggedIn } from "../auth/index";
 
 // eslint-disable-next-line no-empty-pattern
 const Home = ({}) => {
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  // const [users, setUsers] = useState([]);
+  // const [message, setMessage] = useState("");
+  // const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    if (isLoggedIn()) {
-      const socket = io("http://localhost:9092");
-      // Reception/Emission type events
-      socket.on("connect", () => {
-        console.log(
-          `[front-end/src/core/Homepage.jsx => socket.on('connect')] : pseudo: ${
-            isLoggedIn().user.pseudo
-          }`
-        );
-        socket.emit("pseudo", isLoggedIn().user.pseudo);
-      });
+  // useEffect(() => {
+  //   if (isLoggedIn()) {
+  //     const socket = io("http://localhost:9092");
+  //     // Reception/Emission type events
+  //     socket.on("connect", () => {
+  //       console.log(
+  //         `[front-end/src/core/Homepage.jsx => socket.on('connect')] : pseudo: ${
+  //           isLoggedIn().user.pseudo
+  //         }`
+  //       );
+  //       socket.emit("pseudo", isLoggedIn().user.pseudo);
+  //     });
 
-      // Reception only type events
-      socket.on("connected", (user) => {
-        console.log(
-          `[front-end/src/core/Homepage.jsx => socket.on('connected')] : user: ${user}`
-        );
-        setUsers((users) => [...users, user]);
-      });
+  //     // Reception only type events
+  //     socket.on("connected", (user) => {
+  //       console.log(
+  //         `[front-end/src/core/Homepage.jsx => socket.on('connected')] : user: ${user}`
+  //       );
+  //       setUsers((users) => [...users, user]);
+  //     });
 
-      socket.on("users", (users) => {
-        console.log(
-          `[front-end/src/core/Homepage.jsx => socket.on('users')] : users: ${users}`
-        );
-        setUsers(users);
-      });
+  //     socket.on("users", (users) => {
+  //       console.log(
+  //         `[front-end/src/core/Homepage.jsx => socket.on('users')] : users: ${users}`
+  //       );
+  //       setUsers(users);
+  //     });
 
-      socket.on("message", (message) => {
-        setMessages((messages) => [...messages, message]);
-      });
+  //     socket.on("message", (message) => {
+  //       setMessages((messages) => [...messages, message]);
+  //     });
 
-      socket.on("disconnect", (id) => {
-        console.log(
-          `[front-end/src/core/Homepage.jsx => socket.on('disconnect')] : id of disconnected user: ${id}`
-        );
-        setUsers((users) => {
-          return users.filter((user) => user.id !== id);
-        });
-      });
-    }
-  }, []);
+  //     socket.on("disconnect", (id) => {
+  //       console.log(
+  //         `[front-end/src/core/Homepage.jsx => socket.on('disconnect')] : id of disconnected user: ${id}`
+  //       );
+  //       setUsers((users) => {
+  //         return users.filter((user) => user.id !== id);
+  //       });
+  //     });
+  //   }
+  // }, []);
 
-  const submitForm = (event) => {
-    event.preventDefault();
-    if (isLoggedIn()) {
-      const socket = io("http://localhost:9092");
-      socket.emit("send", message);
-      console.log(
-        `[front-end/src/core/Homepage.jsx => submitForm] : message: ${message}`
-      );
-      setMessage("");
-    }
-  };
+  // const submitForm = (event) => {
+    // event.preventDefault();
+    // if (isLoggedIn()) {
+    //   const socket = io("http://localhost:9092");
+    //   socket.emit("send", message);
+    //   console.log(
+    //     `[front-end/src/core/Homepage.jsx => submitForm] : message: ${message}`
+    //   );
+    //   setMessage("");
+    // }
+  // };
 
-  if (isLoggedIn()) {
-    return (
-      <div className="container jumbotron">
-        <div className="row">
-          <div className="col-md-12 mt-5 mb-5">
-            <h4 className=" text-center" style={{fontWeight: "bold"}}>Bienvenue dans la Taverne, {isLoggedIn().user.pseudo}</h4>
-          </div>
-        </div>
-        <div className="row">
+  // if (isLoggedIn()) {
+  //   return (
+  //     <div className="container jumbotron">
+  //       <div className="row">
+  //         <div className="col-md-12 mt-5 mb-5">
+  //           <h4 className=" text-center" style={{fontWeight: "bold"}}>Bienvenue dans la Taverne, {isLoggedIn().user.pseudo}</h4>
+  //         </div>
+  //       </div>
+        {/* <div className="row">
           <div className="col-md-8">
             <h5>Messages</h5>
             <div>
@@ -117,20 +118,20 @@ const Home = ({}) => {
               ))}
             </ul>
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div>
     );
-  } else {
+  } else { */}
     return (
       <div className="container jumbotron">
         <div className="row">
           <div className="col-md-12 mt-5 mb-5">
-            <h4 className=" text-center" style={{fontWeight: "bold"}}>Bievenue dans la Taverne, pirate !</h4>
+            <h4 className=" text-center" style={{fontWeight: "bold"}}>Bienvenue dans la Taverne, pirate !</h4>
           </div>
         </div>
       </div>
     );
   }
-};
+// };
 
 export default Home;

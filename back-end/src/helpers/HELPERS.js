@@ -17,11 +17,11 @@ export const sendEmail = async (emailData) => {
   });
   try {
     const info = await transporter.sendMail(emailData);
-    return Logger.info(
+    Logger.info(
       `${logMoment.dateAndTime}: [front-end/src/helpers/HELPERS.js => sendEmail] : info.response: ${info.response}`
     );
   } catch (err) {
-    return Logger.error(
+    Logger.error(
       `${logMoment.dateAndTime}: [front-end/src/helpers/HELPERS.js => sendEmail] : error: ${err}`
     );
   }

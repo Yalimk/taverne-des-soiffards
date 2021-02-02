@@ -15,10 +15,6 @@ import { userById } from '../controllers/user.js';
 // Constants declaration
 const router = express.Router();
 
-// Routes for password reset
-router.put('/reset-password', resetPassword);
-router.put('/forgot-password', forgotPassword);
-
 // Route for user sign up
 router.post(
   '/signup',
@@ -83,7 +79,9 @@ router.post(
   signin
 );
 
-
+// Routes for password reset
+router.put('/forgot-password', forgotPassword);
+router.put('/reset-password', resetPassword);
 
 // Route for user sign out
 router.get('/signout', signout);

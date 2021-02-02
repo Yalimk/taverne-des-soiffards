@@ -69,12 +69,12 @@ class Users extends Component {
                   <h5 className="card-title text-center" style={{ fontWeight: "bold", alignItems: "center", justifyContent: "center" }}>
                     {pseudo}
                   </h5>
-                  <p className="card-text text-center lead">{about}</p>
+                  <p className="card-text lead">{about}</p>
                 </div>
                 <div className="row">
                   <Link
                     to={`/user/${_id}`}
-                    className="btn btn-raised btn-primary btn-sm"
+                    className="btn btn-raised btn-primary text-center btn-sm"
                     style={{
                       fontWeight: "bold",
                       fontSize: "0.9rem",

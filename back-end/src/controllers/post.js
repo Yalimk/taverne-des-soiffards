@@ -1,16 +1,16 @@
 // Native modules import
-import formidable from "formidable";
-import _ from "lodash";
-import fs from "fs";
+import formidable from 'formidable';
+import _ from 'lodash';
+import fs from 'fs';
 
 // Personal modules import
-import Post from "../models/post.js";
-import { Logger, logMoment } from "../logger/logger.js";
+import Post from '../models/post.js';
+import { Logger, logMoment } from '../logger/logger.js';
 
 export const postById = (req, res, next, id) => {
   Post.findById(id)
-    .populate("author", "_id pseudo right")
-    .select("_id title body created photo")
+    .populate('author', '_id pseudo right')
+    .select('_id title body created photo')
     .exec((err, post) => {
       if (err || !post) {
         Logger.error(
@@ -25,21 +25,45 @@ export const postById = (req, res, next, id) => {
     });
 };
 
+// export const getPosts = async (req, res) => {
+//   try {
+//     const posts = await Post.find()
+//       .populate('author', '_id pseudo right')
+//       .select('_id title body created')
+//       .sort({ created: -1 });
+//     return res.json(posts);
+//   } catch (error) {
+//     Logger.error(
+//       `${logMoment.dateAndTime} : La méthode getPosts a rencontré une erreur: ${error}.`
+//     );
+//     return res.status(400).json({
+//       error: error,
+//     });
+//   }
+// };
+
 export const getPosts = async (req, res) => {
-  try {
-    const posts = await Post.find()
-      .populate("author", "_id pseudo right")
-      .select("_id title body created")
-      .sort({ created: -1 });
-    return res.json(posts);
-  } catch (error) {
-    Logger.error(
-      `${logMoment.dateAndTime} : La méthode getPosts a rencontré une erreur: ${error}.`
-    );
-    return res.status(400).json({
-      error: error,
-    });
-  }
+  const currentPage = req.query.page || 1;
+  const perPage = 5;
+  let totalPosts;
+
+  const posts = await Post.find()
+    .countDocuments()
+    .then(count => {
+      totalPosts = count;
+      return Post.find()
+        .skip((currentPage - 1) * perPage)
+        // .populate('comments', 'text created')
+        // .populate('comments.postedBy', '_id name')
+        .populate('author', '_id pseudo')
+        .sort({ date: -1 })
+        .limit(perPage)
+        .select('_id title body');
+    })
+    .then(posts => {
+      res.status(200).json(posts);
+    })
+    .catch(err => console.log(err));
 };
 
 export const createPost = async (req, res) => {
@@ -88,8 +112,8 @@ export const createPost = async (req, res) => {
 
 export const postsByUser = (req, res) => {
   Post.find({ author: req.profile._id })
-    .populate("author", "_id pseudo")
-    .sort("date")
+    .populate('author', '_id pseudo')
+    .sort('date')
     .exec((err, posts) => {
       if (err) {
         Logger.error(
@@ -105,7 +129,8 @@ export const postsByUser = (req, res) => {
 
 export const isPoster = (req, res, next) => {
   const sameUser = req.post && req.auth && req.post.author._id == req.auth._id;
-  const adminUser = req.post && req.auth && req.auth.right === process.env.ADMIN_TITLE;
+  const adminUser =
+    req.post && req.auth && req.auth.right === process.env.ADMIN_TITLE;
   const isPoster = sameUser || adminUser;
 
   Logger.debug(`
@@ -176,11 +201,13 @@ export const deletePost = (req, res) => {
 };
 
 export const postPhoto = (req, res, next) => {
-  res.set("Content-Type", req.post.photo.contentType);
+  res.set('Content-Type', req.post.photo.contentType);
   return res.send(req.post.photo.data);
 };
 
 export const displayPost = (req, res) => {
-  Logger.verbose(`${logMoment.dateAndTime}: inside displayPost function in post controller`)
+  Logger.verbose(
+    `${logMoment.dateAndTime}: inside displayPost function in post controller`
+  );
   return res.json(req.post);
 };
