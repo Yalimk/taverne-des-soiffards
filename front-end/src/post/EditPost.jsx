@@ -178,14 +178,8 @@ class EditPost extends Component {
 
   render() {
     const { id, title, body, redirectionProfile, error, loading } = this.state;
-    console.log("id inside render de EditPost: ", id);
-    // console.log("user._id inside render: ", isLoggedIn().user._id);
-    // console.log("user inside render: ", isLoggedIn().user);
 
     if (redirectionProfile) {
-      // console.log(`redirection vers /user/${isLoggedIn().user._id}` );
-      // console.log(`redirection bis vers ${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}` );
-      // <Redirect to={`${process.env.REACT_APP_API_URI}/user/${isLoggedIn().user._id}`}/>;
       return <Redirect to={`/post/${id}`} />;
     }
     if (id) {

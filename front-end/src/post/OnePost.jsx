@@ -58,13 +58,11 @@ class OnePost extends Component {
   renderPost = (post) => {
     const posterId = post.author ? `/user/${post.author._id}` : "";
     const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
-    // console.log("post dans renderPost", post);
-    // console.log("post._id dans renderPost", post._id);
+
     return (
       <div className="card col-12" style={{ backgroundColor: "#D5E5F2" }}>
         <div className="card-body">
           <img
-            // src={`${defaultPostPic}`}
             src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
             onError={(img) => (img.target.src = `${defaultPostPic}`)}
             className="img-thumbnail mb-3"
@@ -125,7 +123,15 @@ class OnePost extends Component {
           <div>
             {isLoggedIn().user &&
               isLoggedIn().user.right === "Roi des Pirates" && (
-                <div className="card mt-5">
+                <div
+                  className="card mt-5 jumbotron"
+                  style={{
+                    boxShadow: "3px 3px 10px grey",
+                    borderRadius: "10%",
+                    backgroundColor: "#D9D9D9",
+                    padding: "32px"
+                  }}
+                >
                   <div className="card-body">
                     <h5
                       className="card-title mb-3"

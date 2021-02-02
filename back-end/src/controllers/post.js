@@ -3,8 +3,10 @@ import formidable from 'formidable';
 import _ from 'lodash';
 import fs from 'fs';
 
-// Personal modules import
+// Models import
 import Post from '../models/post.js';
+
+// Personal modules import
 import { Logger, logMoment } from '../logger/logger.js';
 
 export const postById = (req, res, next, id) => {
@@ -24,23 +26,6 @@ export const postById = (req, res, next, id) => {
       next();
     });
 };
-
-// export const getPosts = async (req, res) => {
-//   try {
-//     const posts = await Post.find()
-//       .populate('author', '_id pseudo right')
-//       .select('_id title body created')
-//       .sort({ created: -1 });
-//     return res.json(posts);
-//   } catch (error) {
-//     Logger.error(
-//       `${logMoment.dateAndTime} : La méthode getPosts a rencontré une erreur: ${error}.`
-//     );
-//     return res.status(400).json({
-//       error: error,
-//     });
-//   }
-// };
 
 export const getPosts = async (req, res) => {
   const currentPage = req.query.page || 1;

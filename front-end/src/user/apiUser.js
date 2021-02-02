@@ -16,6 +16,19 @@ export const read = async (userId, token) => {
   }
 };
 
+// export const usersPerPage = async (page) => {
+//   try {
+//     const response = await fetch(`${process.env.REACT_APP_API_URI}/users/?page=${page}`, {
+//       method: "GET",
+//     });
+//     return response.json();
+//   } catch (error) {
+//     return console.error(
+//       `Couldn't get response from api because of error: ${error}.`
+//       );
+//     }
+// };
+
 export const listAllUsers = async () => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/users`, {

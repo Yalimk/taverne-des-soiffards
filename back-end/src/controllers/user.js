@@ -3,27 +3,28 @@ import _ from 'lodash';
 import formidable from 'formidable';
 import fs from 'fs';
 
-// Personal modules import
+// Models import
 import User from '../models/user.js';
+
+// Personal modules import
 import { Logger, logMoment } from '../logger/logger.js';
 
 export const userById = (req, res, next, userId) => {
   User.findById(userId)
-  .exec((err, user) => {
-    if (err || !user) {
-      return res.status(400).json({
-        error: `Ce pirate n'existe pas ou une erreur s'est produite.`
-      })
-    }
-    req.profile = user;
-    next();
-  });
+    .exec((err, user) => {
+      if (err || !user) {
+        return res.status(400).json({
+          error: `Ce pirate n'existe pas ou une erreur s'est produite.`
+        })
+      }
+      req.profile = user;
+      next();
+    });
 };
 
 export const hasAuthorization = (req, res, next) => {
   const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
   const adminUser = req.profile && req.auth && req.auth.right === process.env.ADMIN_TITLE;
-  
   const authorized = sameUser || adminUser;
 
   // Logger.debug(`${logMoment.dateAndTime}: 
@@ -44,17 +45,35 @@ export const hasAuthorization = (req, res, next) => {
   next();
 };
 
-export const allUsers = (req, res) => {
-  User.find((err, users) => {
-    if (err) {
-      // Logger.error(`${logMoment.dateAndTime} : [back-end/src/controllers/user.js => allUsers:51] : error: ${err}.`);
-      return res.status(400).json({
-        error: err
-      });
-    }
-    return res.json(users);
-  })
+export const allUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find()
+    return res.json(allUsers);
+  } catch (error) {
+    Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
+  }
 };
+
+// export const allUsers = async (req, res) => {
+//   const currentPage = req.query.page || 1;
+//   const perPage = process.env.PER_PAGE || 1;
+//   let totalUsers;
+
+//   const posts = await User.find()
+//     .countDocuments()
+//     .then(count => {
+//       totalUsers = count;
+//       return User.find()
+//         .skip((currentPage - 1) * perPage)
+//         .limit(perPage)
+//         // .sort({ created: -1 })
+//         .select('_id pseudo email');
+//     })
+//     .then(users => {
+//       return res.json(users);
+//     })
+//     .catch(err => console.log(err));
+// };
 
 export const getUser = (req, res) => {
   req.profile.hashed_password = undefined;
@@ -63,9 +82,7 @@ export const getUser = (req, res) => {
 };
 
 export const updateUser = (req, res, next) => {
-  let form = formidable({multiples: true});
-  // let form = new formidable.IncomingForm();
-  // form.keepExtensions = true;
+  let form = formidable({ multiples: true });
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
@@ -88,8 +105,7 @@ export const updateUser = (req, res, next) => {
       }
       user.hashed_password = undefined;
       user.salt = undefined;
-      res.json(user);
-      // Logger.debug(`${logMoment.dateAndTime}:[back-end/src/controllers/user.js => updateUser:95] : updatedUser: ${updatedUser}`);
+      return res.json(user);
     })
   })
 };

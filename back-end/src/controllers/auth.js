@@ -4,8 +4,10 @@ import expressJwt from 'express-jwt';
 import dotenv from 'dotenv';
 import _ from 'lodash';
 
-// Personal modules import
+// Models import
 import User from '../models/user.js';
+
+// Personal modules import
 import { Logger, logMoment } from '../logger/logger.js';
 import { sendEmail } from '../helpers/HELPERS.js';
 

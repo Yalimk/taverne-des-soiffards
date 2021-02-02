@@ -22,6 +22,20 @@ APP_NAME=TAVERNE-DES-SOIFFARDS
 REACT_APP_API_URI=http://localhost:9092/tds
 ```
 
+Une fois ces fichiers créés, il faudra ouvrir deux fenêtres dans votre terminal, et exécuter les commandes suivantes une fois positionné à l'endroit où vous avez cloné les dossiers :
+```bash
+cd back-end
+npm install
+npm start
+```
+
+Puis
+```bash
+cd front-end
+npm install
+npm start
+```
+
 ## Explication du projet
 
 Ceci est le dernier projet à réalisé pour valider la formation de reconversion que j'ai entamée en juin 2020. 
@@ -49,7 +63,11 @@ Bravo ! Vous venez de rejoindre la guilde, et on vous a donné le lien vers La T
 
 ### Gestion du profil
 
-Dans votre page de profil, vous pourrez modifier les informations relatives à votre compte, à savoir votre mot de passe, vos nom et prénom, l'adresse e-mail liée à votre compte, votre photo de profil, etc. Les autres utilisateurs seront également en mesure de laisser des messages sur votre page de profil, et c'est sur votre page de profil que vous pourrez y répondre.
+Dans votre page de profil, vous pourrez modifier les informations relatives à votre compte, à savoir votre mot de passe, vos nom et prénom, l'adresse e-mail liée à votre compte, votre photo de profil, etc. 
+
+### Publication de messages
+
+Vous aurez la possibilité, une fois connecté, d'envoyer des publications (pouvant contenir une image) qui seront visibles depuis l'ongle "Messages" du menu de navigation. Tous les messages de tous les utilisateurs seront recensés sur cette page.
 
 ### Tchat en direct
 
@@ -105,7 +123,7 @@ export const remove = async (postId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return await response.json();
+    return response.json();
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
@@ -133,32 +151,6 @@ Lorsque je charge les pages qui contiennent une photo, je reçois une erreur GET
 8. L'id de la photo est render deux fois : première fois il est à "null/undefined" et la deuxième fois (au chargement de la page) il a bien la valeur de postId. J'obtiens une erreur :
 ```bash
 GET http://localhost:9092/post/photo/ 400 (Bad Request)
-Image (async)		
-setValueForProperty	@	react-dom.development.js:683
-setInitialDOMProperties	@	react-dom.development.js:8931
-setInitialProperties	@	react-dom.development.js:9135
-finalizeInitialChildren	@	react-dom.development.js:10201
-completeWork	@	react-dom.development.js:19470
-completeUnitOfWork	@	react-dom.development.js:22815
-performUnitOfWork	@	react-dom.development.js:22787
-workLoopSync	@	react-dom.development.js:22707
-renderRootSync	@	react-dom.development.js:22670
-performSyncWorkOnRoot	@	react-dom.development.js:22293
-scheduleUpdateOnFiber	@	react-dom.development.js:21881
-updateContainer	@	react-dom.development.js:25482
-(anonymous)	@	react-dom.development.js:26021
-unbatchedUpdates	@	react-dom.development.js:22431
-legacyRenderSubtreeIntoContainer	@	react-dom.development.js:26020
-render	@	react-dom.development.js:26103
-(anonymous)	@	index.jsx:8
-./src/index.jsx	@	index.jsx:10
-__webpack_require__	@	bootstrap:851
-fn	@	bootstrap:150
-1	@	apiUser.js:80
-__webpack_require__	@	bootstrap:851
-checkDeferredModules	@	bootstrap:45
-webpackJsonpCallback	@	bootstrap:32
-(anonymous)	@	main.chunk.js:1
 
 ``` 
 9. Je pense qu'il n'y a pas grand chose que je puisse faire pour ça, à part implémenter une condition avant l'envoi des requêtes fetch de récupération des photos des posts. Du style :
@@ -197,6 +189,9 @@ Je ne vois pas du tout pourquoi j'ai cette erreur...
 
 ### Update problème 6 :
 
+1. Le problème vient peut-être des routes utilisées. Non, j'ai vérifié, les routes sont correctes.
+2. Le front-end n'a peut-être pas les données à envoyer. Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
+3. J'ai peut-être fait une faute de frappe. Non, j'ai vérifier, aucune faute de frappe.
 
 ------------------------------------------------
  

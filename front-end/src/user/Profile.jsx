@@ -156,7 +156,10 @@ class Profile extends Component {
                       className="card mt-5 jumbotron"
                       style={{
                         boxShadow: "3px 3px 10px grey",
-                        borderRadius: "10%",                
+                        borderRadius: "10%", 
+                        backgroundColor:"#D9D9D9",
+                        padding: "32px"
+
                       }}
                     >
                       <div className="card-body">
