@@ -127,10 +127,13 @@ class OnePost extends Component {
               isLoggedIn().user.right === "Roi des Pirates" && (
                 <div className="card mt-5">
                   <div className="card-body">
-                    <h5 className="card-title">Interface du Roi des Pirates</h5>
-                    <p className="mb-2 text-danger">
-                      Modifier/Supprimer en tant que Roi
-                    </p>
+                    <h5
+                      className="card-title mb-3"
+                      style={{ color: "#9662E3", fontWeight: "bold" }}
+                    >
+                      Interface du Roi des Pirates
+                    </h5>
+
                     <Link
                       to={`/post/edit/${post._id}`}
                       className="btn btn-raised btn-info mr-5"

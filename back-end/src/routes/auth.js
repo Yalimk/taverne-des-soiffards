@@ -1,6 +1,6 @@
 // Native modules import
-import express from "express";
-import { check, body, validationResult } from "express-validator";
+import express from 'express';
+import { check, body, validationResult } from 'express-validator';
 
 // Personal modules import
 import {
@@ -9,17 +9,21 @@ import {
   signout,
   forgotPassword,
   resetPassword,
-} from "../controllers/auth.js";
-import { userById } from "../controllers/user.js";
+} from '../controllers/auth.js';
+import { userById } from '../controllers/user.js';
 
 // Constants declaration
 const router = express.Router();
 
+// Routes for password reset
+router.put('/reset-password', resetPassword);
+router.put('/forgot-password', forgotPassword);
+
 // Route for user sign up
 router.post(
-  "/signup",
-  body("pseudo", "Il te faut un pseudonyme, moussaillon !").notEmpty(),
-  body("pseudo")
+  '/signup',
+  body('pseudo', 'Il te faut un pseudonyme, moussaillon !').notEmpty(),
+  body('pseudo')
     .isLength({
       min: 4,
       max: 30,
@@ -29,20 +33,20 @@ router.post(
     )
     .trim(),
   body(
-    "email",
-    "Tu dois impérativement renseigner un courrier de contact, flibustier !"
+    'email',
+    'Tu dois impérativement renseigner un courrier de contact, flibustier !'
   ).notEmpty(),
-  body("email")
+  body('email')
     .isEmail()
     .withMessage(
-      "Ton courrier de contact doit contenir un @ et une extension (.fr, .com, .pirate), moussaillon !"
+      'Ton courrier de contact doit contenir un @ et une extension (.fr, .com, .pirate), moussaillon !'
     )
     .normalizeEmail(),
   body(
-    "password",
+    'password',
     `Il te faut un mot de passe pour pouvoir t'identifier par la suite !`
   ).notEmpty(),
-  body("password")
+  body('password')
     .matches(
       /^(?=(?:[^A-Z]*[A-Z]){1,}(?![^A-Z]*[A-Z]))(?=(?:[^a-z]*[a-z]){1,}(?![^a-z]*[a-z]))(?=(?:[^0-9]*[0-9]){1,}(?![^0-9]*[0-9]))(?=(?:[^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]){1,}(?![^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])).{8,}$/
     )
@@ -63,15 +67,15 @@ router.post(
 
 // Route for user sign in
 router.post(
-  "/signin",
-  check("email")
+  '/signin',
+  check('email')
     .notEmpty()
     .isEmail()
     .withMessage(
       `Ne me prends pas pour un louveteau de mer, ceci n'est pas une adresse de courrier électronique !`
     )
     .normalizeEmail(),
-  check("password")
+  check('password')
     .notEmpty()
     .withMessage(
       `Je dois vérifier que tu n'es pas un espion à la solde du gouvernement ! Donne ton mot de passe !`
@@ -79,14 +83,20 @@ router.post(
   signin
 );
 
-router.put("/forgot-password", forgotPassword);
-router.put(
-  "/reset-password",
+
+
+// Route for user sign out
+router.get('/signout', signout);
+
+// Router to check for user id in parameters
+router.param('userId', userById);
+
+export default router;
   // body(
-  //   "password",
-  //   "Tu dois renseigner un mot de passe pour... changer ton mot de passe, moussaillon !"
+  //   'password',
+  //   'Tu dois renseigner un mot de passe pour... changer ton mot de passe, moussaillon !'
   // ).notEmpty(),
-  // body("password")
+  // body('password')
   //   .matches(
   //     /^(?=(?:[^A-Z]*[A-Z]){1,}(?![^A-Z]*[A-Z]))(?=(?:[^a-z]*[a-z]){1,}(?![^a-z]*[a-z]))(?=(?:[^0-9]*[0-9]){1,}(?![^0-9]*[0-9]))(?=(?:[^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]){1,}(?![^!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]*[!'#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])).{8,}$/
   //   )
@@ -102,13 +112,7 @@ router.put(
   //   }
   //   next();
   // },
-  resetPassword
-);
+  
 
-// Route for user sign out
-router.get("/signout", signout);
 
-// Router to check for user id in parameters
-router.param("userId", userById);
 
-export default router;

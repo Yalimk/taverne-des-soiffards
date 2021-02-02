@@ -53,7 +53,7 @@ class Users extends Component {
             >
               <img
                 style={{
-                  height: "400px",
+                  height: "auto",
                   width: "auto",
                   marginTop: "15px",
                   borderRadius: "25%",

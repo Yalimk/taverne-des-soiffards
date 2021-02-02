@@ -149,9 +149,10 @@ export const forgotPassword = (req, res) => {
 // Function allowing the user to reset their password
 export const resetPassword = (req, res) => {
   const { resetPasswordLink, newPassword} = req.body;
-  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : req.body: ${JSON.stringify(req.body)}.`)
-  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : newPassword: ${newPassword}.`)
-  Logger.silly(`${logMoment.dateAndTime}: [auth resetPassword (back-end)] : resetPasswordLink: ${resetPasswordLink}.`)
+  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : req.files: ${JSON.stringify(req.files)}.`)
+  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : req.body: ${JSON.stringify(req.body)}.`)
+  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : newPassword: ${newPassword}.`)
+  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : resetPasswordLink: ${resetPasswordLink}.`)
   User.findOne({resetPasswordLink}, (err, user) => {
     if (err || !user) {
       Logger.debug(` [auth resetPassword (back-end)] : inside if (err || !user)`)

@@ -24,19 +24,18 @@ import { checkSigninToken } from './src/Controllers/auth.js';
 
 // Constants definition
 const app = express();
-const errorTypes = ['unhandledRejection', 'uncaughtException'];
 
 // Middlewares definition
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(checkSigninToken);
 app.use('/tds', authRoutes);
 app.use('/tds', postRoutes);
 app.use('/tds', userRoutes);
-app.use(checkSigninToken);
-app.use('/css', express.static('public/assets/css'));
-app.use('/img', express.static('public/images'));
+// app.use('/css', express.static('public/assets/css'));
+// app.use('/img', express.static('public/images'));
 app.use(favicon('public/images/favicon.png'));
 
 // Connection to MongoDB Atlas database
@@ -72,14 +71,15 @@ app.listen(process.env.PORT, () => {
 });
 
 // Handling different types of errors and logging to log files
-errorTypes.map((type) => {
-  process.on(type, async () => {
-    try {
-      Logger.error(`${logMoment.dateAndTime}: Error of type process.on ${type} occurred.`);
-      process.exit(0);
-    } catch (_) {
-      Logger.error(`${logMoment.dateAndTime}: Encountered an error of type ${_.message}.`);
-      process.exit(1);
-    }
-  });
-});
+// const errorTypes = ['unhandledRejection', 'uncaughtException'];
+// errorTypes.map((type) => {
+//   process.on(type, async () => {
+//     try {
+//       Logger.error(`${logMoment.dateAndTime}: Error of type process.on ${type} occurred.`);
+//       process.exit(0);
+//     } catch (_) {
+//       Logger.error(`${logMoment.dateAndTime}: Encountered an error of type ${_.message}.`);
+//       process.exit(1);
+//     }
+//   });
+// });
