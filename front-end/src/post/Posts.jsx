@@ -62,9 +62,10 @@ class Posts extends Component {
 
   componentDidMount() {
     this.loadPosts(this.state.page);
-  };
+  }
 
   renderPosts = (posts) => {
+    console.log("posts.length", posts.length);
     return (
       <div className="row" style={{ justifyContent: "center" }}>
         {posts.map((post, i) => {
@@ -81,25 +82,29 @@ class Posts extends Component {
                 marginBottom: "30px",
                 boxShadow: "3px 3px 5px grey",
                 width: "300px",
+                borderRadius: "3%"
               }}
             >
-              <div className="card-body" key={i}>
+              <div className="card-body text-center" key={i}>
                 <img
                   className="img-thumbnail mb-3"
-                  style={{ height: "auto", width: "auto", borderRadius: "50%" }}
+                  style={{ height: "auto", width: "auto" }}
                   src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
                   alt={post.title}
                   onError={(img) => (img.target.src = `${defaultPostPic}`)}
                 />
-                <h5 className="card-title text-center font-weight-bold">{post.title}</h5>
-                <p className="card-text text-justify lead">{post.body.substring(0, 50)}</p>
-                <br />
-                <p className="font-italic mark">
-                  Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
-                  {new Date(post.created).toLocaleDateString()}
-                </p>
               </div>
-
+              <hr />
+              <h5 className="card-title text-center font-weight-bold">
+                {post.title}
+              </h5>
+              <p className="card-text text-justify lead">
+                {post.body.substring(0, 50)}
+              </p>
+              <p className="font-italic">
+                Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
+                {new Date(post.created).toLocaleDateString()}
+              </p>
               <Link
                 to={`/post/${post._id}`}
                 className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
@@ -130,7 +135,7 @@ class Posts extends Component {
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
                 onClick={() => this.getLessPosts(1)}
-                style={{boxShadow: "3px 3px 5px grey"}}
+                style={{ boxShadow: "3px 3px 5px grey" }}
               >
                 Page précédente
               </button>
@@ -140,11 +145,11 @@ class Posts extends Component {
           </div>
 
           <div className="col text-left">
-            {posts.length > page ? (
+            {posts.length ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
                 onClick={() => this.getMorePosts(1)}
-                style={{boxShadow: "3px 3px 5px grey"}}
+                style={{ boxShadow: "3px 3px 5px grey" }}
               >
                 Page suivante
               </button>

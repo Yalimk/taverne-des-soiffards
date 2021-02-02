@@ -32,7 +32,7 @@ class EditProfile extends Component {
           redirectionProfile: true,
         };
       } else {
-        console.log('[front-end/src/user/EditProfile => init => data: ', data)
+        console.log("[front-end/src/user/EditProfile => init => data: ", data);
         this.setState({
           id: data._id,
           pseudo: data.pseudo,
@@ -44,7 +44,9 @@ class EditProfile extends Component {
         });
       }
     } catch (error) {
-      console.error(`The init method encountered the following error: ${error}`);
+      console.error(
+        `The init method encountered the following error: ${error}`
+      );
     }
   };
 
@@ -65,8 +67,7 @@ class EditProfile extends Component {
   handleChange = (name) => (event) => {
     this.setState({ error: "" });
     const value = name === "photo" ? event.target.files[0] : event.target.value;
-    const fileSize =
-      name === "photo" ? event.target.files[0].size : 0;
+    const fileSize = name === "photo" ? event.target.files[0].size : 0;
     this.userData.set(name, value);
     this.setState({
       [name]: value,
@@ -75,7 +76,15 @@ class EditProfile extends Component {
   };
 
   isValid = () => {
-    const { pseudo, email, password, fileSize, about, hobbies, role } = this.state;
+    const {
+      pseudo,
+      email,
+      password,
+      fileSize,
+      about,
+      hobbies,
+      role,
+    } = this.state;
     if (
       pseudo.length === 0 &&
       email.length === 0 &&
@@ -290,7 +299,6 @@ class EditProfile extends Component {
       return <Redirect to={`/user/${id}`} />;
     }
 
-    // Removed this bit of code form the photoUri ?${new Date().getTime()}
     const photoUri = id
       ? `${
           process.env.REACT_APP_API_URI
@@ -313,7 +321,7 @@ class EditProfile extends Component {
         ) : (
           ""
         )}
-        
+
         <img
           style={{ height: "200px", width: "auto" }}
           className="img-thumbnail"
@@ -321,8 +329,9 @@ class EditProfile extends Component {
           onError={(img) => (img.target.src = defaultProfilePic)}
           alt={pseudo}
         />
-
-        {this.updateForm(pseudo, email, password, about, role, hobbies)}
+        {isLoggedIn().user.right === "Roi des Pirates" ||
+          (isLoggedIn().user._id === id &&
+            this.signupForm(pseudo, email, password, about, role, hobbies))}
       </div>
     );
   }

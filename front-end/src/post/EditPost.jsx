@@ -31,7 +31,7 @@ class EditPost extends Component {
   // }
 
   init = async (postId) => {
-    console.info(`postId dans la méthode init de EditPost : ${postId}`);
+    console.info(`[front-end/src/post/EditPost.jsx => init:34] : postId: ${postId}`);
     try {
       const data = await viewPost(postId);
       if (data.error) {
@@ -41,10 +41,10 @@ class EditPost extends Component {
         });
       } else {
         console.info(
-          `data.author._id dans la méthode init de EditPost : ${data.author._id}`
+          `[front-end/src/post/EditPost.jsx => init:44] : data.author._id: ${data.author._id}`
         );
         this.setState({
-          id: data._id,
+          id: data.author._id,
           title: data.title,
           body: data.body,
           error: "",
@@ -52,7 +52,7 @@ class EditPost extends Component {
       }
     } catch (error) {
       console.error(
-        `The init method inside EditPost encountered the following error: ${error}`
+        `[front-end/src/post/EditPost.jsx => catch:55] : error:  ${error}`
       );
     }
   };
@@ -107,7 +107,7 @@ class EditPost extends Component {
     this.setState({ [name]: value, fileSize });
   };
 
-  submitUpdate = async (event) => {
+  submitPostUpdate = async (event) => {
     event.preventDefault();
     this.setState({ loading: true });
 
@@ -168,7 +168,7 @@ class EditPost extends Component {
       </div>
 
       <button
-        onClick={this.submitUpdate}
+        onClick={this.submitPostUpdate}
         className="btn btn-raised btn-primary"
       >
         Envoyer
@@ -247,7 +247,8 @@ class EditPost extends Component {
 
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
-            {this.postUpdateForm(title, body)}
+            {isLoggedIn().user.right === "Roi des Pirates" ||
+              (isLoggedIn().user._id === id && this.submitPostUpdate(title, body))}
           </div>
         </div>
       );

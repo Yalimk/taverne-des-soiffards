@@ -43,7 +43,7 @@ export const getPosts = async (req, res) => {
         .populate('author', '_id pseudo')
         .sort({ date: -1 })
         .limit(perPage)
-        .select('_id title body');
+        .select('_id title body photo created updated');
     })
     .then(posts => {
       res.status(200).json(posts);

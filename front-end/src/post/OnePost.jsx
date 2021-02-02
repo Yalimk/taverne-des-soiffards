@@ -60,8 +60,8 @@ class OnePost extends Component {
     const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
 
     return (
-      <div className="card col-12" style={{ backgroundColor: "#D5E5F2" }}>
-        <div className="card-body">
+      <div className="card col-12" style={{ backgroundColor: "#D9D9D9" }}>
+        <div className="card-body text-center">
           <img
             src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
             onError={(img) => (img.target.src = `${defaultPostPic}`)}
@@ -69,21 +69,20 @@ class OnePost extends Component {
             style={{ height: "auto", width: "auto", objectFit: "cover" }}
             alt={post.title}
           />
-          <h2 className="mt-3 mb-3 display-2">{post.title}</h2>
-          <p className="card-text lead" style={{ padding: "20px" }}>
-            {post.body}
-          </p>
-          <br />
-          <p className="font-italic mark">
-            Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
-            {new Date(post.created).toLocaleDateString()}
-          </p>
         </div>
-
+        <hr />
+        <h2 className="mt-3 mb-3 display-2 text-center">{post.title}</h2>
+        <p className="card-text text-justify lead" style={{ padding: "20px" }}>
+          {post.body}
+        </p>
+        <p className="font-italic">
+          Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
+          {new Date(post.created).toLocaleDateString()}
+        </p>
         <div className="inline-block">
           <Link
             to={`/posts`}
-            className="btn btn-raised btn-primary mr-5 btn-sm"
+            className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
             style={{
               fontWeight: "bold",
               fontSize: "1.1rem",
@@ -129,7 +128,7 @@ class OnePost extends Component {
                     boxShadow: "3px 3px 10px grey",
                     borderRadius: "10%",
                     backgroundColor: "#D9D9D9",
-                    padding: "32px"
+                    padding: "32px",
                   }}
                 >
                   <div className="card-body">

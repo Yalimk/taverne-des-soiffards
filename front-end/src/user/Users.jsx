@@ -79,8 +79,11 @@ class Users extends Component {
                 marginRight: "30px",
                 marginBottom: "30px",
                 boxShadow: "3px 3px 5px grey",
+                borderRadius: "3%"
               }}
             >
+
+              <div className="card-body text-center" key={i}>
               <img
                 style={{
                   height: "auto",
@@ -93,14 +96,12 @@ class Users extends Component {
                 className="img-thumbnail mb-3"
                 alt={pseudo}
               />
-
-              <div className="card-body d-flex flex-column" key={i}>
+              </div>
+                <hr/>
                 <h5 className="card-title text-center font-weight-bold">
                   {pseudo}
                 </h5>
                 <p className="card-text text-justify lead">{about}</p>
-              </div>
-
               <Link
                 to={`/user/${_id}`}
                 className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold"
