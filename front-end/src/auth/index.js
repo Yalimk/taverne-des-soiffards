@@ -68,7 +68,7 @@ export const forgotPassword = async (email) => {
   );
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URI}/forgot-password/`,
+      `${process.env.REACT_APP_API_URI}/forgot-password`,
       {
         method: "PUT",
         headers: {
@@ -79,7 +79,7 @@ export const forgotPassword = async (email) => {
       }
     );
     console.log('[auth/index.js forgotPassword (front-end)] : response: ', response);
-    return await response.json();
+    return response.json();
   } catch (error) {
     console.error(
       `The method forgotPassword encountered an error of type: ${error}.`
@@ -90,7 +90,7 @@ export const forgotPassword = async (email) => {
 export const resetPassword = async (newCredentials) => {
   console.log(`[auth/index.js resetPassword (front-end)] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password`, {
       method: "PUT",
       header: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ export const resetPassword = async (newCredentials) => {
       body: JSON.stringify(newCredentials)
     });
     console.log('[index.js resetPassword (front-end)] : response: ', response);
-    return await response.json();
+    return response.json();
   } catch (error) {
     console.error(`The method resetPassword inside auth/index encountered and error of type: ${error}.`)
   }

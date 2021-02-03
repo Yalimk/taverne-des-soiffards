@@ -56,7 +56,7 @@ export const hasAuthorization = (req, res, next) => {
 
 export const allUsers = async (req, res) => {
   const currentPage = req.query.page || 1;
-  const perPage = Number(process.env.PER_PAGE) || 1;
+  const perPage = Number(process.env.PER_PAGE) || 3;
   let totalUsers;
 
   const posts = await User.find()
@@ -67,7 +67,7 @@ export const allUsers = async (req, res) => {
         .skip((currentPage - 1) * perPage)
         .limit(perPage)
         .sort({ created: -1 })
-        .select('_id pseudo email about role hobbies photo');
+        .select('_id pseudo email about role hobbies photo right'); // added right 03/02 13h42
     })
     .then(users => {
       return res.json(users);

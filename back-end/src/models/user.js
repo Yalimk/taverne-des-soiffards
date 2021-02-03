@@ -62,7 +62,7 @@ userSchema
     this.salt = uuidv4();
     this.hashed_password = this.encryptPassword(password);
   })
-  .get(() => {
+  .get(function() {
     return this._password;
   });
   

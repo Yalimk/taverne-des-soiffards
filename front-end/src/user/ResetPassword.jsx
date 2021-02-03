@@ -6,38 +6,45 @@ import { Redirect } from "react-router-dom";
 import { resetPassword } from "../auth/index";
 
 class ResetPassword extends Component {
-  state = {
-    newPassword: "",
-    message: "",
-    error: "",
-    redirectionHome: false,
-  };
+  // state = {
+  //   newPassword: "",
+  //   message: "",
+  //   error: "",
+  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      newPassword: "",
+      message: "",
+      error: "",
+    };
+  }
 
   resetPassword = async (event) => {
     event.preventDefault();
     this.setState({ message: "", error: "" });
     try {
-      console.info(
-        `[ResetPassword resetPassword front-end] : newPassword (avant le fetch): ${this.state.newPassword}`
-      );
-      console.info(
-        `[ResetPassword resetPassword front-end] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
-      );
+      // console.info(
+      //   `[front-end/src/user/ResetPassword => resetPassword:21] : newPassword (avant le fetch): ${this.state.newPassword}`
+      // );
+      // console.info(
+      //   `[front-end/src/user/ResetPassword => resetPassword:24] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
+      // );
       const data = await resetPassword({
         newPassword: this.state.newPassword,
         resetPasswordLink: this.props.match.params.resetPasswordToken,
       });
-      console.log(`[ResetPassword resetPassword front-end] : data: ${data}`);
+      // console.log(`[front-end/src/user/ResetPassword => resetPassword:30] : data: ${data}`);
       if (data.error) {
+        // console.error(
+        //   `[front-end/src/user/ResetPassword => resetPassword:34] : data.error: ${JSON.stringify(data.error)}`
+        // );
         this.setState({ error: data.error, newPassword: "" });
-        console.error(
-          `[ResetPassword resetPassword front-end] : data.error: ${data.error}`
-        );
       } else {
+        // console.info(
+        //   `[front-end/src/user/ResetPassword => resetPassword:39] : data.message: ${JSON.stringify(data.message)}`
+        // );
         this.setState({ message: data.message, newPassword: "" });
-        console.info(
-          `[ResetPassword resetPassword front-end] : data.message: ${data.message}`
-        );
       }
     } catch (error) {
       console.error(`Password couldn't be reset because of error: ${error}`);
@@ -45,16 +52,17 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { newPassword, redirectionHome, message, error } = this.state;
-    if (redirectionHome) {
-      return <Redirect to="/" />;
-    }
+    const { newPassword, message, error } = this.state;
+    // if (redirectionHome) {
+    //   return <Redirect to="/" />;
+    // }
+
     return (
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Modification du mot de passe</h2>
 
-        {message && <h5 className="alert alert-warning">{message}</h5>}
-        {error && <h5 className="alert alert-danger">{error}</h5>}
+        {/* {message && <h5 className="alert alert-success">{message}</h5>}
+        {error && <h5 className="alert alert-danger">{error}</h5>} */}
 
         <form>
           <div className="form-group mt-5">
