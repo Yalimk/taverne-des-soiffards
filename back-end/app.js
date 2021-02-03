@@ -8,8 +8,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
-// import * as SocketIO from 'socket.io';
-// import http from 'http';
+
 
 // Personal modules imports
 import { Logger, logMoment } from './src/Logger/logger.js';
@@ -57,7 +56,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 // apiDocs
-app.get('/', (req, res) => {
+app.get('/docs', (req, res) => {
   fs.readFile('Docs/api-docs.json', (err, data) => {
     if (err) {
       return res.status(400).json({
@@ -69,17 +68,20 @@ app.get('/', (req, res) => {
   })
 })
 
-/*const server = */app.listen(port, () => {
+app.listen(port, () => {
   Logger.info(`${logMoment.dateAndTime}: app listening on port ${port}.`);
 });
 
 // **************** Live chat code attempt ****************
 
+// Native modules import
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
 // Constants definition
-// Couldn't find how to import using ES6 syntax...
-// const io = require('socket.io')(server, {
-//   transports: ['websocket', 'polling']
-// });
+
+const httpServer = createServer();
+const io = new Server(httpServer)
 
 // const io = require('socket.io')(server);
 // const allPirates = {};

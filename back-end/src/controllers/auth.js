@@ -147,10 +147,10 @@ export const forgotPassword = (req, res) => {
 // Function allowing the user to reset their password
 export const resetPassword = (req, res) => {
   const { resetPasswordLink, newPassword} = req.body;
-  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : req.files: ${JSON.stringify(req.files)}.`)
-  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : req.body: ${JSON.stringify(req.body)}.`)
-  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : newPassword: ${newPassword}.`)
-  // Logger.silly(`${logMoment.dateAndTime}: [auth controller resetPassword (back-end)] : resetPasswordLink: ${resetPasswordLink}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:150] : req.files: ${JSON.stringify(req.files)}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:151] : req.body: ${JSON.stringify(req.body)}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:152] : newPassword: ${newPassword}.`)
+  Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:153] : resetPasswordLink: ${resetPasswordLink}.`)
   User.findOne({resetPasswordLink}, (err, user) => {
     if (err || !user) {
       // Logger.debug(` [auth resetPassword (back-end)] : inside if (err || !user)`)
@@ -163,13 +163,17 @@ export const resetPassword = (req, res) => {
       resetPasswordLink: ''
     }
     user = _.assignIn(user, fieldsToUpdate);
+    Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:166] : fieldsToUpdate: ${fieldsToUpdate}.`)
     user.updated = Date.now();
     user.save((err, savedUser) => {
+      Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:169] : at the start of user.save callback.`)
       if (err) {
+        Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:171] : inside user.save callback's if(err).`)
         return res.status(400).json({
           error: err
         })
       }
+      Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:169] : right before sending response at the end of user.save callback.`)
       res.json({
         message: `Ton mot de passe a bien été mis à jour, matelot ! Tu peux à présent te connecter à la Taverne !`
       });

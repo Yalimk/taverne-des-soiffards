@@ -6,19 +6,21 @@ import { Redirect } from "react-router-dom";
 import { resetPassword } from "../auth/index";
 
 class ResetPassword extends Component {
-  // state = {
-  //   newPassword: "",
-  //   message: "",
-  //   error: "",
-  // };
-  constructor(props) {
-    super(props);
-    this.state = {
-      newPassword: "",
-      message: "",
-      error: "",
-    };
-  }
+  state = {
+    newPassword: "",
+    message: "",
+    error: "",
+    redirectionHome: false,
+  };
+
+  handleChange = (event) => {
+    const newPassword = event.target.value;
+    this.setState({
+      newPassword: newPassword,
+      message: '',
+      error: ''
+    })
+};
 
   resetPassword = async (event) => {
     event.preventDefault();
@@ -44,7 +46,7 @@ class ResetPassword extends Component {
         // console.info(
         //   `[front-end/src/user/ResetPassword => resetPassword:39] : data.message: ${JSON.stringify(data.message)}`
         // );
-        this.setState({ message: data.message, newPassword: "" });
+        this.setState({ message: data.message, newPassword: "", redirectionHome: true });
       }
     } catch (error) {
       console.error(`Password couldn't be reset because of error: ${error}`);
@@ -52,17 +54,21 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { newPassword, message, error } = this.state;
-    // if (redirectionHome) {
-    //   return <Redirect to="/" />;
-    // }
+    const { newPassword, message, error, redirectionHome } = this.state;
+    console.log(`[front-end/src/user/ResetPassword => render:57] : message: ${message}`)
+    console.log(`[front-end/src/user/ResetPassword => render:58] : error: ${JSON.stringify(error)}`)
+    console.log(`[front-end/src/user/ResetPassword => render:59] : redirectionHome: ${redirectionHome}`)
+    console.log(`[front-end/src/user/ResetPassword => render:60] : newPassword: ${newPassword}`)
+    if (redirectionHome) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Modification du mot de passe</h2>
 
-        {/* {message && <h5 className="alert alert-success">{message}</h5>}
-        {error && <h5 className="alert alert-danger">{error}</h5>} */}
+        {message && <h5 className="alert alert-success">{message}</h5>}
+        {/* {error && <h5 className="alert alert-danger">{error}</h5>} */}
 
         <form>
           <div className="form-group mt-5">
@@ -72,13 +78,7 @@ class ResetPassword extends Component {
               placeholder="Choisis ton nouveau mot de passe... et tâche de le noter cette fois-ci, mille sabords !"
               value={newPassword}
               name="newPassword"
-              onChange={(event) =>
-                this.setState({
-                  newPassword: event.target.value,
-                  message: "",
-                  error: "",
-                })
-              }
+              onChange={this.handleChange}
               autoFocus
             />
           </div>

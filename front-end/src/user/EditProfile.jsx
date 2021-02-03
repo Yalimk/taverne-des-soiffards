@@ -303,38 +303,71 @@ class EditProfile extends Component {
       ? `${
           process.env.REACT_APP_API_URI
         }/user/photo/${id}?${new Date().getTime()}`
-      : defaultProfilePic;
+      : `${defaultProfilePic}`;
 
-    return (
-      <div className="container">
-        <h2 className="mt-5 mb-5">Edit Profile</h2>
-        <div
-          className="alert alert-danger"
-          style={{ display: error ? "" : "none" }}
-        >
-          {error}
-        </div>
-        {loading ? (
-          <div className="jumbotron text-center">
-            <h3>Chargement...</h3>
+    if (photoUri) {
+      return (
+        <div className="container">
+          <h2 className="mt-5 mb-5">Edit Profile</h2>
+          <div
+            className="alert alert-danger"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
           </div>
-        ) : (
-          ""
-        )}
-
-        <img
-          style={{ height: "200px", width: "auto" }}
-          className="img-thumbnail"
-          src={photoUri}
-          onError={(img) => (img.target.src = defaultProfilePic)}
-          alt={pseudo}
-        />
-        {/* {console.log('user.right', isLoggedIn().user.right)} */}
-        {(isLoggedIn().user.right === "Roi des Pirates" ||
-          isLoggedIn().user._id === id) &&
-            this.updateForm(pseudo, email, password, about, role, hobbies)}
-      </div>
-    );
+          {loading ? (
+            <div className="jumbotron text-center">
+              <h3>Chargement...</h3>
+            </div>
+          ) : (
+            ""
+          )}
+  
+          <img
+            style={{ height: "200px", width: "auto" }}
+            className="img-thumbnail"
+            src={photoUri}
+            onError={(img) => (img.target.src = `${defaultProfilePic}`)}
+            alt={pseudo}
+          />
+          {/* {console.log('user.right', isLoggedIn().user.right)} */}
+          {(isLoggedIn().user.right === "Roi des Pirates" ||
+            isLoggedIn().user._id === id) &&
+              this.updateForm(pseudo, email, password, about, role, hobbies)}
+        </div>
+      );
+    } else {
+      return (
+        <div className="container">
+          <h2 className="mt-5 mb-5">Edit Profile</h2>
+          <div
+            className="alert alert-danger"
+            style={{ display: error ? "" : "none" }}
+          >
+            {error}
+          </div>
+          {loading ? (
+            <div className="jumbotron text-center">
+              <h3>Chargement...</h3>
+            </div>
+          ) : (
+            ""
+          )}
+  
+          <img
+            style={{ height: "200px", width: "auto" }}
+            className="img-thumbnail"
+            src={photoUri}
+            onError={(img) => (img.target.src = `${defaultProfilePic}`)}
+            alt={pseudo}
+          />
+          {/* {console.log('user.right', isLoggedIn().user.right)} */}
+          {(isLoggedIn().user.right === "Roi des Pirates" ||
+            isLoggedIn().user._id === id) &&
+              this.updateForm(pseudo, email, password, about, role, hobbies)}
+        </div>
+      );
+    }
   }
 }
 
