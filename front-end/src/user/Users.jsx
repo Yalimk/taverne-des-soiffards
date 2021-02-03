@@ -87,7 +87,7 @@ class Users extends Component {
                 to={`/user/${_id}`}
                 className="btn btn-lg btn-block btn-outline-success text-center font-weight-bold mb-3"
               >
-                Visiter sa planque
+                Planque
               </Link>
             </div>
           );

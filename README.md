@@ -213,5 +213,13 @@ Si l'utilisateur modifie n'importe quelle information à part le mot de passe, t
 ### Update problème 8 :
 
 
+------------------------------------------------
+ 
+ ## Problème 9 : Connexion websocket front-back impossible
+
+La connexion websocket entre le front et le back ne s'établit pas du tout.
+
+### Update problème 9 :
+
 
 ------------------------------------------------

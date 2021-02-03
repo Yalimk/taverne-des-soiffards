@@ -30,8 +30,8 @@ class AdminInterface extends Component {
     return (
       <div>
         <div className="jumbotron">
-          <h2>Planque du Roi des Pirates</h2>
-          <p className="lead">
+          <h2 className="text-center">Planque du Roi des Pirates</h2>
+          <p className="lead text-justify">
             Ici, vous avez tous les pouvoirs, mouhahahahaha ! *tousse*
             Plus sérieusement, tu es ici dans le panneau d'aministration du site.
             Si tu es ici, c'est qu'apparemment quelqu'un te pensait digne...
@@ -44,13 +44,13 @@ class AdminInterface extends Component {
         </div>
         <div className="container-fluid jumbotron">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-6 text-center">
               <h2>Tous les messages des Pirates</h2>
               <hr />
               <Posts />
               <hr />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 text-center">
               <h2>Tous les Pirates (tes sujets)</h2>
               <hr />
               <Users />
