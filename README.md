@@ -38,7 +38,7 @@ npm start
 
 ## Explication du projet
 
-Ceci est le dernier projet à réalisé pour valider la formation de reconversion que j'ai entamée en juin 2020. 
+Ceci est le dernier projet ç réaliser pour valider la formation de reconversion que j'ai entamée en juin 2020. 
 L'idée était pour moi de développer des compétences que je ne maîtrisais pas, et que je n'avais pas eu l'occasion de voir au cours de la formation, à savoir l'utilisation de React, de Mongoose pour la connection à une base de données (pas nécessaire, mais vu un peu partout, donc utile à connaître).
 
 Egalement, je souhaitais profiter de l'opportunité que représente la réalisation de ce projet pour mettre en pratique ce que j'ai appris durant mon stage en entreprise, en particulier concernant la structuration d'un projet.
