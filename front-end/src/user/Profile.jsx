@@ -201,9 +201,9 @@ class Profile extends Component {
         <div className="container">
           <h3 className="mb-5 mt-5">{pseudo}</h3>
           <div className="row">
-            <div className="col-md-4">
+          <div className="col-md-4">
               <img
-                style={{ height: "300px", width: "auto", borderRadius: "50%" }}
+                style={{ height: "300px", width: "auto", borderRadius: "25%" }}
                 className="img-thumbnail"
                 src={`${defaultProfilePic}`}
                 onError={(img) => (img.target.src = `${defaultProfilePic}`)}
@@ -213,12 +213,25 @@ class Profile extends Component {
 
             <div className="col-md-8">
               <div className="lead mt-2">
-                <p>{`Inscription : ${new Date(
-                  created
-                ).toLocaleDateString()}`}</p>
-                <p style={{ color: "#5E8C5D" }}>{`E-mail : ${email}`}</p>
-                {/* <p style={{color: "#5E8C5D"}}>{`Rôle favori : ${role}`}</p>
-                <p style={{color: "#5E8C5D"}}>{`Hobbies : ${hobbies}`}</p> */}
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Inscription :&nbsp;</p>
+                  <p>{` ${new Date(created).toLocaleDateString()}`}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Email :&nbsp;</p>
+                  <p>{email}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Rôle favori :&nbsp;</p>
+                  <p>{role}</p>
+                </div>
+
+                <div className="container row">
+                  <p style={{ fontWeight: "bold" }}>Loisirs :&nbsp;</p>
+                  <p>{hobbies}</p>
+                </div>
               </div>
               {isLoggedIn().user && isLoggedIn().user._id === _id && (
                 <div className="d-inline-block">
