@@ -329,9 +329,10 @@ class EditProfile extends Component {
           onError={(img) => (img.target.src = defaultProfilePic)}
           alt={pseudo}
         />
-        {isLoggedIn().user.right === "Roi des Pirates" ||
-          (isLoggedIn().user._id === id &&
-            this.updateForm(pseudo, email, password, about, role, hobbies))}
+        {console.log('user.right', isLoggedIn().user.right)}
+        {(isLoggedIn().user.right === "Roi des Pirates" ||
+          isLoggedIn().user._id === id) &&
+            this.updateForm(pseudo, email, password, about, role, hobbies)}
       </div>
     );
   }

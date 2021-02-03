@@ -55,6 +55,7 @@ export const isLoggedIn = () => {
     return false;
   }
   if (localStorage.getItem("jwt")) {
+    console.log(localStorage.getItem("jwt"))
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
     return false;
