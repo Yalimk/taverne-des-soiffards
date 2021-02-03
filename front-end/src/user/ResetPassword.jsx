@@ -13,15 +13,6 @@ class ResetPassword extends Component {
     redirectionHome: false,
   };
 
-  handleChange = (event) => {
-    const newPassword = event.target.value;
-    this.setState({
-      newPassword: newPassword,
-      message: '',
-      error: ''
-    })
-};
-
   resetPassword = async (event) => {
     event.preventDefault();
     this.setState({ message: "", error: "" });
@@ -55,8 +46,8 @@ class ResetPassword extends Component {
 
   render() {
     const { newPassword, message, error, redirectionHome } = this.state;
-    console.log(`[front-end/src/user/ResetPassword => render:57] : message: ${message}`)
-    console.log(`[front-end/src/user/ResetPassword => render:58] : error: ${JSON.stringify(error)}`)
+    console.log(`[front-end/src/user/ResetPassword => render:57] : message: ${JSON.stringify(message)}`)
+    console.log(`[front-end/src/user/ResetPassword => render:58] : error: ${(JSON.stringify(error))}`)
     console.log(`[front-end/src/user/ResetPassword => render:59] : redirectionHome: ${redirectionHome}`)
     console.log(`[front-end/src/user/ResetPassword => render:60] : newPassword: ${newPassword}`)
     if (redirectionHome) {
@@ -67,8 +58,8 @@ class ResetPassword extends Component {
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Modification du mot de passe</h2>
 
-        {message && <h5 className="alert alert-success">{message}</h5>}
-        {/* {error && <h5 className="alert alert-danger">{error}</h5>} */}
+        {/* {message && <h5 className="alert alert-success">{message}</h5>}
+        {error && <h5 className="alert alert-danger">{error}</h5>} */}
 
         <form>
           <div className="form-group mt-5">
@@ -78,7 +69,13 @@ class ResetPassword extends Component {
               placeholder="Choisis ton nouveau mot de passe... et tâche de le noter cette fois-ci, mille sabords !"
               value={newPassword}
               name="newPassword"
-              onChange={this.handleChange}
+              onChange={(event) =>
+                this.setState({
+                  newPassword: event.target.value,
+                  message: "",
+                  error: "",
+                })
+              }
               autoFocus
             />
           </div>
