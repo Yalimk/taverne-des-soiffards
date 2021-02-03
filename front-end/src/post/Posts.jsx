@@ -105,7 +105,7 @@ class Posts extends Component {
       <div className="jumbotron">
         <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
           {!posts.length
-            ? "Plus de postes !"
+            ? "Rien à afficher pour le moment..."
             : "Messages des Pirates de la Taverne"}
         </h2>
         {this.renderPosts(posts)}

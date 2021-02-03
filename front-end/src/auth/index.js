@@ -55,7 +55,7 @@ export const isLoggedIn = () => {
     return false;
   }
   if (localStorage.getItem("jwt")) {
-    console.log(localStorage.getItem("jwt"))
+    // console.log(`[front-end/src/auth/index.js => isLoggedIn:58] : localStorage.getItem("jwt"): `, localStorage.getItem("jwt"))
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
     return false;

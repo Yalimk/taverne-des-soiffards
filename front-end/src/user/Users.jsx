@@ -137,7 +137,7 @@ class Users extends Component {
       <div className="jumbotron">
         <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
         {!users.length
-            ? "Plus de pirates !"
+            ? "Rien à afficher pour le moment..."
             : "Les Pirates de la Taverne"}
         </h2>
         {this.renderUsers(users)}
