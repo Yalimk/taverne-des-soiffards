@@ -15,6 +15,8 @@ class Posts extends Component {
   loadPosts = async (page) => {
     try {
       const allPosts = await postsPerPage(page);
+      console.log('allPosts in loadPosts in Post.jsx', allPosts)
+      console.log('type of allPosts in loadPosts in Post.jsx', typeof allPosts)
       if (allPosts) {
         this.setState({
           posts: allPosts,

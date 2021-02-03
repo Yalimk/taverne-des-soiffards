@@ -199,8 +199,8 @@ class EditPost extends Component {
 
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
-            {isLoggedIn().user.right === "Roi des Pirates" ||
-              (isLoggedIn().user._id === id && this.postUpdateForm(title, body))}
+            {(isLoggedIn().user.right === "Roi des Pirates" ||
+              isLoggedIn().user._id === id) && this.postUpdateForm(title, body)}
           </div>
         </div>
       );

@@ -18,25 +18,25 @@ class ResetPassword extends Component {
     this.setState({ message: "", error: "" });
     try {
       console.info(
-        `[ResetPassword resetPassword front-end] : newPassword (avant le fetch): ${this.state.newPassword}`
+        `[front-end/src/user/ResetPassword => resetPassword:21] : newPassword (avant le fetch): ${this.state.newPassword}`
       );
       console.info(
-        `[ResetPassword resetPassword front-end] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
+        `[front-end/src/user/ResetPassword => resetPassword:24] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
       );
       const data = await resetPassword({
         newPassword: this.state.newPassword,
         resetPasswordLink: this.props.match.params.resetPasswordToken,
       });
-      console.log(`[ResetPassword resetPassword front-end] : data: ${data}`);
+      console.log(`[front-end/src/user/ResetPassword => resetPassword:30] : data: ${data}`);
       if (data.error) {
         this.setState({ error: data.error, newPassword: "" });
         console.error(
-          `[ResetPassword resetPassword front-end] : data.error: ${data.error}`
+          `[front-end/src/user/ResetPassword => resetPassword:34] : data.error: ${data.error}`
         );
       } else {
         this.setState({ message: data.message, newPassword: "" });
         console.info(
-          `[ResetPassword resetPassword front-end] : data.message: ${data.message}`
+          `[front-end/src/user/ResetPassword => resetPassword:] : data.message: ${data.message}`
         );
       }
     } catch (error) {

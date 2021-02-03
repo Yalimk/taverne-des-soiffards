@@ -38,15 +38,13 @@ export const getPosts = async (req, res) => {
       totalPosts = count;
       return Post.find()
         .skip((currentPage - 1) * perPage)
-        // .populate('comments', 'text created')
-        // .populate('comments.postedBy', '_id name')
         .populate('author', '_id pseudo')
         .sort({ date: -1 })
         .limit(perPage)
         .select('_id title body photo created updated');
     })
     .then(posts => {
-      res.status(200).json(posts);
+      res.json(posts);
     })
     .catch(err => console.log(err));
 };

@@ -58,12 +58,25 @@ export const hasAuthorization = (req, res, next) => {
   next();
 };
 
-export const allUsers = async (req, res) => {
+// export const allUsers = async (req, res) => {
+//   User.find((err, users) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: err
+//       })
+//     }
+//     res.json(users)
+//   })
+//   .select('pseudo email updated created right role about hobbies')
+// };
+
+export const getUsers = async (req, res) => {
+  Logger.debug(`[back-end/src/controllers/user.js => getUsers:74] : req.body: ${req.body}`)
   const currentPage = req.query.page || 1;
-  const perPage = Number(process.env.PER_PAGE) || 1;
+  const perPage = Number(process.env.PER_PAGE) || 3;
   let totalUsers;
 
-  const posts = await User.find()
+  const users = await User.find()
     .countDocuments()
     .then(count => {
       totalUsers = count;
@@ -71,10 +84,10 @@ export const allUsers = async (req, res) => {
         .skip((currentPage - 1) * perPage)
         .limit(perPage)
         .sort({ created: -1 })
-        .select('_id pseudo email about role hobbies photo');
+        // .select('_id pseudo email about role hobbies photo right');
     })
     .then(users => {
-      return res.json(users);
+      res.json(users);
     })
     .catch(err => console.log(err));
 };
@@ -115,6 +128,7 @@ export const updateUser = (req, res, next) => {
 };
 
 export const userPhoto = (req, res, next) => {
+  Logger.debug(`[back-end/src/controllers/user.js => userPhoto:118] : req.profile : ${JSON.stringify(req.profile)}`)
   if (req.profile.photo.data) {
     res.set('Content-Type', req.profile.photo.contentType);
     return res.send(req.profile.photo.data);

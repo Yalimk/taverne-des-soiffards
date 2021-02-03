@@ -101,6 +101,6 @@ export const resetPassword = async (newCredentials) => {
     console.log(`[front-end/src/auth/index.js => resetPassword:101] : response: ${response}`);
     return await response.json();
   } catch (error) {
-    console.error(`The method resetPassword inside auth/index encountered and error of type: ${error}.`)
+    console.error(`[front-end/src/auth/index.js => resetPassword:104] :  error: ${error}`)
   }
 };

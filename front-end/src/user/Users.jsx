@@ -15,6 +15,8 @@ class Users extends Component {
   loadUsers = async (page) => {
     try {
       const allUsers = await usersPerPage(page);
+      console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : allUsers : ${allUsers}`);
+      console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : type of allUsers : ${typeof allUsers}`);
       if (allUsers) {
         this.setState({
           users: allUsers,
@@ -42,6 +44,25 @@ class Users extends Component {
   componentDidMount = async () => {
     this.loadUsers(this.state.page);
   };
+
+  // componentDidMount = async() => {
+  //   try {
+  //     const allUsers = await listAllUsers();
+  //     console.log(`[front-end/src/users/Users.jsx => listAllUsers:46] : allUsers : ${allUsers}`);
+  //     if (allUsers) {
+  //       this.setState({
+  //         users: allUsers,
+  //       });
+  //     } else {
+  //       console.error(
+  //         `No users were retrieved from the server because of error.`
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error(`Couldn't list all users because of error: ${error}.`);
+  //   }
+  // };
+
 
   renderUsers = (users) => (
     <div

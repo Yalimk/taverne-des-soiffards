@@ -22,20 +22,25 @@ class Profile extends Component {
   init = async (userId) => {
     try {
       const token = isLoggedIn().token;
+      console.log('token in init in Profile ', token)
+      console.log('userId in init in Profile ', userId)
       const data = await read(userId, token);
       if (data.error) {
+        console.error(`[front-end/src/user/Profile.jsx => init:28] : data.error: ${data.error}`)
         this.setState = {
           redirectionSignIn: true,
         };
       } else {
+        // console.log(`[front-end/src/user/Profile.jsx => init:28] : data: ${data}`)
         this.setState({
           user: data,
         });
+        console.log(`[front-end/src/user/Profile.jsx => init:37] : data._id: ${data._id}.`)
         this.loadPosts(data._id);
       }
     } catch (error) {
       console.error(
-        `The init method encountered the following error: ${error}.`
+        `[front-end/src/user/Profile.jsx => init:40] : error: ${error}.`
       );
     }
   };
@@ -54,6 +59,7 @@ class Profile extends Component {
   componentDidMount() {
     try {
       const userId = this.props.match.params.userId;
+      console.log('userId in componentDidMount in Profile ', userId)
       if (userId) {
         this.init(userId);
       } else {
@@ -62,7 +68,7 @@ class Profile extends Component {
     } catch (error) {
       console.error("Something went wrong with componentDidMount method.");
     }
-  }
+  };
 
   componentWillReceiveProps(props) {
     try {
@@ -77,7 +83,7 @@ class Profile extends Component {
         "Something went wrong with componentWillReceiveProps method."
       );
     }
-  }
+  };
 
   render() {
     const { redirectionSignIn, user, posts } = this.state;
