@@ -53,8 +53,8 @@ class ResetPassword extends Component {
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Modification du mot de passe</h2>
 
-        {message && <h5 className="alert alert-warning">{message}</h5>}
-        {error && <h5 className="alert alert-danger">{error}</h5>}
+        {/* {message && <h5 className="alert alert-warning">{message}</h5>}
+        {error && <h5 className="alert alert-danger">{error}</h5>} */}
 
         <form>
           <div className="form-group mt-5">

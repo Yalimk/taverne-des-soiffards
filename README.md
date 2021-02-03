@@ -203,15 +203,27 @@ A chaque fois que l'utilisateur modifie un champ sur les pages de modification d
 
 1. Si je retire la méthode onChange, les champs deviennent read-only, ce qui va à l'encontre du but d'un formulaire, lol.
 
-
 ------------------------------------------------
  
- ## Problème 8 : Modification mdp impossible depuis EditProfile
+ ## Problème 8 : Modification mdp impossible depuis EditProfile (résolu)
 
 Si l'utilisateur modifie n'importe quelle information à part le mot de passe, tout se passe bien. Si il veut modifier le mot de passe en revanche, la requête fetch reste en statut "pending", pour une raison inconnue... Pas d'erreur, rien, et les données lui sont pourtant bien transmises.
 
 ### Update problème 8 :
 
+1. L'erreur venait de la méthode .get à l'intérieur du Mongoose Schema User en back-end dans les models. En effet, j'avais comme un gros abruti écrit la méthode comme ceci :
+```javascript
+.get(() => {
+  return this._password;
+})
+```
+Sauf qu'en écrivant ainsi, le contexte du `this` n'était pas le bon ! C'est tout le principe des fonctions flèches... J'ai réécrit la méthode comme ceci :
+```javascript
+.get(function() {
+  return this._password;
+})
+```
+Et maintenant la modification du mot de passe est possible !
 
 ------------------------------------------------
  

@@ -5,7 +5,6 @@ import crypto from "crypto";
 
 // Constants declaration
 const Schema = mongoose.Schema;
-// const ObjectId = Schema.ObjectId;
 
 const userSchema = new Schema({
   pseudo: {
@@ -62,7 +61,7 @@ userSchema
     this.salt = uuidv4();
     this.hashed_password = this.encryptPassword(password);
   })
-  .get(() => {
+  .get(function() {
     return this._password;
   });
   

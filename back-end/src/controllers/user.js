@@ -11,15 +11,28 @@ import { Logger, logMoment } from '../logger/logger.js';
 
 export const userById = (req, res, next, userId) => {
   User.findById(userId)
-    .exec((err, user) => {
-      if (err || !user) {
-        return res.status(400).json({
-          error: `Ce pirate n'existe pas ou une erreur s'est produite.`
-        })
-      }
-      req.profile = user;
-      next();
-    });
+  .exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: `Ce pirate n'existe pas ou une erreur s'est produite.`
+      })
+    }
+    req.profile = user;
+  });
+  next();
+};
+
+export const userByPseudo = (req, res, next, userPseudo) => {
+  User.findOne({pseudo: userPseudo})
+  .exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: `Ce pseudo ne correspond à aucun pirate.`
+      })
+    }
+    req.profile = user;
+  });
+  next();
 };
 
 export const hasAuthorization = (req, res, next) => {
@@ -44,15 +57,6 @@ export const hasAuthorization = (req, res, next) => {
   // Logger.info(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js => hasAuthorization:44] : authorized to proceed`);
   next();
 };
-
-// export const allUsers = async (req, res) => {
-//   try {
-//     const allUsers = await User.find()
-//     return res.json(allUsers);
-//   } catch (error) {
-//     Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
-//   }
-// };
 
 export const allUsers = async (req, res) => {
   const currentPage = req.query.page || 1;

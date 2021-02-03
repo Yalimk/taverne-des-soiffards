@@ -64,7 +64,7 @@ export const isLoggedIn = () => {
 
 export const forgotPassword = async (email) => {
   console.info(
-    `[auth/index.js forgotPassword (front-end)] : email: ${email}`
+    `[front-end/src/auth/index.js => forgotPassword:67] : email: ${email}`
   );
   try {
     const response = await fetch(
@@ -78,17 +78,17 @@ export const forgotPassword = async (email) => {
         body: JSON.stringify({ email }),
       }
     );
-    console.log('[auth/index.js forgotPassword (front-end)] : response: ', response);
+    console.log(`[front-end/src/auth/index.js => forgotPassword:81] : response: ${response}`);
     return await response.json();
   } catch (error) {
     console.error(
-      `The method forgotPassword encountered an error of type: ${error}.`
+      `[front-end/src/auth/index.js => forgotPassword:85] : error: ${error}.`
     );
   }
 };
 
 export const resetPassword = async (newCredentials) => {
-  console.log(`[auth/index.js resetPassword (front-end)] : newCredentials: ${JSON.stringify(newCredentials)}`)
+  console.log(`[front-end/src/auth/index.js => resetPassword:91] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
       method: "PUT",
@@ -98,7 +98,7 @@ export const resetPassword = async (newCredentials) => {
       },
       body: JSON.stringify(newCredentials)
     });
-    console.log('[index.js resetPassword (front-end)] : response: ', response);
+    console.log(`[front-end/src/auth/index.js => resetPassword:101] : response: ${response}`);
     return await response.json();
   } catch (error) {
     console.error(`The method resetPassword inside auth/index encountered and error of type: ${error}.`)

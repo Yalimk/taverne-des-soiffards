@@ -3,7 +3,7 @@ import express from 'express';
 // import {body, validationResult} from 'express-validator';
 
 //Personal modules import
-import {userById, allUsers, getUser, updateUser, deleteUser, userPhoto, hasAuthorization} from '../controllers/user.js';
+import {userById, allUsers, getUser, updateUser, deleteUser, userPhoto, hasAuthorization, userByPseudo} from '../controllers/user.js';
 import {requireSignin} from '../controllers/auth.js';
 
 // Constants declaration
@@ -18,5 +18,8 @@ router.get('/user/photo/:userId', userPhoto);
 
 // Router to check for user id in parameters
 router.param('userId', userById);
+
+// Router to check for user pseudo in parameters
+// router.param('userPseudo', userByPseudo);
 
 export default router;

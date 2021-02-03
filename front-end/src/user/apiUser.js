@@ -74,6 +74,24 @@ export const updateInfo = (user, next) => {
   }
 };
 
+export const searchUser = async (pseudo) => {
+  console.log(`[front-end/src/user/apiUser.js => searchUser:78] : pseudo: ${pseudo}`);
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/user/search/${pseudo}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json"
+      }
+    });
+    return response.json();
+  } catch (error) {
+    return console.error(
+      `[front-end/src/user/apiUser.js => searchUser:90] : error: ${error}.`
+    );
+  }
+};
+
 export const remove = async (userId, token) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
