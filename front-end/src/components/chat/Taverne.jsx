@@ -3,8 +3,8 @@
 import React, { Component } from "react";
 
 // Personal modules import
-import ChatMessage from "../chat/ChatMessage";
-import ChatForm from "../chat/ChatForm";
+import ChatMessage from "./ChatMessage";
+import ChatForm from "./ChatForm";
 import { isLoggedIn } from "../auth/index";
 
 // Constants definition

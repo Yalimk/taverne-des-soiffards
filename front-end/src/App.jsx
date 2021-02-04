@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // Components import
 import Menu from "./components/core/Menu";
-import Taverne from "./components/core/Taverne";
+import Taverne from "./components/chat/Taverne";
 import Users from "./components/user/Users";
 import Signup from "./components/user/Signup";
 import Signin from "./components/user/Signin";
