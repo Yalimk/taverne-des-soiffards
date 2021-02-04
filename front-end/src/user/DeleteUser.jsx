@@ -28,12 +28,14 @@ class DeleteUser extends Component {
           `An error occured during account deletion: ${response.error}.`
         );
       } else {
-        signout(() => {
-          console.log(`User has been deleted.`);
-        });
-        this.setState({
-          redirectionSignIn: true,
-        });
+        if (!isLoggedIn().user.right === 'Roi des Pirates') {
+          signout(() => {
+            console.log(`User has been deleted.`);
+          });
+          this.setState({
+            redirectionSignIn: true,
+          });
+        }
       }
     } catch (error) {
       console.error(
@@ -43,11 +45,19 @@ class DeleteUser extends Component {
   };
 
   deleteConfirmation = () => {
-    let answer = window.confirm(
-      `Tu vas supprimer ton profil de façon TOTALEMENT définitive, moussaillon, tu es sûr ?
-       Même le Roi des Pirates n'y pourra plus rien, j'te préviens...`
-    );
-    if (answer) {
+    let answer, kingAnswer;
+    if (isLoggedIn().user.right === "Roi des Pirates") {
+      kingAnswer = window.confirm(
+        `Tu vas supprimer le profil de ce Pirate de façon irréversible ; même toi tu n'y pourras plus rien, mon Roi.
+        Es-tu bien certain que c'est ce que tu veux faire ?`
+      );
+    } else {
+      answer = window.confirm(
+        `Tu vas supprimer ton profil de façon TOTALEMENT définitive, moussaillon, tu es sûr ?
+         Même le Roi des Pirates n'y pourra plus rien, j'te préviens...`
+      );
+    }
+    if (answer || kingAnswer) {
       this.deleteAccount();
     }
   };

@@ -48,7 +48,7 @@ class Posts extends Component {
   }
 
   renderPosts = (posts) => {
-    console.log("posts.length", posts.length);
+    // console.log("posts.length", posts.length);
     return (
       <div className="row" style={{ justifyContent: "center" }}>
         {posts.map((post, i) => {
@@ -107,7 +107,7 @@ class Posts extends Component {
       <div className="jumbotron">
         <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
           {!posts.length
-            ? "Rien à afficher pour le moment..."
+            ? "Chargement..."
             : "Messages des Pirates de la Taverne"}
         </h2>
         {this.renderPosts(posts)}
@@ -128,7 +128,7 @@ class Posts extends Component {
           </div>
 
           <div className="col text-left">
-            {posts.length ? (
+            {(posts.length > page && posts.length === Number(process.env.REACT_APP_PER_PAGE)) ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
                 onClick={() => this.getMorePosts(1)}

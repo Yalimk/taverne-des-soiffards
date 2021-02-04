@@ -64,7 +64,7 @@ export const isLoggedIn = () => {
 
 export const forgotPassword = async (email) => {
   console.info(
-    `[front-end/src/auth/index.js => forgotPassword:67] : email: ${email}`
+    `[front-end/auth/index.js => forgotPassword:67] : email: ${email}`
   );
   try {
     const response = await fetch(
@@ -78,8 +78,8 @@ export const forgotPassword = async (email) => {
         body: JSON.stringify({ email }),
       }
     );
-    console.log(`[front-end/src/auth/index.js => forgotPassword:81] : response: ${response}`);
-    return await response.json();
+    console.log('[front-end/auth/index.js => forgotPassword:81] : response: ', response);
+    return response.json();
   } catch (error) {
     console.error(
       `[front-end/src/auth/index.js => forgotPassword:85] : error: ${error}.`
@@ -88,19 +88,19 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (newCredentials) => {
-  console.log(`[front-end/src/auth/index.js => resetPassword:91] : newCredentials: ${JSON.stringify(newCredentials)}`)
+  console.log(`[front-end/auth/index.js => resetPassword:91] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
       method: "PUT",
       header: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       },
       body: JSON.stringify(newCredentials)
     });
-    console.log(`[front-end/src/auth/index.js => resetPassword:101] : response: ${response}`);
-    return await response.json();
+    console.log(`[front-end/auth/index.js => resetPassword:101] : response: ${response}`);
+    return response.json();
   } catch (error) {
-    console.error(`[front-end/src/auth/index.js => resetPassword:104] :  error: ${error}`)
+    console.error(`[front-end/auth/index.js => resetPassword:101] : error: ${error}.`)
   }
 };

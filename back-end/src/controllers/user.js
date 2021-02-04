@@ -84,7 +84,7 @@ export const getUsers = async (req, res) => {
         .skip((currentPage - 1) * perPage)
         .limit(perPage)
         .sort({ created: -1 })
-        // .select('_id pseudo email about role hobbies photo right');
+        .select('_id pseudo email about role hobbies photo right'); // added right 03/02 13h42
     })
     .then(users => {
       res.json(users);

@@ -29,15 +29,15 @@ class ResetPassword extends Component {
       });
       console.log(`[front-end/src/user/ResetPassword => resetPassword:30] : data: ${data}`);
       if (data.error) {
-        this.setState({ error: data.error, newPassword: "" });
         console.error(
-          `[front-end/src/user/ResetPassword => resetPassword:34] : data.error: ${data.error}`
+          `[front-end/src/user/ResetPassword => resetPassword:34] : data.error: ${JSON.stringify(data.error)}`
         );
+        this.setState({ error: data.error, newPassword: "" });
       } else {
-        this.setState({ message: data.message, newPassword: "" });
         console.info(
-          `[front-end/src/user/ResetPassword => resetPassword:] : data.message: ${data.message}`
+          `[front-end/src/user/ResetPassword => resetPassword:39] : data.message: ${JSON.stringify(data.message)}`
         );
+        this.setState({ message: data.message, newPassword: "", redirectionHome: true });
       }
     } catch (error) {
       console.error(`Password couldn't be reset because of error: ${error}`);
@@ -45,16 +45,21 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { newPassword, redirectionHome, message, error } = this.state;
+    const { newPassword, message, error, redirectionHome } = this.state;
+    console.log(`[front-end/src/user/ResetPassword => render:57] : message: ${JSON.stringify(message)}`)
+    console.log(`[front-end/src/user/ResetPassword => render:58] : error: ${(JSON.stringify(error))}`)
+    console.log(`[front-end/src/user/ResetPassword => render:59] : redirectionHome: ${redirectionHome}`)
+    console.log(`[front-end/src/user/ResetPassword => render:60] : newPassword: ${newPassword}`)
     if (redirectionHome) {
       return <Redirect to="/" />;
     }
+
     return (
       <div className="container jumbotron">
         <h2 className="mt-5 mb-5">Modification du mot de passe</h2>
 
-        {/* {message && <h5 className="alert alert-warning">{message}</h5>}
-        {error && <h5 className="alert alert-danger">{error}</h5>} */}
+        {message && <h5 className="alert alert-success">{message}</h5>}
+        {/* {error && <h5 className="alert alert-danger">{error}</h5>} */}
 
         <form>
           <div className="form-group mt-5">

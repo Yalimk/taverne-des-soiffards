@@ -158,7 +158,7 @@ class Users extends Component {
       <div className="jumbotron">
         <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
         {!users.length
-            ? "Rien à afficher pour le moment..."
+            ? "Chargement..."
             : "Les Pirates de la Taverne"}
         </h2>
         {this.renderUsers(users)}
@@ -179,7 +179,10 @@ class Users extends Component {
           </div>
 
           <div className="col text-left">
-            {users.length > (page - 1) ? (
+            {/* {console.log('users.length: ', users.length)}
+            {console.log('page: ', page)}
+            {console.log('process.env.PER_PAGE: ', process.env.REACT_APP_PER_PAGE)} */}
+            {(users.length > page && users.length === Number(process.env.REACT_APP_PER_PAGE)) ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
                 onClick={() => this.getMoreUsers(1)}
