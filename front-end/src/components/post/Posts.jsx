@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { postsPerPage /*, listAllPosts*/ } from "./apiPost";
-import defaultPostPic from "../images/beautiful-sea.jpg";
+import { postsPerPage } from "./apiPost";
+import defaultPostPic from "../../images/beautiful-sea.jpg";
 
 class Posts extends Component {
   state = {

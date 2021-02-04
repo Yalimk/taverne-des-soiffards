@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
 import { read, updateUser, updateInfo } from "./apiUser";
-import defaultProfilePic from "../images/default-image.png";
+import defaultProfilePic from "../../images/default-image.png";
 
 class EditProfile extends Component {
   state = {

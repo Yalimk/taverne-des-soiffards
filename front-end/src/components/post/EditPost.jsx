@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
 import { viewPost, updatePost } from "./apiPost";
-import defaultPostPic from "../images/beautiful-sea.jpg";
+import defaultPostPic from "../../images/beautiful-sea.jpg";
 
 class EditPost extends Component {
   state = {

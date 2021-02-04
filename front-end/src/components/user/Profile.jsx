@@ -9,7 +9,7 @@ import DisplayUserPosts from "./DisplayUserPosts";
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
 import { read } from "./apiUser";
-import defaultProfilePic from "../images/default-image.png";
+import defaultProfilePic from "../../images/default-image.png";
 import { listUserPosts } from "../post/apiPost";
 
 class Profile extends Component {

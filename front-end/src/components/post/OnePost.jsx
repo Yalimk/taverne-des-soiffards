@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 
 // Personal modules import
 import { viewPost, remove } from "./apiPost";
-import defaultPostPic from "../images/beautiful-sea.jpg";
+import defaultPostPic from "../../images/beautiful-sea.jpg";
 import { isLoggedIn } from "../auth/index";
 
 class OnePost extends Component {

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // Personal modules import
 import { usersPerPage /*listAllUsers*/ } from "./apiUser";
-import defaultProfilePic from "../images/default-image.png";
+import defaultProfilePic from "../../images/default-image.png";
 
 class Users extends Component {
   state = {
