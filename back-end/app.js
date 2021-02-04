@@ -25,7 +25,7 @@ import { checkSigninToken } from './src/Controllers/auth.js';
 
 // Constants definition
 const app = express();
-const port = process.env.PORT || 9092;
+const PORT = process.env.PORT || 9092;
 
 // Middlewares definition
 app.use(morgan('dev'));
@@ -36,8 +36,6 @@ app.use(checkSigninToken);
 app.use('/tds', authRoutes);
 app.use('/tds', postRoutes);
 app.use('/tds', userRoutes);
-// app.use('/css', express.static('public/assets/css'));
-// app.use('/img', express.static('public/images'));
 app.use(favicon('public/images/favicon.png'));
 
 // Connection to MongoDB Atlas database
@@ -68,61 +66,14 @@ app.get('/docs', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  Logger.info(`${logMoment.dateAndTime}: app listening on port ${port}.`);
+const server = app.listen(PORT, () => {
+  Logger.info(`${logMoment.dateAndTime}: app listening on port ${PORT}.`);
 });
-
-// **************** Live chat code attempt ****************
-
-// Native modules import
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-
-// Constants definition
-
-const httpServer = createServer();
-const io = new Server(httpServer)
-
-// const io = require('socket.io')(server);
-// const allPirates = {};
-
-// io.on('connection', (client) => {
-//   client.on('pseudo', (pseudo) => {
-//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('pseudo')] : pseudo: ${pseudo}`);
-//     const user = {
-//       pseudo: pseudo,
-//       id: client.id
-//     };
-
-//     allPirates[client.id] = user;
-
-//     io.emit('connected', user);
-//     io.emit('users', Object.values(allPirates));
-//   });
-
-//   client.on('send', (message) => {
-//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('send')] : message: ${message}`);
-//     io.emit('message', {
-//       text: message,
-//       date: logMoment.dateAndTime,
-//       user: allPirates[client.id]
-//     })
-//   });
-
-//   client.on('disconnect', () => {
-//     const pirateName = allPirates[client.id];
-//     Logger.debug(`${logMoment.dateAndTime}: [back-end/app.js => client.on('disconnect')] : disconnected Pirate: ${pirateName}`);
-//     delete allPirates[client.id];
-//     io.emit('disconnected', client.id)
-//   });
-// });
-
-// server.listen(`http://localhost:${port}/socket.io`, () => {
-//   Logger.info(`io server listening on port ${port}`)
-// });
-
-
-
+server.on('upgrade', (request, socket, head) => {
+  wsServer.handleUpgrade(request,socket, head, socket => {
+    wsServer.emit('connection', socket, request);
+  });
+});
 
 // Commented that out until I figure out what's wrong with the password thing.
 // Handling different types of errors and logging to log files
@@ -138,3 +89,20 @@ const io = new Server(httpServer)
 //     }
 //   });
 // });
+
+// **************** Simple live chat code attempt ****************
+
+// Native modules import
+import WebSocket from 'ws';
+// Constants definition
+const wsServer = new WebSocket.Server({noServer: true});
+
+wsServer.on('connection', (socket) => {
+  socket.on('message', (data) => {
+    wsServer.clients.forEach((client) => {
+      if (socket !== client && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+});

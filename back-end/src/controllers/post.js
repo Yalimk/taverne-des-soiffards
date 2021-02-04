@@ -10,12 +10,12 @@ import Post from '../models/post.js';
 import { Logger, logMoment } from '../logger/logger.js';
 
 export const postById = (req, res, next, id) => {
-  Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById] : id: ${id}`)
+  // Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById] : id: ${id}`)
   Post.findById(id)
     .populate('author', '_id pseudo right')
     // .select('_id title body created photo')
     .exec((err, post) => {
-      Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : post: ${post}`)
+      // Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : post: ${post}`)
       if (err || !post) {
         Logger.error(
           `${logMoment.dateAndTime} : La méthode postById a rencontré une erreur: ${err}.`
@@ -25,7 +25,7 @@ export const postById = (req, res, next, id) => {
         });
       }
       req.post = post;
-      Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : req.post: ${req.post}`)
+      // Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : req.post: ${req.post}`)
       next();
     });
 };
@@ -192,8 +192,8 @@ export const postPhoto = (req, res, next) => {
 };
 
 export const displayPost = (req, res) => {
-  Logger.verbose(
-    `${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : req.post: ${req.post}
-  `);
+  // Logger.debug(
+  //   `${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : req.post: ${req.post}
+  // `);
   return res.json(req.post);
 };
