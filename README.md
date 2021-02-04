@@ -13,8 +13,9 @@ CLIENT_URI=http://localhost:3000
 ADMIN_TITLE=(le nom que vous souhaitez donner au titre de votre admin)
 APP_NAME=TAVERNE-DES-SOIFFARDS
 GOOGLE_ACCOUNT=(votre adresse e-mail google)
-GOOGLE_APP_PASSWORD=(le mot de passe d\'application pour cet e-mail. Plus de détails [ici](https://www.lifewire.com/get-a-password-to-access-gmail-by-pop-imap-2-1171882))
+GOOGLE_APP_PASSWORD=(le mot de passe d\'application pour cet e-mail. )
 ```
+Plus de détails concernant la manière de générer un mot de passe d'application pour votre compte Google [ici](https://www.lifewire.com/get-a-password-to-access-gmail-by-pop-imap-2-1171882).
 
 Front-end .env :
 ```bash
