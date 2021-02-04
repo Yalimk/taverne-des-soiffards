@@ -13,7 +13,7 @@ export const postById = (req, res, next, id) => {
   Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById] : id: ${id}`)
   Post.findById(id)
     .populate('author', '_id pseudo right')
-    .select('_id title body created photo')
+    // .select('_id title body created photo')
     .exec((err, post) => {
       Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : post: ${post}`)
       if (err || !post) {

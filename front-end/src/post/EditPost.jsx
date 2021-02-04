@@ -19,7 +19,7 @@ class EditPost extends Component {
   };
 
   init = async (postId) => {
-    console.info(`[front-end/src/post/EditPost.jsx => init:34] : postId: ${postId}`);
+    // console.info(`[front-end/src/post/EditPost.jsx => init:] : postId: ${postId}`);
     try {
       const data = await viewPost(postId);
       if (data.error) {
@@ -27,9 +27,9 @@ class EditPost extends Component {
           redirectionProfile: true,
         });
       } else {
-        console.info(
-          `[front-end/src/post/EditPost.jsx => init:44] : data.author._id: ${data.author._id}`
-        );
+        // console.info(
+          // `[front-end/src/post/EditPost.jsx => init:] : data.author._id: ${data.author._id}`
+        // );
         this.setState({
           id: data.author._id,
           title: data.title,
@@ -39,7 +39,7 @@ class EditPost extends Component {
       }
     } catch (error) {
       console.error(
-        `[front-end/src/post/EditPost.jsx => catch:55] : error:  ${error}`
+        `[front-end/src/post/EditPost.jsx => catch:] : error:  ${error}`
       );
     }
   };
@@ -127,7 +127,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("photo")}
           type="file"
-          // name="photo"
+          name="photo"
           accept="image/*"
           className="form-control"
         />
@@ -137,7 +137,7 @@ class EditPost extends Component {
         <input
           onChange={this.handleChange("title")}
           type="text"
-          // name="title"
+          name="title"
           className="form-control"
           value={title}
           autoFocus
@@ -148,7 +148,7 @@ class EditPost extends Component {
         <textarea
           onChange={this.handleChange("body")}
           type="text"
-          // name="body"
+          name="body"
           className="form-control"
           value={body}
         />
@@ -165,7 +165,7 @@ class EditPost extends Component {
 
   render() {
     const { id, title, body, redirectionProfile, error, loading } = this.state;
-
+    const postId = this.props.match.params.postId;
     if (redirectionProfile) {
       return <Redirect to={`/post/${id}`} />;
     }
@@ -188,14 +188,9 @@ class EditPost extends Component {
               ""
             )}
             <img
-              style={{ height: "200px", width: "auto" }}
+              style={{ height: "200px", width: "auto", boxShadow: "3px 3px 10px grey" }}
               className="img-thumbnail mb-3"
-              src={`${
-                process.env.REACT_APP_API_URI
-              }/post/photo/${id}`}
-              // src={`${
-              //   process.env.REACT_APP_API_URI
-              // }/post/photo/${id}?${new Date().getTime()}`}
+              src={`${process.env.REACT_APP_API_URI}/post/photo/${postId}?${new Date().getTime()}`}
               onError={(img) => (img.target.src = `${defaultPostPic}`)}
               alt={title}
             />
