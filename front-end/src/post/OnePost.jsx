@@ -66,7 +66,7 @@ class OnePost extends Component {
             src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
             onError={(img) => (img.target.src = `${defaultPostPic}`)}
             className="img-thumbnail mb-3"
-            style={{ height: "auto", width: "auto", objectFit: "cover" }}
+            style={{ height: "auto", width: "auto", objectFit: "cover", boxShadow: "3px 3px 10px grey" }}
             alt={post.title}
           />
         </div>

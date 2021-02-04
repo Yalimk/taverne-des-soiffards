@@ -192,7 +192,10 @@ class EditPost extends Component {
               className="img-thumbnail mb-3"
               src={`${
                 process.env.REACT_APP_API_URI
-              }/post/photo/${id}?${new Date().getTime()}`}
+              }/post/photo/${id}`}
+              // src={`${
+              //   process.env.REACT_APP_API_URI
+              // }/post/photo/${id}?${new Date().getTime()}`}
               onError={(img) => (img.target.src = `${defaultPostPic}`)}
               alt={title}
             />

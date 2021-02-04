@@ -45,25 +45,6 @@ class Users extends Component {
     this.loadUsers(this.state.page);
   };
 
-  // componentDidMount = async() => {
-  //   try {
-  //     const allUsers = await listAllUsers();
-  //     console.log(`[front-end/src/users/Users.jsx => listAllUsers:46] : allUsers : ${allUsers}`);
-  //     if (allUsers) {
-  //       this.setState({
-  //         users: allUsers,
-  //       });
-  //     } else {
-  //       console.error(
-  //         `No users were retrieved from the server because of error.`
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error(`Couldn't list all users because of error: ${error}.`);
-  //   }
-  // };
-
-
   renderUsers = (users) => (
     <div
       className="row"
@@ -92,6 +73,7 @@ class Users extends Component {
                   width: "auto",
                   marginTop: "15px",
                   borderRadius: "25%",
+                  boxShadow: "3px 3px 10px grey"
                 }}
                 src={`${process.env.REACT_APP_API_URI}/user/photo/${_id}`}
                 onError={(img) => (img.target.src = `${defaultProfilePic}`)}

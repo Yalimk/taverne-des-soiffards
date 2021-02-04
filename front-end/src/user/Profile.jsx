@@ -4,7 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 
 // Components import
 import DeleteUser from "./DeleteUser";
-import ProfileTabs from "./ProfileTabs";
+import DisplayUserPosts from "./DisplayUserPosts";
 
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
@@ -22,8 +22,8 @@ class Profile extends Component {
   init = async (userId) => {
     try {
       const token = isLoggedIn().token;
-      console.log('token in init in Profile ', token)
-      console.log('userId in init in Profile ', userId)
+      // console.log(`[front-end/src/user/Profile.jsx => init] : token: ${token}`)
+      // console.log(`[front-end/src/user/Profile.jsx => init] : userId: ${userId}`)
       const data = await read(userId, token);
       if (data.error) {
         console.error(`[front-end/src/user/Profile.jsx => init:28] : data.error: ${data.error}`)
@@ -35,7 +35,7 @@ class Profile extends Component {
         this.setState({
           user: data,
         });
-        console.log(`[front-end/src/user/Profile.jsx => init:37] : data._id: ${data._id}.`)
+        // console.log(`[front-end/src/user/Profile.jsx => init:37] : data._id: ${data._id}.`)
         this.loadPosts(data._id);
       }
     } catch (error) {
@@ -59,7 +59,7 @@ class Profile extends Component {
   componentDidMount() {
     try {
       const userId = this.props.match.params.userId;
-      console.log('userId in componentDidMount in Profile ', userId)
+      console.log(`[front-end/src/user/Profile.jsx => componentDidMount] userId: ${userId}`)
       if (userId) {
         this.init(userId);
       } else {
@@ -107,7 +107,7 @@ class Profile extends Component {
           <div className="row">
             <div className="col-md-4">
               <img
-                style={{ height: "300px", width: "auto", borderRadius: "25%" }}
+                style={{ height: "300px", width: "auto", borderRadius: "25%", boxShadow: "3px 3px 10px grey" }}
                 className="img-thumbnail"
                 src={photoUrl}
                 onError={(img) => (img.target.src = `${defaultProfilePic}`)}
@@ -197,7 +197,7 @@ class Profile extends Component {
               <p className="lead">{about}</p>
               <hr />
 
-              <ProfileTabs posts={posts} />
+              <DisplayUserPosts posts={posts} />
             </div>
           </div>
         </div>
@@ -264,7 +264,7 @@ class Profile extends Component {
               <p className="lead">{about}</p>
               <hr />
 
-              <ProfileTabs posts={posts} />
+              <DisplayUserPosts posts={posts} />
             </div>
           </div>
         </div>

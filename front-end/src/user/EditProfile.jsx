@@ -32,7 +32,7 @@ class EditProfile extends Component {
           redirectionProfile: true,
         };
       } else {
-        console.log("[front-end/src/user/EditProfile => init => data: ", data);
+        // console.log("[front-end/src/user/EditProfile => init => data: ", data);
         this.setState({
           id: data._id,
           pseudo: data.pseudo,
@@ -171,13 +171,15 @@ class EditProfile extends Component {
     if (this.isValid()) {
       const userId = this.props.match.params.userId;
       const token = isLoggedIn().token;
-      console.log(
-        `[front-end/src/user/EditProfile => updateSubmit:180] => userId: ${userId} and token: ${token} and this.userData: ${this.userData}`
-      );
+      // console.log(
+      //   `[front-end/src/user/EditProfile => updateSubmit:180] => userId: ${userId} and token: ${token} and this.userData: ${this.userData}`
+      // );
       const data = await updateUser(userId, token, this.userData);
       // console.info(`[front-end/src/user/EditProfile => updateSubmit => after updateUser:183]: data: ${data}`)
       if (data.error) {
         this.setState({ error: data.error });
+      } else if (isLoggedIn().user.right === 'Roi des Pirates') {
+        this.setState({ redirectionProfile: true })
       } else {
         // console.info(`[front-end/src/user/EditProfile => updateSubmit => before updateInfo:190]: data: ${data}`)
         updateInfo(data, () => {
@@ -308,7 +310,7 @@ class EditProfile extends Component {
     if (photoUri) {
       return (
         <div className="container">
-          <h2 className="mt-5 mb-5">Edit Profile</h2>
+          <h2 className="mt-5 mb-5">Modifier les informations du compte</h2>
           <div
             className="alert alert-danger"
             style={{ display: error ? "" : "none" }}
@@ -339,7 +341,7 @@ class EditProfile extends Component {
     } else {
       return (
         <div className="container">
-          <h2 className="mt-5 mb-5">Edit Profile</h2>
+          <h2 className="mt-5 mb-5">Modifier les informations du compte</h2>
           <div
             className="alert alert-danger"
             style={{ display: error ? "" : "none" }}

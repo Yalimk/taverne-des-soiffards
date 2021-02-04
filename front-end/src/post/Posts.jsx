@@ -15,8 +15,8 @@ class Posts extends Component {
   loadPosts = async (page) => {
     try {
       const allPosts = await postsPerPage(page);
-      console.log('allPosts in loadPosts in Post.jsx', allPosts)
-      console.log('type of allPosts in loadPosts in Post.jsx', typeof allPosts)
+      // console.log('allPosts in loadPosts in Post.jsx', allPosts)
+      // console.log('type of allPosts in loadPosts in Post.jsx', typeof allPosts)
       if (allPosts) {
         this.setState({
           posts: allPosts,
@@ -71,7 +71,7 @@ class Posts extends Component {
               <div className="card-body text-center" key={i}>
                 <img
                   className="img-thumbnail mb-3"
-                  style={{ height: "auto", width: "auto" }}
+                  style={{ height: "auto", width: "auto", boxShadow: "3px 3px 10px grey" }}
                   src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}`}
                   alt={post.title}
                   onError={(img) => (img.target.src = `${defaultPostPic}`)}

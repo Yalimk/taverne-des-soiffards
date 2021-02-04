@@ -15,6 +15,7 @@ router.get('/user/:userId', requireSignin, getUser);
 router.put('/user/:userId', requireSignin, hasAuthorization, updateUser);
 router.delete('/user/:userId', requireSignin, hasAuthorization, deleteUser);
 router.get('/user/photo/:userId', userPhoto);
+// router.ger('/user/search/:userPseudo', userPseudo);
 
 // Router to check for user id in parameters
 router.param('userId', userById);

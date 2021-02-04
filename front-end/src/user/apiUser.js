@@ -29,21 +29,8 @@ export const usersPerPage = async (page) => {
     }
 };
 
-// export const listAllUsers = async () => {
-//   try {
-//     const response = await fetch(`${process.env.REACT_APP_API_URI}/users`, {
-//       method: "GET",
-//     });
-//     return response.json();
-//   } catch (error) {
-//     return console.error(
-//       `Couldn't get response from api because of error: ${error}.`
-//       );
-//     }
-// };
-
 export const updateUser = async (userId, token, user) => {
-  console.log(`[front-end/src/user/apiUser.js => updateUser:46] : userId: ${userId}, token: ${token}, user: ${user}`);
+  // console.log(`[front-end/src/user/apiUser.js => updateUser:46] : userId: ${userId}, token: ${token}, user: ${user}`);
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/user/${userId}`, {
       method: "PUT",
@@ -64,7 +51,7 @@ export const updateUser = async (userId, token, user) => {
 export const updateInfo = (user, next) => {
   if (typeof window !== "undefined") {
     if (localStorage.getItem("jwt")) {
-      console.log(`[front-end/src/user/apiUser.js => updateInfo:67] : inside if (localStorage.getItem('jwt'))`);
+      // console.log(`[front-end/src/user/apiUser.js => updateInfo:67] : inside if (localStorage.getItem('jwt'))`);
       let auth = JSON.parse(localStorage.getItem("jwt"));
       auth.user = user;
       localStorage.setItem("jwt", JSON.stringify(auth));

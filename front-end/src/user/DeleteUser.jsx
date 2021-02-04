@@ -64,11 +64,12 @@ class DeleteUser extends Component {
 
   render() {
     const { redirectionSignIn, allMighty } = this.state;
+    const currentUserId = this.props.userId;
     if (redirectionSignIn) {
       return <Redirect to="/signin" />;
     }
     
-    if (allMighty) {
+    if (allMighty && isLoggedIn().user._id !== currentUserId) {
       return (
         <button
           onClick={this.deleteConfirmation}
