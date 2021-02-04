@@ -71,40 +71,40 @@ Vous aurez la possibilité, une fois connecté, d'envoyer des publications (pouv
 
 ### Tchat en direct
 
-Dans la Taverne, vous serez connecté avec tous les utilisateurs présents et pourrez échanger sans temps de rechargement avec eux, comme sur n'importe quelle plateforme de réseau social connue, type Facebook ou Twitter.
+Dans la Taverne, vous serez connecté avec tous les utilisateurs présents et pourrez échanger sans temps de rechargement avec eux, comme sur n'importe quelle plateforme de réseau social.
 
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
-                                  LES BUGS (mais pas Bunny...)
+                                 LES BUGS (mais pas Bunny...)
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
 
 # Principaux bugs rencontrés lors du développement du projet :
 
-## Problème 1 : Photo de profil n'apparaît (résolu)
+## Problème 0 : Photo de profil n'apparaît (résolu)
 Lors de la mise à jour du profil d'un utilisateur, les informations relatives à la photo de profil sont bien envoyées au back end (visibles dans la bdd) mais ne s'affichent pas dans le profil de l'utilisateur.
 
-### Update problème 1
+### Update problème 0
 
 Le problème venait du fait que j'avais oublié que j'avais appelé la variable d'environnement de liaison à l'API back end "APP_REACT_API_URI" et j'avais écrit "APP_REACT_API_URL", comme un gros couillon...
 
 ----------------------------------------------
 
-## Problème 2 : Bio n'apparaît pas (résolu)
+## Problème 1 : Bio n'apparaît pas (résolu)
 
 Lors de la mise à jour du profil d'un utilisateur, les informations relatives à la description de l'utilisateur (sa bio) sont bien envoyées au back end (visibles dans la bdd) mais ne s'affichent pas dans le profil de l'utilisateur.
 
-### Update problème 2
+### Update problème 1
 
 C'était encore une fois une connerie de ma part... Lorsque j'ai écrit le back-end, lorsque je cherchais un utilisateur, je ne voulais pas voir apparaitre un paramètre "__v" qui donne toujours "0" comme valeur. Du coup, au lieu de renvoyer le profil entier de l'utilisateur, je renvoyas un objet composé de plusieurs paramètres récupérés depuis le profil. 
 SAUF QUE j'ai par la suite ajouté des choses : la photo, la biographie, etc. Du coup, ces valeurs qui étaient bien récupérées depuis la bdd, n'étaient pas transmises au front-end. Du coup, si le front end n'a pas les infos, il ne risque pas de les afficher -_- Bravo, couillon !
 
 ---------------------------------------------
 
-## Problème 3 : Posts supprimés fantômes/persistants (résolu)
+## Problème 2 : Posts supprimés fantômes/persistants (résolu)
 Lorsqu'un post est supprimé par l'utilisateur qui l'a créé, l'utilisateur est ensuite redirigé vers la page des messages, mais le message supprimé apparaît toujours (erreur : cannot GET post/:postId), alors qu'il devrait avoir été supprimé.
 
-### Update problème 3
+### Update problème 2
 
 Problème résolu. Du coup, pour changer, c'est moi qui avais fait de la merde. En effet, comme un gros abruti, j'avais écrit l'implémentation de la fonction remove (qui s'occupe d'effacer un post) dans le code de OnePost comme ça :
 ```javascript
@@ -136,10 +136,10 @@ Du coup, comme j'avais oublié d'ajouter le mot clef `await` devant le `remove(.
 
 ----------------------------------------------
 
-## Problème 4 : GET request 404 pour les photos par défaut (résolu)
+## Problème 3 : GET request 404 pour les photos par défaut (résolu)
 Lorsque je charge les pages qui contiennent une photo, je reçois une erreur GET http://localhost:9092/user/photo/:photoId (vérifier qu'il ne s'agit pas de userId qui est envoyé dans la requête !) mais les photos sont malgré tout bien affichées...
 
-### Update problème 4
+### Update problème 3
 
 1. Il semblerait que l'erreur n'apparaisse pas sur la page de Profile.jsx (regarder dedans pour voir ce qui est différent)
 2. L'erreur n'apparaît QUE sur la page des Pirates.
@@ -163,11 +163,11 @@ else load default picture
 
 -----------------------------------------------
 
-## Problème 5 : pas de redirection après modif post (résolu)
+## Problème 4 : pas de redirection après modif post (résolu)
 
 Lorsque l'utilisateur a terminé de modifier son post, il clique sur le bouton Envoyer, ce qui devrait le rediriger vers la page des posts (ou sa page de profil), mais rien ne se passe ; l'utilisateur reste sur la page EditPost, mais les champs sont vidés (tous à part l'image);
 
-### Update problème 5 :
+### Update problème 4 :
 
 1. Le problème pourrait-il venir de l'ordre des routes ?!
 2. Problème résolu : comme un gros blaireau, j'avais oublié de mettre le mot-clef return devant :
@@ -177,7 +177,7 @@ return <Redirect to={`${process.env.REACT_APP_API_URI}/post/${id}`}/>;
 
 ------------------------------------------------
  
- ## Problème 6 : modification mdp impossible depuis ResetPassword
+ ## Problème 5 : modification mdp impossible depuis ResetPassword
 
 Lorsque l'utilisateur tente de modifier son mot de passe sur la page prévue à cet effet, sur laquelle il aura été envoyé par le lien dans l'e-mail reçu suite à sa demande de réinitialisation, on obtient une erreur :
 ```bash
@@ -187,7 +187,7 @@ Password couldn't be reset because of error: TypeError: Cannot read property 'er
 ```
 Je ne vois pas du tout pourquoi j'ai cette erreur...
 
-### Update problème 6 :
+### Update problème 5 :
 
 1. Le problème vient peut-être des routes utilisées. Non, j'ai vérifié, les routes sont correctes.
 2. Le front-end n'a peut-être pas les données à envoyer. Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
@@ -196,21 +196,21 @@ Je ne vois pas du tout pourquoi j'ai cette erreur...
 
 ------------------------------------------------
  
- ## Problème 7 : GET requests nombreuses à modification des champs (résolu ?)
+ ## Problème 6 : GET requests nombreuses à modification des champs (résolu ?)
 
 A chaque fois que l'utilisateur modifie un champ sur les pages de modification des infos persos, des posts, etc, le serveur envoie plein de requêtes GET (une pour chaque modification). C'est peut-être inhérent à la méthode onChange qui est appliquée sur tous les champs... Ce n'est pas un bug en soi, mais niveau performances c'est préoccupant...
 
-### Update problème 7 :
+### Update problème 6 :
 
 1. Si je retire la méthode onChange, les champs deviennent read-only, ce qui va à l'encontre du but d'un formulaire, lol.
 
 ------------------------------------------------
  
- ## Problème 8 : Modification mdp impossible depuis EditProfile (résolu)
+ ## Problème 7 : Modification mdp impossible depuis EditProfile (résolu)
 
 Si l'utilisateur modifie n'importe quelle information à part le mot de passe, tout se passe bien. Si il veut modifier le mot de passe en revanche, la requête fetch reste en statut "pending", pour une raison inconnue... Pas d'erreur, rien, et les données lui sont pourtant bien transmises.
 
-### Update problème 8 :
+### Update problème 7 :
 
 1. L'erreur venait de la méthode .get à l'intérieur du Mongoose Schema User en back-end dans les models. En effet, j'avais comme un gros abruti écrit la méthode comme ceci :
 ```javascript
@@ -228,11 +228,12 @@ Et maintenant la modification du mot de passe est possible !
 
 ------------------------------------------------
  
- ## Problème 9 : Connexion websocket front-back impossible
+ ## Problème 8 : Connexion websocket front-back impossible (résolu)
 
 La connexion websocket entre le front et le back ne s'établit pas du tout.
 
-### Update problème 9 :
+### Update problème 8 :
 
+1. C'est bon, j'ai trouvé la solution sur [ce site](https://masteringjs.io/tutorials/express/websockets). Il s'agissait d'une petite subtilité de l'utilisation de WebSocket avec Express que j'ignorais.
 
 ------------------------------------------------

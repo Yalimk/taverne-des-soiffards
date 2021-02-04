@@ -19,26 +19,6 @@ class Taverne extends Component {
 
   socket = new WebSocket(URL);
 
-  componentDidMount() {
-    this.socket.onopen = () => {
-      this.setState({
-        pseudo: isLoggedIn().user.pseudo,
-      });
-      console.log(`${isLoggedIn().user.pseudo} s'est connecté au tchat.`);
-    };
-
-    this.socket.onmessage = (message) => {
-      const messageData = JSON.parse(message.data);
-      this.addMessage(messageData);
-    };
-
-    // this.socket.onclose = () => {
-    //   this.setState({
-    //     socket: new WebSocket(URL),
-    //   });
-    // };
-  }
-
   addMessage = (message) =>
     this.setState((state) => ({
       messages: [message, ...state.messages],
@@ -48,6 +28,33 @@ class Taverne extends Component {
     const messageData = { pseudo: this.state.pseudo, message: messageString };
     this.socket.send(JSON.stringify(messageData));
     this.addMessage(messageData);
+  };
+
+  componentDidMount() {
+    this.socket.onopen = () => {
+      if (isLoggedIn()) {
+        this.setState({
+          pseudo: isLoggedIn().user.pseudo,
+        });
+        console.log(`${isLoggedIn().user.pseudo} s'est connecté au tchat.`);
+      } else {
+        this.setState({
+          pseudo: "Pirate inconnu",
+        });
+        console.log(`Un pirate inconnu s'est connecté au tchat.`);
+      }
+    };
+
+    this.socket.onmessage = (message) => {
+      const messageData = JSON.parse(message.data);
+      this.addMessage(messageData);
+    };
+
+    this.socket.onclose = () => {
+      this.setState({
+        socket: new WebSocket(URL),
+      });
+    };
   };
 
   render() {
@@ -67,7 +74,7 @@ class Taverne extends Component {
         ))}
       </div>
     );
-  }
-}
+  };
+};
 
 export default Taverne;

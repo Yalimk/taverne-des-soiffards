@@ -69,11 +69,6 @@ app.get('/docs', (req, res) => {
 const server = app.listen(PORT, () => {
   Logger.info(`${logMoment.dateAndTime}: app listening on port ${PORT}.`);
 });
-server.on('upgrade', (request, socket, head) => {
-  wsServer.handleUpgrade(request,socket, head, socket => {
-    wsServer.emit('connection', socket, request);
-  });
-});
 
 // Commented that out until I figure out what's wrong with the password thing.
 // Handling different types of errors and logging to log files
@@ -94,8 +89,15 @@ server.on('upgrade', (request, socket, head) => {
 
 // Native modules import
 import WebSocket from 'ws';
+
 // Constants definition
 const wsServer = new WebSocket.Server({noServer: true});
+
+server.on('upgrade', (request, socket, head) => {
+  wsServer.handleUpgrade(request,socket, head, socket => {
+    wsServer.emit('connection', socket, request);
+  });
+});
 
 wsServer.on('connection', (socket) => {
   socket.on('message', (data) => {
