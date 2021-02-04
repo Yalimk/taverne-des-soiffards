@@ -196,7 +196,7 @@ class EditProfile extends Component {
         <input
           onChange={this.handleChange("photo")}
           type="file"
-          // name="photo"
+          name="photo"
           accept="image/*"
           className="form-control"
         />
@@ -209,7 +209,7 @@ class EditProfile extends Component {
         <input
           onChange={this.handleChange("pseudo")}
           type="text"
-          // name="pseudo"
+          name="pseudo"
           className="form-control"
           value={pseudo}
           placeholder="Laisser vide pour conserver le pseudo actuel."
@@ -221,7 +221,7 @@ class EditProfile extends Component {
         <input
           onChange={this.handleChange("email")}
           type="email"
-          // name="email"
+          name="email"
           className="form-control"
           value={email}
           placeholder="Laisser vide pour conserver l'e-mail actuel."
@@ -235,7 +235,7 @@ class EditProfile extends Component {
         <input
           onChange={this.handleChange("password")}
           type="password"
-          // name="password"
+          name="password"
           className="form-control"
           value={password}
           placeholder="Laisser vide pour conserver le mot de passe actuel."
@@ -246,7 +246,7 @@ class EditProfile extends Component {
         <textarea
           onChange={this.handleChange("about")}
           type="text"
-          // name="about"
+          name="about"
           className="form-control"
           value={about}
           placeholder="Raconte-nous ton histoire, flibustier ! Ou raconte des conneries, c'est toi qui vois..."
@@ -257,7 +257,7 @@ class EditProfile extends Component {
         <textarea
           onChange={this.handleChange("role")}
           type="text"
-          // name="role"
+          name="role"
           className="form-control"
           value={role}
           placeholder="Quel rôle préfères-tu assurer, moussaillon ? Les canons ou la chair à canon ?"
@@ -268,7 +268,7 @@ class EditProfile extends Component {
         <textarea
           onChange={this.handleChange("hobbies")}
           type="text"
-          // name="hobbies"
+          name="hobbies"
           className="form-control"
           value={hobbies}
           placeholder="As-tu d'autres hobbies à part voler, piller et boire du rhum, pirate ?"
