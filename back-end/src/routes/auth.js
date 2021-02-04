@@ -64,18 +64,10 @@ router.post(
 // Route for user sign in
 router.post(
   '/signin',
-  check('email')
-    .notEmpty()
-    .isEmail()
-    .withMessage(
-      `Ne me prends pas pour un louveteau de mer, ceci n'est pas une adresse de courrier électronique !`
-    )
-    .normalizeEmail(),
-  check('password')
-    .notEmpty()
-    .withMessage(
-      `Je dois vérifier que tu n'es pas un espion à la solde du gouvernement ! Donne ton mot de passe !`
-    ),
+  body('email', 'Il faut que tu renseignes un e-mail.')
+  .notEmpty(),
+  body('password',  `Je dois vérifier que tu n'es pas un espion à la solde du gouvernement ! Donne ton mot de passe !`)
+  .notEmpty(),
   signin
 );
 

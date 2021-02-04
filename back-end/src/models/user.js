@@ -64,6 +64,18 @@ userSchema
   .get(function() {
     return this._password;
   });
+
+// Creating a virtual field to hash the newPassword
+  userSchema
+  .virtual("newPassword")
+  .set(function (newPassword) {
+    this._newPassword = newPassword;
+    this.salt = uuidv4();
+    this.hashed_password = this.encryptPassword(newPassword);
+  })
+  .get(function() {
+    return this.newPassword;
+  });
   
   // Adding methods to our schema:
 userSchema.methods = {

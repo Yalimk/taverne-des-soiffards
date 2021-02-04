@@ -22,18 +22,18 @@ export const userById = (req, res, next, userId) => {
   next();
 };
 
-export const userByPseudo = (req, res, next, userPseudo) => {
-  User.findOne({pseudo: userPseudo})
-  .exec((err, user) => {
-    if (err || !user) {
-      return res.status(400).json({
-        error: `Ce pseudo ne correspond à aucun pirate.`
-      })
-    }
-    req.profile = user;
-  });
-  next();
-};
+// export const userByPseudo = (req, res, next, userPseudo) => {
+//   User.findOne({pseudo: userPseudo})
+//   .exec((err, user) => {
+//     if (err || !user) {
+//       return res.status(400).json({
+//         error: `Ce pseudo ne correspond à aucun pirate.`
+//       })
+//     }
+//     req.profile = user;
+//   });
+//   next();
+// };
 
 export const hasAuthorization = (req, res, next) => {
   const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
