@@ -1,5 +1,5 @@
 {
-  "/": "(GET) Charger la page d'accueil",
+  "/": "(GET) Charger la page d'accueil qui est aussi la salle de tchat Taverne",
   "/signup": "(POST) Créer un compte sur la Taverne",
   "/signin": "(POST) Se connecter à la Taverne",
   "signout": "(POST) Se déconnecter de la Taverne",
