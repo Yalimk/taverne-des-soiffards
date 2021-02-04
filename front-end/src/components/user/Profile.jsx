@@ -4,7 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 
 // Components import
 import DeleteUser from "./DeleteUser";
-import DisplayUserPosts from "./DisplayUserPosts";
+import UserPosts from "./UserPosts";
 
 // Personal modules import
 import { isLoggedIn } from "../auth/index";
@@ -157,7 +157,7 @@ class Profile extends Component {
               )}
               <div>
                 {isLoggedIn().user &&
-                  isLoggedIn().user.right === "Roi des Pirates" && (
+                  isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE && (
                     <div
                       className="card mt-5 jumbotron"
                       style={{
@@ -197,7 +197,7 @@ class Profile extends Component {
               <p className="lead">{about}</p>
               <hr />
 
-              <DisplayUserPosts posts={posts} />
+              <UserPosts posts={posts} />
             </div>
           </div>
         </div>
@@ -264,7 +264,7 @@ class Profile extends Component {
               <p className="lead">{about}</p>
               <hr />
 
-              <DisplayUserPosts posts={posts} />
+              <UserPosts posts={posts} />
             </div>
           </div>
         </div>

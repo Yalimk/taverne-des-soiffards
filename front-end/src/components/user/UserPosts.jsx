@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class DisplayUserPosts extends Component {
+class UserPosts extends Component {
   render() {
     const { posts } = this.props;
     // console.log('posts inside ProfileTabes', posts);
@@ -28,4 +28,4 @@ class DisplayUserPosts extends Component {
   }
 }
 
-export default DisplayUserPosts;
+export default UserPosts;

@@ -13,7 +13,7 @@ class DeleteUser extends Component {
   };
 
   componentDidMount() {
-    if (isLoggedIn().user.right === "Roi des Pirates") {
+    if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE) {
       this.setState({ allMighty: true });
     }
   };
@@ -46,7 +46,7 @@ class DeleteUser extends Component {
 
   deleteConfirmation = () => {
     let answer, kingAnswer;
-    if (isLoggedIn().user.right === "Roi des Pirates") {
+    if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE) {
       kingAnswer = window.confirm(
         `Tu vas supprimer le profil de ce Pirate de façon irréversible ; même toi tu n'y pourras plus rien, mon Roi.
         Es-tu bien certain que c'est ce que tu veux faire ?`

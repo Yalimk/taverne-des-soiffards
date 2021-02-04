@@ -197,7 +197,7 @@ class EditPost extends Component {
 
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
-            {(isLoggedIn().user.right === "Roi des Pirates" ||
+            {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
               isLoggedIn().user._id === id) && this.postUpdateForm(title, body)}
           </div>
         </div>
@@ -230,7 +230,7 @@ class EditPost extends Component {
 
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
-            {(isLoggedIn().user.right === "Roi des Pirates" ||
+            {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
               isLoggedIn().user._id === id) && this.postUpdateForm(title, body)}
           </div>
         </div>

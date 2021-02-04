@@ -121,7 +121,7 @@ const Menu = ({ history }) => (
                 Déconnexion
               </Link>
             </li>
-            {isLoggedIn() && isLoggedIn().user.right === "Roi des Pirates" && (
+            {isLoggedIn() && isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE && (
               <li className="nav-item">
                 <Link
                   to="/admin"

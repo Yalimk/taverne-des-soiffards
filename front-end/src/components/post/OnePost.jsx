@@ -124,7 +124,7 @@ class OnePost extends Component {
           )}
           <div>
             {isLoggedIn().user &&
-              isLoggedIn().user.right === "Roi des Pirates" && (
+              isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE && (
                 <div
                   className="card mt-5 jumbotron"
                   style={{

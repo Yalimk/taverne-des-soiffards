@@ -178,7 +178,7 @@ class EditProfile extends Component {
       // console.info(`[front-end/src/user/EditProfile => updateSubmit => after updateUser:183]: data: ${data}`)
       if (data.error) {
         this.setState({ error: data.error });
-      } else if (isLoggedIn().user.right === 'Roi des Pirates') {
+      } else if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE) {
         this.setState({ redirectionProfile: true })
       } else {
         // console.info(`[front-end/src/user/EditProfile => updateSubmit => before updateInfo:190]: data: ${data}`)
@@ -333,7 +333,7 @@ class EditProfile extends Component {
             alt={pseudo}
           />
           {/* {console.log('user.right', isLoggedIn().user.right)} */}
-          {(isLoggedIn().user.right === "Roi des Pirates" ||
+          {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
             isLoggedIn().user._id === id) &&
               this.updateForm(pseudo, email, password, about, role, hobbies)}
         </div>
@@ -364,7 +364,7 @@ class EditProfile extends Component {
             alt={pseudo}
           />
           {/* {console.log('user.right', isLoggedIn().user.right)} */}
-          {(isLoggedIn().user.right === "Roi des Pirates" ||
+          {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
             isLoggedIn().user._id === id) &&
               this.updateForm(pseudo, email, password, about, role, hobbies)}
         </div>
