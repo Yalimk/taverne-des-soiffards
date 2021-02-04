@@ -51,9 +51,9 @@ J'ai décidé que j'allais utiliser ce projet non seulement pour valider ma form
 
 Notre guilde s'appelant "La Taverne des Soiffards" et faisant déjà référence à un lieu de rencontre et de discussion, il m'est apparu qu'il était tout à fait possible de conserver ce nom pour nommer cette plateforme.
 
-L'origine du nom vient du fait que nous nous sommes rencontrés sur le jeu [Sea of Thieves](https://www.seaofthieves.com/fr) (_Microsoft and Rare All Rights reserverd_), un jeu de piraterie en ligne. Les pirates étant réputés, dans l'imaginaire collectif, pour leur addiction au rhum, l'un de nos membres fondateurs, Damarolo, a eu l'idée de nommer notre guilde La Taverne des Soiffards. Ce nom est depuis resté, et tout les membres l'ont adopté !
+L'origine du nom vient du fait que nous nous sommes rencontrés sur le jeu [Sea of Thieves](https://www.seaofthieves.com/fr) (_Microsoft and Rare All Rights reserverd_), un jeu de piraterie en ligne. Les pirates étant réputés, dans l'imaginaire collectif, pour leur addiction au rhum, l'un de nos membres fondateurs, Damarolo, a eu l'idée de nommer notre guilde La Taverne des Soiffards. Ce nom est depuis resté, et tous les membres l'ont adopté !
 
-> _Disclaimer: ce site n'a en aucunc cas l'intention, directe ou indrecte, de faire la promotion de l'alcolisme, de tout comportement déviant lié à l'alcool ou de toute boisson alcolisée quelque soit sa forme_
+> _Disclaimer: ce site n'a en aucun cas l'intention, directe ou indirecte, de faire la promotion de l'alcolisme, de tout comportement déviant lié à l'alcool ou de toute boisson alcolisée quelle que soit sa forme_
 
 ## Utilisation de la plateforme
 
@@ -189,9 +189,9 @@ Je ne vois pas du tout pourquoi j'ai cette erreur...
 
 ### Update problème 5 :
 
-1. Le problème vient peut-être des routes utilisées. Non, j'ai vérifié, les routes sont correctes.
-2. Le front-end n'a peut-être pas les données à envoyer. Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
-3. J'ai peut-être fait une faute de frappe. Non, j'ai vérifier, aucune faute de frappe.
+1. Le problème vient peut-être des routes utilisées ? Non, j'ai vérifié, les routes sont correctes.
+2. Le front-end n'a peut-être pas les données à envoyer ? Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
+3. J'ai peut-être fait une faute de frappe ? Non, j'ai vérifié, aucune faute de frappe.
 4. Peut-être faut-il créer un nouveau champ virtuel dans le `userSchema` et modifier la clé `password` en `newPassword` dans back-end/src/controllers/auth.js ? Non, cela a retiré l'erreur obtenue, mais la modification du mot de passe ne s'est pas faite, et le req.body était toujours vide en back-end.
 
 ------------------------------------------------
