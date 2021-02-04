@@ -1,6 +1,6 @@
 // Native modules import
 import express from 'express';
-import { check, body, validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 
 // Personal modules import
 import {

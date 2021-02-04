@@ -11,29 +11,16 @@ import { Logger, logMoment } from '../logger/logger.js';
 
 export const userById = (req, res, next, userId) => {
   User.findById(userId)
-  .exec((err, user) => {
-    if (err || !user) {
-      return res.status(400).json({
-        error: `Ce pirate n'existe pas ou une erreur s'est produite.`
-      })
-    }
-    req.profile = user;
-  });
-  next();
+    .exec((err, user) => {
+      if (err || !user) {
+        return res.status(400).json({
+          error: `Ce pirate n'existe pas ou une erreur s'est produite.`
+        })
+      }
+      req.profile = user;
+      next();
+    });
 };
-
-// export const userByPseudo = (req, res, next, userPseudo) => {
-//   User.findOne({pseudo: userPseudo})
-//   .exec((err, user) => {
-//     if (err || !user) {
-//       return res.status(400).json({
-//         error: `Ce pseudo ne correspond à aucun pirate.`
-//       })
-//     }
-//     req.profile = user;
-//   });
-//   next();
-// };
 
 export const hasAuthorization = (req, res, next) => {
   const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
@@ -59,24 +46,20 @@ export const hasAuthorization = (req, res, next) => {
 };
 
 // export const allUsers = async (req, res) => {
-//   User.find((err, users) => {
-//     if (err) {
-//       return res.status(400).json({
-//         error: err
-//       })
-//     }
-//     res.json(users)
-//   })
-//   .select('pseudo email updated created right role about hobbies')
+//   try {
+//     const allUsers = await User.find()
+//     return res.json(allUsers);
+//   } catch (error) {
+//     Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
+//   }
 // };
 
 export const getUsers = async (req, res) => {
-  Logger.debug(`[back-end/src/controllers/user.js => getUsers:74] : req.body: ${req.body}`)
   const currentPage = req.query.page || 1;
   const perPage = Number(process.env.PER_PAGE) || 3;
   let totalUsers;
 
-  const users = await User.find()
+  const posts = await User.find()
     .countDocuments()
     .then(count => {
       totalUsers = count;
@@ -87,7 +70,7 @@ export const getUsers = async (req, res) => {
         .select('_id pseudo email about role hobbies photo right'); // added right 03/02 13h42
     })
     .then(users => {
-      res.json(users);
+      return res.json(users);
     })
     .catch(err => console.log(err));
 };
@@ -128,7 +111,6 @@ export const updateUser = (req, res, next) => {
 };
 
 export const userPhoto = (req, res, next) => {
-  Logger.debug(`[back-end/src/controllers/user.js => userPhoto:118] : req.profile : ${JSON.stringify(req.profile)}`)
   if (req.profile.photo.data) {
     res.set('Content-Type', req.profile.photo.contentType);
     return res.send(req.profile.photo.data);
