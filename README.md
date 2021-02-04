@@ -192,6 +192,7 @@ Je ne vois pas du tout pourquoi j'ai cette erreur...
 1. Le problème vient peut-être des routes utilisées. Non, j'ai vérifié, les routes sont correctes.
 2. Le front-end n'a peut-être pas les données à envoyer. Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
 3. J'ai peut-être fait une faute de frappe. Non, j'ai vérifier, aucune faute de frappe.
+4. Peut-être faut-il créer un nouveau champ virtuel dans le `userSchema` et modifier la clé `password` en `newPassword` dans back-end/src/controllers/auth.js ? Non, cela a retiré l'erreur obtenue, mais la modification du mot de passe ne s'est pas faite, et le req.body était toujours vide en back-end.
 
 ------------------------------------------------
  

@@ -15,8 +15,8 @@ class Users extends Component {
   loadUsers = async (page) => {
     try {
       const allUsers = await usersPerPage(page);
-      console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : allUsers : ${allUsers}`);
-      console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : type of allUsers : ${typeof allUsers}`);
+      // console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : allUsers : ${allUsers}`);
+      // console.log(`[front-end/src/users/Users.jsx => loadUsers:18] : type of allUsers : ${typeof allUsers}`);
       if (allUsers) {
         this.setState({
           users: allUsers,

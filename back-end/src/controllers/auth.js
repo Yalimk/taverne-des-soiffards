@@ -159,11 +159,11 @@ export const resetPassword = (req, res) => {
       })
     }
     const fieldsToUpdate = {
-      password: newPassword,
+      password: newPassword, // tried changing to newPassword to match the newly created virtual field newPassword 04/02 17h32
       resetPasswordLink: ''
     }
     user = _.assignIn(user, fieldsToUpdate);
-    Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:166] : fieldsToUpdate: ${fieldsToUpdate}.`)
+    Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:166] : fieldsToUpdate: ${JSON.stringify(fieldsToUpdate)}.`)
     user.updated = Date.now();
     user.save((err, savedUser) => {
       Logger.silly(`${logMoment.dateAndTime}: [back-end/src/controllers/auth.js => resetPassword:169] : at the start of user.save callback.`)

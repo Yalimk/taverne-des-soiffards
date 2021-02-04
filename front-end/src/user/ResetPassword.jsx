@@ -10,34 +10,34 @@ class ResetPassword extends Component {
     newPassword: "",
     message: "",
     error: "",
-    redirectionHome: false,
+    redirectionSignIn: false,
   };
 
-  resetPassword = async (event) => {
+  startResetProcess = async (event) => {
     event.preventDefault();
     this.setState({ message: "", error: "" });
     try {
       console.info(
-        `[front-end/src/user/ResetPassword => resetPassword:21] : newPassword (avant le fetch): ${this.state.newPassword}`
+        `[front-end/src/user/ResetPassword => startResetProcess:21] : newPassword (avant le fetch): ${this.state.newPassword}`
       );
       console.info(
-        `[front-end/src/user/ResetPassword => resetPassword:24] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
+        `[front-end/src/user/ResetPassword => startResetProcess:24] : this.props.match.params.resetPasswordToken (avant le fetch): ${this.props.match.params.resetPasswordToken}`
       );
       const data = await resetPassword({
         newPassword: this.state.newPassword,
         resetPasswordLink: this.props.match.params.resetPasswordToken,
       });
-      console.log(`[front-end/src/user/ResetPassword => resetPassword:30] : data: ${data}`);
+      // console.log(`[front-end/src/user/ResetPassword => startResetProcess:30] : data: ${data}`);
       if (data.error) {
         console.error(
-          `[front-end/src/user/ResetPassword => resetPassword:34] : data.error: ${JSON.stringify(data.error)}`
+          `[front-end/src/user/ResetPassword => startResetProcess:34] : data.error: ${JSON.stringify(data.error)}`
         );
         this.setState({ error: data.error, newPassword: "" });
       } else {
         console.info(
-          `[front-end/src/user/ResetPassword => resetPassword:39] : data.message: ${JSON.stringify(data.message)}`
+          `[front-end/src/user/ResetPassword => startResetProcess:39] : data.message: ${JSON.stringify(data.message)}`
         );
-        this.setState({ message: data.message, newPassword: "", redirectionHome: true });
+        this.setState({ message: data.message, newPassword: "", redirectionSignIn: true });
       }
     } catch (error) {
       console.error(`Password couldn't be reset because of error: ${error}`);
@@ -45,12 +45,12 @@ class ResetPassword extends Component {
   };
 
   render() {
-    const { newPassword, message, error, redirectionHome } = this.state;
+    const { newPassword, message, error, redirectionSignIn } = this.state;
     console.log(`[front-end/src/user/ResetPassword => render:57] : message: ${JSON.stringify(message)}`)
     console.log(`[front-end/src/user/ResetPassword => render:58] : error: ${(JSON.stringify(error))}`)
-    console.log(`[front-end/src/user/ResetPassword => render:59] : redirectionHome: ${redirectionHome}`)
+    console.log(`[front-end/src/user/ResetPassword => render:59] : redirectionSignIn: ${redirectionSignIn}`)
     console.log(`[front-end/src/user/ResetPassword => render:60] : newPassword: ${newPassword}`)
-    if (redirectionHome) {
+    if (redirectionSignIn) {
       return <Redirect to="/" />;
     }
 
@@ -80,7 +80,7 @@ class ResetPassword extends Component {
             />
           </div>
           <button
-            onClick={this.resetPassword}
+            onClick={this.startResetProcess}
             className="btn btn-raised btn-primary"
           >
             Modifier le mot de passe
