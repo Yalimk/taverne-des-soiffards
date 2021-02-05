@@ -13,6 +13,7 @@ class EditPost extends Component {
     title: "",
     body: "",
     redirectionProfile: false,
+    redirectionPosts: false,
     error: "",
     loading: false,
     fileSize: 0,
@@ -167,7 +168,7 @@ class EditPost extends Component {
     const { id, title, body, redirectionProfile, error, loading } = this.state;
     const postId = this.props.match.params.postId;
     if (redirectionProfile) {
-      return <Redirect to={`/post/${id}`} />;
+      return <Redirect to={`/post/${postId}`} />;
     }
     if (id) {
       return (

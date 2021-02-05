@@ -12,7 +12,8 @@ import { signout, isLoggedIn } from "../../logic/core/index";
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
     return {
-      color: "#5E8C5D",
+      color: "#3BA7BF",
+      fontWeight: "bold"
     };
   } else {
     return {
@@ -28,7 +29,7 @@ const Menu = ({ history }) => (
         <li className="nav-item">
           <Link
             className="navbar-link mr-3"
-            style={(isActive(history, "/"), { fontWeight: "bold" })}
+            style={(isActive(history, "/"))}
             to="/"
           >
             La Taverne
@@ -96,7 +97,7 @@ const Menu = ({ history }) => (
                 className="navbar-link mr-3"
                 style={
                   (isActive(history, `/user/${isLoggedIn().user._id}`),
-                  { fontWeight: "bold", color: "#81A65D" })
+                  { color: "#81A65D", fontWeight: "bold" })
                 }
                 to={`/user/${isLoggedIn().user._id}`}
               >
@@ -131,7 +132,7 @@ const Menu = ({ history }) => (
                     { color: "#9662E3", fontWeight: "bold" })
                   }
                 >
-                  Roi des Pirates
+                  Administration du Roi des Pirates
                 </Link>
               </li>
             )}

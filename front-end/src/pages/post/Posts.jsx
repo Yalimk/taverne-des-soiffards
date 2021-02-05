@@ -33,12 +33,12 @@ class Posts extends Component {
     }
   };
 
-  getMorePosts = (num) => {
+  showMorePosts = (num) => {
     this.setState({ page: this.state.page + 1 });
     this.loadPosts(this.state.page + num);
   };
 
-  getLessPosts = (num) => {
+  showLessPosts = (num) => {
     this.setState({ page: this.state.page - 1 });
     this.loadPosts(this.state.page - num);
   };
@@ -52,7 +52,7 @@ class Posts extends Component {
     return (
       <div className="row" style={{ justifyContent: "center" }}>
         {posts.map((post, i) => {
-          const posterId = post.author ? `/user/${post.author._id}` : "";
+          const posterProfile = post.author ? `/user/${post.author._id}` : "/posts";
           const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
 
           return (
@@ -85,7 +85,7 @@ class Posts extends Component {
                 {post.body.substring(0, 100)}
               </p>
               <p className="font-italic mb-0">
-                Posté par <Link to={posterId}>{posterPseudo}</Link> le{" "}
+                Posté par <Link to={posterProfile} style={{color: "#3BA7BF"}}>{posterPseudo}</Link> le{" "}
                 {new Date(post.created).toLocaleDateString()}
               </p>
               <Link
@@ -117,7 +117,7 @@ class Posts extends Component {
             {page > 1 ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
-                onClick={() => this.getLessPosts(1)}
+                onClick={() => this.showLessPosts(1)}
                 style={{ boxShadow: "3px 3px 5px grey" }}
               >
                 Page précédente
@@ -131,7 +131,7 @@ class Posts extends Component {
             {(posts.length > page && posts.length === Number(process.env.REACT_APP_PER_PAGE)) ? (
               <button
                 className="btn btn-raised btn-info mt-5 mb-5"
-                onClick={() => this.getMorePosts(1)}
+                onClick={() => this.showMorePosts(1)}
                 style={{ boxShadow: "3px 3px 5px grey" }}
               >
                 Page suivante

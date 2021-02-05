@@ -57,7 +57,7 @@ class OnePost extends Component {
 
   renderPost = (post) => {
     let posterId;
-    if (typeof post.author === 'string') {
+    if (typeof post.author === "string") {
       posterId = post.author ? `/user/${post.author._id}` : "";
     }
     const posterPseudo = post.author ? post.author.pseudo : "un Inconnu";
@@ -66,10 +66,17 @@ class OnePost extends Component {
       <div className="card col-12" style={{ backgroundColor: "#D9D9D9" }}>
         <div className="card-body text-center">
           <img
-             src={`${process.env.REACT_APP_API_URI}/post/photo/${post._id}?${new Date().getTime()}`}
+            src={`${process.env.REACT_APP_API_URI}/post/photo/${
+              post._id
+            }?${new Date().getTime()}`}
             onError={(img) => (img.target.src = `${defaultPostPic}`)}
             className="img-thumbnail mb-3"
-            style={{ height: "auto", width: "auto", objectFit: "cover", boxShadow: "3px 3px 10px grey" }}
+            style={{
+              height: "auto",
+              width: "auto",
+              objectFit: "cover",
+              boxShadow: "3px 3px 10px grey",
+            }}
             alt={post.title}
           />
         </div>
@@ -79,8 +86,16 @@ class OnePost extends Component {
           {post.body}
         </p>
         <p className="font-italic">
-          Posté par <Link to={typeof post.author === 'string' ? posterId : `/post/${post._id}`}>{posterPseudo}</Link> le{" "}
-          {new Date(post.created).toLocaleDateString()}
+          Posté par{" "}
+          <Link
+            to={
+              typeof post.author === "string" ? posterId : `/post/${post._id}`
+            }
+            style={{ color: "#3BA7BF" }}
+          >
+            {posterPseudo}
+          </Link>{" "}
+          le {new Date(post.created).toLocaleDateString()}
         </p>
         <div className="inline-block">
           <Link
@@ -94,7 +109,7 @@ class OnePost extends Component {
           >
             Retour aux messages
           </Link>
-          {(typeof post.author === 'string') && (isLoggedIn().user && isLoggedIn().user._id === post.author._id) && (
+          {isLoggedIn().user && isLoggedIn().user._id === post.author?._id && (
             <>
               <Link
                 to={`/post/edit/${post._id}`}
@@ -141,13 +156,14 @@ class OnePost extends Component {
                     >
                       Interface du Roi des Pirates
                     </h5>
-
-                    <Link
-                      to={`/post/edit/${post._id}`}
-                      className="btn btn-raised btn-info mr-5"
-                    >
-                      Modifier en tant que Roi
-                    </Link>
+                    {post.author?._id && (
+                      <Link
+                        to={`/post/edit/${post._id}`}
+                        className="btn btn-raised btn-info mr-5"
+                      >
+                        Modifier en tant que Roi
+                      </Link>
+                    )}
                     <button
                       onClick={this.deleteConfirmation}
                       className="btn btn-raised btn-danger"
@@ -161,7 +177,6 @@ class OnePost extends Component {
         </div>
       </div>
     );
-
   };
 
   render() {

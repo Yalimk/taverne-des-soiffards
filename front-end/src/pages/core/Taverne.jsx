@@ -34,16 +34,16 @@ class Taverne extends Component {
     this.socket.onopen = (data) => {
       if (isLoggedIn()) {
         const pirateName = isLoggedIn().user.pseudo;
-        console.log('data', data)
+        // console.log('data', data);
         this.setState({
           pseudo: pirateName,
         });
-        console.log(`${pirateName} s'est connecté au tchat.`);
+        // console.log(`${pirateName} s'est connecté au tchat.`);
       } else {
         this.setState({
           pseudo: "Pirate inconnu",
         });
-        console.log(`Un pirate inconnu s'est connecté au tchat.`);
+        // console.log(`Un pirate inconnu s'est connecté au tchat.`);
       }
     };
 
