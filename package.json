@@ -1,0 +1,26 @@
+{
+  "name": "taverne-des-soiffards",
+  "version": "1.0.0",
+  "description": "Réseau social pour pirates !",
+  "main": "app.js",
+  "scripts": {
+    "build": "(cd back-end && npm install) && (cd front-end && npm install",
+    "start": "(cd back-end && npm start) && (cd front-end npm start-client)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yalimk/taverne-des-soiffards.git"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "pirates",
+    "ifocop"
+  ],
+  "author": "YaliMK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yalimk/taverne-des-soiffards/issues"
+  },
+  "homepage": "https://github.com/Yalimk/taverne-des-soiffards#readme"
+}
