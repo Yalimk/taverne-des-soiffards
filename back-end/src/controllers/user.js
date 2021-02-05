@@ -22,37 +22,41 @@ export const userById = (req, res, next, userId) => {
     });
 };
 
+// export const userByPseudo = (req, res, next, userPseudo) => {
+//   User.findOne({pseudo: userPseudo})
+//     .exec((err, user) => {
+//       if (err || !user) {
+//         return res.status(400).json({
+//           error: `Ce pirate n'existe pas ou une erreur s'est produite.`
+//         })
+//       }
+//       req.profile = user;
+//       next();
+//     });
+// };
+
 export const hasAuthorization = (req, res, next) => {
   const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
   const adminUser = req.profile && req.auth && req.auth.right === process.env.ADMIN_TITLE;
   const authorized = sameUser || adminUser;
 
-  // Logger.debug(`${logMoment.dateAndTime}: 
-  // [back-end/src/controllers/user.js => hasAuthorization:31] :  
-  // req.user: ${req.profile}
-  // req.auth: ${JSON.stringify(req.auth)}
-  // sameUser: ${sameUser}
-  // adminUser: ${adminUser}
-  // adminTitle: ${process.env.ADMIN_TITLE}
-  // `);
+  Logger.debug(`${logMoment.dateAndTime}: 
+  [back-end/src/controllers/user.js => hasAuthorization:31] :  
+  req.user: ${req.profile}
+  req.auth: ${JSON.stringify(req.auth)}
+  sameUser: ${sameUser}
+  adminUser: ${adminUser}
+  adminTitle: ${process.env.ADMIN_TITLE}
+  `);
 
   if (!authorized) {
     return res.status(403).json({
       error: `Tu n'as pas la permission de faire ça, moussaillon, où est-ce que tu te crois ?! Chez mémé ?!`
     });
   }
-  // Logger.info(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js => hasAuthorization:44] : authorized to proceed`);
+  Logger.info(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js => hasAuthorization:44] : authorized to proceed`);
   next();
 };
-
-// export const allUsers = async (req, res) => {
-//   try {
-//     const allUsers = await User.find()
-//     return res.json(allUsers);
-//   } catch (error) {
-//     Logger.error(`${logMoment.dateAndTime}: [back-end/src/controllers/user.js:78] : error: ${error}`)
-//   }
-// };
 
 export const getUsers = async (req, res) => {
   const currentPage = req.query.page || 1;
