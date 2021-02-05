@@ -178,7 +178,7 @@ return <Redirect to={`${process.env.REACT_APP_API_URI}/post/${id}`}/>;
 
 ------------------------------------------------
  
- ## Problème 5 : modification mdp impossible depuis ResetPassword
+ ## Problème 5 : modification mdp impossible depuis ResetPassword (résolu)
 
 Lorsque l'utilisateur tente de modifier son mot de passe sur la page prévue à cet effet, sur laquelle il aura été envoyé par le lien dans l'e-mail reçu suite à sa demande de réinitialisation, on obtient une erreur :
 ```bash
@@ -194,6 +194,40 @@ Je ne vois pas du tout pourquoi j'ai cette erreur...
 2. Le front-end n'a peut-être pas les données à envoyer ? Non, j'ai vérifié, les données sont bien présentes en front-end (`newPassword` et `resetPasswordToken`).
 3. J'ai peut-être fait une faute de frappe ? Non, j'ai vérifié, aucune faute de frappe.
 4. Peut-être faut-il créer un nouveau champ virtuel dans le `userSchema` et modifier la clé `password` en `newPassword` dans back-end/src/controllers/auth.js ? Non, cela a retiré l'erreur obtenue, mais la modification du mot de passe ne s'est pas faite, et le req.body était toujours vide en back-end.
+5. Ok, là je crois que j'ai touché le fond... Voici ce que j'avais écrit pour faire ma requête PUT au serveur :
+```javascript
+export const resetPassword = async (newCredentials) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
+      method: "PUT",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCredentials)
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`[front-end/auth/index.js => resetPassword:101] : error: ${error}.`)
+  }
+};
+```
+L'erreur est subtile mais EXTRÊMEMENT IMPORTANTE. J'aurais dû faire plus attention en écrivant ma requête, car j'ai mal écrit cette partie :
+```javascript
+const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
+  method: "PUT",
+  header: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+```
+Plus particulièrement ici :
+```javascript
+header: { // j'ai oublié de mettre un "s" à "headers"...
+  Accept: "application/json",
+  "Content-Type": "application/json",
+},
+```
 
 ------------------------------------------------
  

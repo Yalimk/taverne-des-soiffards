@@ -88,18 +88,18 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (newCredentials) => {
-  console.log(`[front-end/auth/index.js => resetPassword:91] : newCredentials: ${JSON.stringify(newCredentials)}`)
+  // console.log(`[front-end/auth/index.js => resetPassword:91] : newCredentials: ${JSON.stringify(newCredentials)}`)
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URI}/reset-password/`, {
       method: "PUT",
-      header: {
+      headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newCredentials)
     });
-    console.log(`[front-end/auth/index.js => resetPassword:101] : response: ${response}`);
-    return response.json();
+    // console.log(`[front-end/auth/index.js => resetPassword:101] : response: ${response}`);
+    return await response.json();
   } catch (error) {
     console.error(`[front-end/auth/index.js => resetPassword:101] : error: ${error}.`)
   }
