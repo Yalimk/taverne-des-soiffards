@@ -72,26 +72,26 @@ const server = app.listen(PORT, () => {
 
 // Commented that out until I figure out what's wrong with the password thing.
 // Handling different types of errors and logging to log files
-// const errorTypes = ['unhandledRejection', 'uncaughtException'];
-// errorTypes.map((type) => {
-//   process.on(type, async () => {
-//     try {
-//       Logger.error(`${logMoment.dateAndTime}: Error of type process.on ${type} occurred.`);
-//       process.exit(0);
-//     } catch (_) {
-//       Logger.error(`${logMoment.dateAndTime}: Encountered an error of type ${_.message}.`);
-//       process.exit(1);
-//     }
-//   });
-// });
+const errorTypes = ['unhandledRejection', 'uncaughtException'];
+errorTypes.map((type) => {
+  process.on(type, async () => {
+    try {
+      Logger.error(`${logMoment.dateAndTime}: Error of type process.on ${type} occurred.`);
+      process.exit(0);
+    } catch (_) {
+      Logger.error(`${logMoment.dateAndTime}: Encountered an error of type ${_.message}.`);
+      process.exit(1);
+    }
+  });
+});
 
-// **************** Simple live chat code attempt ****************
+// **************** Simple live chat ****************
 
 // Native modules import
 import WebSocket from 'ws';
 
 // Constants definition
-const wsServer = new WebSocket.Server({noServer: true});
+const wsServer = new WebSocket.Server({noServer: true, clientTracking: true});
 
 server.on('upgrade', (request, socket, head) => {
   wsServer.handleUpgrade(request,socket, head, socket => {
@@ -100,10 +100,10 @@ server.on('upgrade', (request, socket, head) => {
 });
 
 wsServer.on('connection', (socket) => {
-  socket.on('message', (data) => {
+  socket.on('message', (message) => {
     wsServer.clients.forEach((client) => {
       if (socket !== client && client.readyState === WebSocket.OPEN) {
-        client.send(data);
+        client.send(message);
       }
     });
   });

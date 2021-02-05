@@ -59,7 +59,7 @@ class Profile extends Component {
   componentDidMount() {
     try {
       const userId = this.props.match.params.userId;
-      console.log(`[front-end/src/user/Profile.jsx => componentDidMount] userId: ${userId}`)
+      // console.log(`[front-end/src/user/Profile.jsx => componentDidMount] userId: ${userId}`)
       if (userId) {
         this.init(userId);
       } else {

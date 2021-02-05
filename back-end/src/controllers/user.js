@@ -82,6 +82,7 @@ export const getUser = (req, res) => {
 };
 
 export const updateUser = (req, res, next) => {
+  Logger.debug(`[back-end/src/controllers/users.js => updateUser] : function fired.`)
   let form = formidable({ multiples: true });
   form.parse(req, (err, fields, files) => {
     if (err) {
