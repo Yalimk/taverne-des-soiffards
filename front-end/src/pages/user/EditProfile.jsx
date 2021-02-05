@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
-import { read, updateUser, updateInfo } from "./apiUser";
+import { isLoggedIn } from "../../logic/core/index";
+import { read, updateUser, updateInfo } from "../../logic/user/apiUser";
 import defaultProfilePic from "../../images/default-image.png";
 
 class EditProfile extends Component {

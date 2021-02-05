@@ -4,19 +4,19 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // Components import
 import Menu from "./components/core/Menu";
-import Taverne from "./components/chat/Taverne";
-import Users from "./components/user/Users";
-import Signup from "./components/user/Signup";
-import Signin from "./components/user/Signin";
-import Profile from "./components/user/Profile";
-import EditProfile from "./components/user/EditProfile";
-import Posts from "./components/post/Posts";
-import NewPost from "./components/post/NewPost";
-import OnePost from "./components/post/OnePost";
-import EditPost from "./components/post/EditPost";
+import Taverne from "./pages/core/Taverne";
+import Users from "./pages/user/Users";
+import Signup from "./pages/core/Signup";
+import Signin from "./pages/core/Signin";
+import Profile from "./pages/user/Profile";
+import EditProfile from "./pages/user/EditProfile";
+import Posts from "./pages/post/Posts";
+import NewPost from "./pages/post/NewPost";
+import OnePost from "./pages/post/OnePost";
+import EditPost from "./pages/post/EditPost";
 import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
-import AdminInterface from "./components/admin/Admin";
+import AdminInterface from "./pages/admin/Admin";
 import PrivateRoute from "./components/auth/PrivateRoute";
 
 const App = () => (

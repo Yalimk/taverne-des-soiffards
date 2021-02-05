@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 
 // Components import
-import DeleteUser from "./DeleteUser";
-import UserPosts from "./UserPosts";
+import DeleteUser from "../../components/user/DeleteUser";
+import UserPosts from "../../components/user/UserPosts";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
-import { read } from "./apiUser";
+import { isLoggedIn } from "../../logic/core/index";
+import { read } from "../../logic/user/apiUser";
 import defaultProfilePic from "../../images/default-image.png";
-import { listUserPosts } from "../post/apiPost";
+import { listUserPosts } from "../../logic/post/apiPost";
 
 class Profile extends Component {
   state = {

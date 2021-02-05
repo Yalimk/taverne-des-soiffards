@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
-import { createPost } from "./apiPost";
+import { isLoggedIn } from "../../logic/core/index";
+import { createPost } from "../../logic/post/apiPost";
 
 class NewPost extends Component {
   state = {

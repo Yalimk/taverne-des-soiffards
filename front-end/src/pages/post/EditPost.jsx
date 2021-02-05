@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
-import { viewPost, updatePost } from "./apiPost";
+import { isLoggedIn } from "../../logic/core/index";
+import { viewPost, updatePost } from "../../logic/post/apiPost";
 import defaultPostPic from "../../images/beautiful-sea.jpg";
 
 class EditPost extends Component {
@@ -31,7 +31,7 @@ class EditPost extends Component {
           // `[front-end/src/post/EditPost.jsx => init:] : data.author._id: ${data.author._id}`
         // );
         this.setState({
-          id: data.author._id,
+          id: data.author?._id,
           title: data.title,
           body: data.body,
           error: "",
@@ -198,7 +198,7 @@ class EditPost extends Component {
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
             {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
-              isLoggedIn().user._id === id) && this.postUpdateForm(title, body)}
+              isLoggedIn().user?._id === id) && this.postUpdateForm(title, body)}
           </div>
         </div>
       );
@@ -223,7 +223,7 @@ class EditPost extends Component {
             <img
               style={{ height: "200px", width: "auto" }}
               className="img-thumbnail mb-3"
-              src={`${defaultPostPic}`}
+              src={`${process.env.REACT_APP_API_URI}/post/photo/${postId}?${new Date().getTime()}`}
               onError={(img) => (img.target.src = `${defaultPostPic}`)}
               alt={title}
             />
@@ -231,7 +231,7 @@ class EditPost extends Component {
             <h3 className="card-title mt-3 mb-3">{title}</h3>
 
             {(isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE ||
-              isLoggedIn().user._id === id) && this.postUpdateForm(title, body)}
+              isLoggedIn().user?._id === id) && this.postUpdateForm(title, body)}
           </div>
         </div>
       );

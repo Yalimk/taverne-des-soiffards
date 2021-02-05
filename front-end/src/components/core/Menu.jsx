@@ -7,7 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 // import SearchUser from '../user/SearchUser';
 
 // Personal modules import
-import { signout, isLoggedIn } from "../auth/index";
+import { signout, isLoggedIn } from "../../logic/core/index";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {

@@ -7,7 +7,7 @@ import Posts from "../post/Posts";
 import Users from "../user/Users";
 
 // Personal modules import
-import {isLoggedIn} from '../auth/index';
+import {isLoggedIn} from '../../logic/core/index';
 
 class AdminInterface extends Component {
   state = {

@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 // Personal modules import
-import { isLoggedIn } from "../auth/index";
+import { isLoggedIn } from "../../logic/core/index";
 import SoTWP from "../../images/sot-wp.jpg";
 
 class ChatForm extends Component {

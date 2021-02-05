@@ -3,9 +3,9 @@
 import React, { Component } from "react";
 
 // Personal modules import
-import ChatMessage from "./ChatMessage";
-import ChatForm from "./ChatForm";
-import { isLoggedIn } from "../auth/index";
+import ChatMessage from "../../components/chat/ChatMessage";
+import ChatForm from "../../components/chat/ChatForm";
+import { isLoggedIn } from "../../logic/core/index";
 
 // Constants definition
 const URL = `ws://localhost:9092`;

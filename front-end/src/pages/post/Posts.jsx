@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { postsPerPage } from "./apiPost";
+import { postsPerPage } from "../../logic/post/apiPost";
 import defaultPostPic from "../../images/beautiful-sea.jpg";
 
 class Posts extends Component {

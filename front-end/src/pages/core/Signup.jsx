@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
 // Personal modules import
-import { signup } from "../auth/index";
+import { signup } from "../../logic/core/index";
 
 class Signup extends Component {
   state = {

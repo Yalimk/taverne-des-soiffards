@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 // Personal modules import
-import { signin, logUserIn } from "../auth/index";
+import { signin, logUserIn } from "../../logic/core/index";
 
 class Signin extends Component {
   state = {

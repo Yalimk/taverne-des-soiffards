@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 // Personal modules import
-import { viewPost, remove } from "./apiPost";
+import { viewPost, remove } from "../../logic/post/apiPost";
 import defaultPostPic from "../../images/beautiful-sea.jpg";
-import { isLoggedIn } from "../auth/index";
+import { isLoggedIn } from "../../logic/core/index";
 
 class OnePost extends Component {
   state = {

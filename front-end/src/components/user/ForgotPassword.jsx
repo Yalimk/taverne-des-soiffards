@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 // Personal modules import
-import { forgotPassword } from "../auth/index";
+import { forgotPassword } from "../../logic/core/index";
 
 class ForgotPassword extends Component {
   state = {

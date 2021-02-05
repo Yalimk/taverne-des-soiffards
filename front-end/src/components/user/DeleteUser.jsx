@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn, signout } from "../auth/index";
-import { remove } from "./apiUser";
+import { isLoggedIn, signout } from "../../logic/core/index";
+import { remove } from "../../logic/user/apiUser";
 
 class DeleteUser extends Component {
   state = {
