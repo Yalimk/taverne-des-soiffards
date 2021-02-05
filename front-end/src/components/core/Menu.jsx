@@ -4,7 +4,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
 // Components import
-// import SearchUser from '../user/SearchUser';
+import SearchUser from '../user/SearchUser';
 
 // Personal modules import
 import { signout, isLoggedIn } from "../../logic/core/index";
@@ -113,7 +113,7 @@ const Menu = ({ history }) => (
               <Link
                 to="/"
                 onClick={() => signout(() => history.push("/"))}
-                className="navbar-link mr-5"
+                className="navbar-link mr-3"
                 style={
                   (isActive(history, "/signout"),
                   { color: "#8C0303", fontWeight: "bold" })
@@ -126,20 +126,20 @@ const Menu = ({ history }) => (
               <li className="nav-item">
                 <Link
                   to="/admin"
-                  className="navbar-link mr-5"
+                  className="navbar-link"
                   style={
                     (isActive(history, "/admin"),
                     { color: "#9662E3", fontWeight: "bold" })
                   }
                 >
-                  Administration du Roi des Pirates
+                  ADMIN
                 </Link>
               </li>
             )}
           </>
         )}
       </ul>
-      {/* <SearchUser /> */}
+      <SearchUser />
     </nav>
   </div>
 );
