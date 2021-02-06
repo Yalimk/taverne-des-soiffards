@@ -86,7 +86,7 @@ class Posts extends Component {
               </p>
               <p className="font-italic mb-0">
                 Posté par <Link to={posterProfile} style={{color: "#3BA7BF"}}>{posterPseudo}</Link> le{" "}
-                {new Date(post.created).toLocaleDateString()}
+                {new Date(post.created).toLocaleDateString('fr-FR')}
               </p>
               <Link
                 to={`/post/${post._id}`}

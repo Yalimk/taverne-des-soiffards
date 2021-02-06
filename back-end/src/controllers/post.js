@@ -34,7 +34,7 @@ export const postById = (req, res, next, id) => {
 export const getPosts = async (req, res) => {
   const currentPage = req.query.page || 1;
   const perPage = Number(process.env.PER_PAGE) || 5;
-  let totalPosts;
+  let totalPosts = 0;
 
   const posts = await Post.find()
     .countDocuments()

@@ -103,7 +103,7 @@ class OnePost extends Component {
           >
             {posterPseudo}
           </Link>{" "}
-          le {new Date(post.created).toLocaleDateString()}
+          le {new Date(post.created).toLocaleDateString('fr-FR')}
         </p>
         <div className="inline-block">
           <Link

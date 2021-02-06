@@ -31,11 +31,11 @@ class Profile extends Component {
           redirectionSignIn: true,
         };
       } else {
-        // console.log(`[front-end/src/user/Profile.jsx => init:28] : data: ${data}`)
+        // console.log(`[front-end/src/user/Profile.jsx => init:28] : data: ${data}`);
         this.setState({
           user: data,
         });
-        // console.log(`[front-end/src/user/Profile.jsx => init:37] : data._id: ${data._id}.`)
+        // console.log(`[front-end/src/user/Profile.jsx => init:37] : data._id: ${data._id}.`);
         this.loadPosts(data._id);
       }
     } catch (error) {
@@ -59,7 +59,7 @@ class Profile extends Component {
   componentDidMount() {
     try {
       const userId = this.props.match.params.userId;
-      // console.log(`[front-end/src/user/Profile.jsx => componentDidMount] userId: ${userId}`)
+      // console.log(`[front-end/src/user/Profile.jsx => componentDidMount] userId: ${userId}`);
       if (userId) {
         this.init(userId);
       } else {
@@ -119,7 +119,7 @@ class Profile extends Component {
               <div className="lead mt-2">
                 <div className="container row">
                   <p style={{ fontWeight: "bold" }}>Inscription :&nbsp;</p>
-                  <p>{` ${new Date(created).toLocaleDateString()}`}</p>
+                  <p>{` ${new Date(created).toLocaleDateString('fr-FR')}`}</p>
                 </div>
 
                 <div className="container row">
@@ -222,7 +222,7 @@ class Profile extends Component {
               <div className="lead mt-2">
                 <div className="container row">
                   <p style={{ fontWeight: "bold" }}>Inscription :&nbsp;</p>
-                  <p>{` ${new Date(created).toLocaleDateString()}`}</p>
+                  <p>{` ${new Date(created).toLocaleDateString('fr-FR')}`}</p>
                 </div>
 
                 <div className="container row">
