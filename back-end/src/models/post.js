@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 // Constants declaration
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+const { ObjectId } = mongoose.Schema;
 
 const postSchema = new Schema({
   title: {
@@ -27,6 +27,17 @@ const postSchema = new Schema({
     default: Date.now(),
   },
   updated: Date,
+  comments: [{
+    message: String,
+    created: {
+      type: Date,
+      default: Date.now
+    },
+    author: {
+      type: ObjectId,
+      ref: "User"
+    }
+  }]
 });
 
 export default mongoose.model("Post", postSchema);

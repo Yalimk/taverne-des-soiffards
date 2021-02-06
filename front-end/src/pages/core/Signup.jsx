@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
 // Personal modules import
-import { signup } from "../../logic/core/index";
+import { signup } from "../../logic/auth/index";
 
 class Signup extends Component {
   state = {
@@ -27,7 +27,7 @@ class Signup extends Component {
     return (
       <form action="">
         <div className="form-group">
-          <label htmlFor="Name" className="text-muted">
+          <label htmlFor="Name" className="text-muted lead" style={{fontWeight: "bold"}}>
             Pseudo
           </label>
           <input
@@ -40,7 +40,7 @@ class Signup extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="Email" className="text-muted">
+          <label htmlFor="Email" className="text-muted lead" style={{fontWeight: "bold"}}>
             E-mail
           </label>
           <input
@@ -52,11 +52,11 @@ class Signup extends Component {
             required
           />
           <small id="emailHelp" className="form-text text-muted">
-            Votre e-mail ne sera partagé avec aucune tierse partie
+            <em>Votre e-mail est strictement confidentiel et ne sera partagé avec aucune tierce partie</em>
           </small>
         </div>
         <div className="form-group">
-          <label htmlFor="Password" className="text-muted">
+          <label htmlFor="Password" className="text-muted lead" style={{fontWeight: "bold"}}>
             Mot de passe
           </label>
           <input
@@ -123,7 +123,7 @@ class Signup extends Component {
     const { pseudo, email, password, error, success } = this.state;
     return (
       <div className="container jumbotron">
-        <h2 className="mt-5 mb-5">Inscription</h2>
+        <h2 className="mt-5 mb-5 text-center">Inscription</h2>
 
         <div
           className="alert alert-warning"

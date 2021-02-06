@@ -13,7 +13,8 @@ export const postById = (req, res, next, id) => {
   // Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById] : id: ${id}`)
   Post.findById(id)
     .populate('author', '_id pseudo right')
-    // .select('_id title body created photo')
+    .populate('comments', 'message created')
+    .populate('comments.author', '_id pseudo')
     .exec((err, post) => {
       // Logger.debug(`${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : post: ${post}`)
       if (err || !post) {
@@ -42,7 +43,9 @@ export const getPosts = async (req, res) => {
       return Post.find()
         .skip((currentPage - 1) * perPage)
         .populate('author', '_id pseudo')
-        .sort({ date: -1 })
+        .populate('comments', 'message created')
+        .populate('comments.author', '_id pseudo')
+        .sort({ created: -1 })
         .limit(perPage)
         .select('_id title body photo created updated');
     })
@@ -196,4 +199,52 @@ export const displayPost = (req, res) => {
   //   `${logMoment.dateAndTime}: [back-end/src/controllers/post.js => postById => .exec] : req.post: ${req.post}
   // `);
   return res.json(req.post);
+};
+
+export const addComment = (req, res) => {
+  let comment = req.body.comment;
+  comment.author = req.body.userId;
+  Logger.debug('inside addComment before findByIdAndUpdate')
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $push: { comments: comment } },
+    { new: true }
+  )
+    .populate('comments.author', '_id pseudo')
+    .populate('author', '_id pseudo')
+    .exec((err, result) => {
+      Logger.debug('inside .exec callback')
+      if (err) {
+        return res.status(400).json({
+          error: `[back-end/src/controllers/post.js => addComment] : error: ${err}`
+        })
+      } else {
+        res.json(result);
+      }
+    });
+};
+
+export const removeComment = (req, res) => {
+  let commentId = req.body.comment._id;
+  let postId = req.body.postId;
+  try {
+    Post.findByIdAndUpdate(
+      postId,
+      { $pull: { comments: { _id: commentId } } },
+      { new: true }
+    )
+      .populate('comments.author', '_id pseudo')
+      .populate('author', '_id pseudo')
+      .exec((err, result) => {
+        if (err) {
+          return res.status(400).json({
+            error: err
+          })
+        } else {
+          res.json(result);
+        }
+      })
+  } catch (error) {
+    Logger.error(`[back-end/src/controllers/post.js => removeComment] : error: ${error}`)
+  }
 };

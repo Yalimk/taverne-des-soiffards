@@ -28,8 +28,8 @@ export const postsPerPage = async (page) => {
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
-      );
-    }
+    );
+  }
 };
 
 export const viewPost = async (postId) => {
@@ -41,8 +41,8 @@ export const viewPost = async (postId) => {
   } catch (error) {
     return console.error(
       `Couldn't get response from api in viewPost because of error: ${error}.`
-      );
-    }
+    );
+  }
 };
 
 export const listUserPosts = async (userId, token) => {
@@ -59,8 +59,8 @@ export const listUserPosts = async (userId, token) => {
   } catch (error) {
     return console.error(
       `Couldn't get response from api because of error: ${error}.`
-      );
-    }
+    );
+  }
 };
 
 export const remove = async (postId, token) => {
@@ -100,4 +100,36 @@ export const updatePost = async (postId, token, post) => {
   }
 };
 
+export const writeComment = async (userId, token, postId, comment) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/post/comment`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ userId, postId, comment })
+    })
+    return response.json();
+  } catch (error) {
+    console.error(`[front-end/src/logic/apiPosts.js => writeComment] : error: ${error}`)
+  }
+};
 
+export const deleteComment = async (userId, token, postId, comment) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URI}/post/uncomment`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ userId, postId, comment })
+    })
+    return response.json();
+  } catch (error) {
+    console.error(`[front-end/src/logic/apiPosts.js => writeComment] : error: ${error}`)
+  }
+};

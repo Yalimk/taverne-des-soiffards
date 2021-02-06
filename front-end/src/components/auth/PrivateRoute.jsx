@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn } from "../../logic/core/index";
+import { isLoggedIn } from "../../logic/auth/index";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route

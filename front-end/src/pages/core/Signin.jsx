@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 // Personal modules import
-import { signin, logUserIn } from "../../logic/core/index";
+import { signin, logUserIn } from "../../logic/auth/index";
 
 class Signin extends Component {
   state = {
@@ -18,7 +18,7 @@ class Signin extends Component {
     return (
       <form action="">
         <div className="form-group">
-          <label htmlFor="Email" className="text-muted">
+          <label htmlFor="Email" className="text-muted lead" style={{fontWeight: "bold"}}>
             E-mail
           </label>
           <input
@@ -32,7 +32,7 @@ class Signin extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="Password" className="text-muted">
+          <label htmlFor="Password" className="text-muted lead" style={{fontWeight: "bold"}}>
             Mot de passe
           </label>
           <input
@@ -130,7 +130,8 @@ class Signin extends Component {
           </div>
         ) : (
           <div className="container jumbotron">
-            <h2 className="mt-5 mb-5">Bienvenue, moussaillon !</h2>
+            <h2 className="mt-5 mb-2 text-center">Bienvenue, moussaillon !</h2>
+            <p className="lead mb-5 text-center">Connecte-toi pour accéder aux fonctionnalités du site !</p>
 
             <div
               className="alert alert-warning"

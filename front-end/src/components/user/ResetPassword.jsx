@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 // Personal modules import
-import { resetPassword } from "../../logic/core/index";
+import { resetPassword } from "../../logic/auth/index";
 
 class ResetPassword extends Component {
   state = {

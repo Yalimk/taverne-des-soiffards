@@ -7,7 +7,7 @@ import DeleteUser from "../../components/user/DeleteUser";
 import UserPosts from "../../components/user/UserPosts";
 
 // Personal modules import
-import { isLoggedIn } from "../../logic/core/index";
+import { isLoggedIn } from "../../logic/auth/index";
 import { read } from "../../logic/user/apiUser";
 import defaultProfilePic from "../../images/default-image.png";
 import { listUserPosts } from "../../logic/post/apiPost";
@@ -176,8 +176,9 @@ class Profile extends Component {
                           Interface du Roi des Pirates
                         </h5>
                         <Link
-                          className="btn btn-raised btn-info mr-5"
+                          className="btn btn-raised btn-light mr-5 font-weight-bold"
                           to={`/user/edit/${_id}`}
+                          style={{color: "black"}}
                         >
                           Modifier en tant que Roi
                         </Link>

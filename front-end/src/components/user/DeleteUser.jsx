@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 // Personal modules import
-import { isLoggedIn, signout } from "../../logic/core/index";
+import { isLoggedIn, signout } from "../../logic/auth/index";
 import { remove } from "../../logic/user/apiUser";
 
 class DeleteUser extends Component {
@@ -73,7 +73,7 @@ class DeleteUser extends Component {
       return (
         <button
           onClick={this.deleteConfirmation}
-          className="btn btn-raised btn-danger"
+          className="btn btn-raised btn-dark font-weight-bold"
         >
           Supprimer en tant que Roi
         </button>

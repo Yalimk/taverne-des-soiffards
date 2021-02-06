@@ -138,10 +138,10 @@ class Users extends Component {
     const { users, page} = this.state;
     return (
       <div className="jumbotron">
-        <h2 className="mt-3 mb-3 text-center" style={{ fontWeight: "bold" }}>
+        <h2 className="mt-3 mb-5 text-center" style={{ fontWeight: "bold" }}>
         {!users.length
-            ? "Chargement..."
-            : "Les Pirates de la Taverne"}
+            ? "Rien à afficher pour le moment..."
+            : "Les Pirates de la Taverne des Soiffards"}
         </h2>
         {this.renderUsers(users)}
 

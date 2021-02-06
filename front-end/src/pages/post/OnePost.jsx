@@ -5,11 +5,14 @@ import { Link, Redirect } from "react-router-dom";
 // Personal modules import
 import { viewPost, remove } from "../../logic/post/apiPost";
 import defaultPostPic from "../../images/beautiful-sea.jpg";
-import { isLoggedIn } from "../../logic/core/index";
+import { isLoggedIn } from "../../logic/auth/index";
+import WriteComment from "../../components/post/WriteComment";
 
 class OnePost extends Component {
   state = {
     post: "",
+    comments: [],
+
     redirectionPosts: false,
   };
 
@@ -22,8 +25,13 @@ class OnePost extends Component {
     } else {
       this.setState({
         post: onePost,
+        comments: onePost.comments,
       });
     }
+  };
+
+  updateComments = (comments) => {
+    this.setState({ comments });
   };
 
   deleteConfirmation = () => {
@@ -113,10 +121,9 @@ class OnePost extends Component {
             <>
               <Link
                 to={`/post/edit/${post._id}`}
-                className="btn-btn-raised btn-info mr-3 btn-sm"
+                className="btn btn-raised btn-info mr-3 btn-sm"
                 style={{
-                  fontWeight: "bold",
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "15px",
                   cursor: "pointer",
                 }}
@@ -124,10 +131,9 @@ class OnePost extends Component {
                 Modifier
               </Link>
               <button
-                className="btn-btn-raised btn-danger"
+                className="btn btn-raised btn-danger"
                 style={{
-                  fontWeight: "bold",
-                  fontSize: "1rem",
+                  fontSize: "0.9rem",
                   marginBottom: "15px",
                   cursor: "pointer",
                 }}
@@ -159,14 +165,15 @@ class OnePost extends Component {
                     {post.author?._id && (
                       <Link
                         to={`/post/edit/${post._id}`}
-                        className="btn btn-raised btn-info mr-5"
+                        className="btn btn-raised btn-light mr-5 font-weight-bold"
+                        style={{color: "black"}}
                       >
                         Modifier en tant que Roi
                       </Link>
                     )}
                     <button
                       onClick={this.deleteConfirmation}
-                      className="btn btn-raised btn-danger"
+                      className="btn btn-raised btn-dark font-weight-bold"
                     >
                       Supprimer en tant que Roi
                     </button>
@@ -180,7 +187,7 @@ class OnePost extends Component {
   };
 
   render() {
-    const { post, redirectionPosts } = this.state;
+    const { post, redirectionPosts, comments } = this.state;
     if (redirectionPosts) {
       return <Redirect to={`/posts/`} />;
     }
@@ -193,6 +200,11 @@ class OnePost extends Component {
         ) : (
           this.renderPost(post)
         )}
+        <WriteComment
+          postId={post._id}
+          comments={comments}
+          updateComments={this.updateComments}
+        />
       </div>
     );
   }
