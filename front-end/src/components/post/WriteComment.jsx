@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { writeComment, deleteComment, updateComments } from "../../logic/post/apiPost";
+import { writeComment, deleteComment } from "../../logic/post/apiPost";
 import { isLoggedIn } from "../../logic/auth/index";
 import defaultProfilePic from "../../images/default-image.png";
 
