@@ -228,6 +228,7 @@ export const removeComment = (req, res) => {
   let commentId = req.body.comment._id;
   let postId = req.body.postId;
   try {
+    Logger.debug(`commentId: ${commentId}, postId: ${postId}`);
     Post.findByIdAndUpdate(
       postId,
       { $pull: { comments: { _id: commentId } } },

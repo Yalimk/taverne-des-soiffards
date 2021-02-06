@@ -113,12 +113,13 @@ export const writeComment = async (userId, token, postId, comment) => {
     })
     return response.json();
   } catch (error) {
-    console.error(`[front-end/src/logic/apiPosts.js => writeComment] : error: ${error}`)
+    console.error(`[front-end/src/logic/post/apiPosts.js => writeComment] : error: ${error}`)
   }
 };
 
 export const deleteComment = async (userId, token, postId, comment) => {
   try {
+    console.log(`[front-end/src/logic/post/apiPost.js => deleteComment] : userId: ${userId}, token: ${token}, postId: ${postId}`);
     const response = await fetch(`${process.env.REACT_APP_API_URI}/post/uncomment`, {
       method: "PUT",
       headers: {
@@ -130,6 +131,6 @@ export const deleteComment = async (userId, token, postId, comment) => {
     })
     return response.json();
   } catch (error) {
-    console.error(`[front-end/src/logic/apiPosts.js => writeComment] : error: ${error}`)
+    console.error(`[front-end/src/logic/post/apiPosts.js => deleteComment] : error: ${error}`)
   }
 };

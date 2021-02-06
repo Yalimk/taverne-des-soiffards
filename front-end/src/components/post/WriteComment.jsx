@@ -76,6 +76,7 @@ class WriteComment extends Component {
     const token = isLoggedIn().token;
     const postId = this.props.postId;
     try {
+      console.log(`[front-end/src/components/post/WriteComment.jsx => removeComment] : userId: ${userId}, token: ${token}, postId: ${postId}`);
       const response = await deleteComment(userId, token, postId, comment);
       if (response.error) {
         console.log(response.error);
@@ -94,6 +95,7 @@ class WriteComment extends Component {
       "Es-tu sûr de vouloir supprimer ton message, pirate ?"
     );
     if (answer) {
+      console.log('inside deleteConfirmation')
       this.removeComment(comment);
     }
   };
@@ -128,7 +130,7 @@ class WriteComment extends Component {
         {/* {JSON.stringify(comments)} */}
         <div className="col-md-12">
           <h3 className="text-success mb-4 mt-4">
-            {comments.length} Commentaire{comments.length <= 1 ? "" : "s"}
+            {comments.length}{" "}Commentaire{comments.length <= 1 ? "" : "s"}
           </h3>
           {comments.reverse().map((comment, i) => {
             let commentatorProfile;
@@ -161,7 +163,7 @@ class WriteComment extends Component {
                       />
                     </Link>
                     <p className="lead">
-                      {/* {commentatorPseudo} : */} {comment.message}
+                      {comment.message}
                     </p>
                   </div>
                   <p
@@ -196,6 +198,8 @@ class WriteComment extends Component {
                           </button>
                         </Fragment>
                       )}
+                      {/* {console.log('user.right', isLoggedIn().user.right)} */}
+                      {/* {console.log('ADMIN_TITLE', process.env.REACT_APP_ADMIN_TITLE)} */}
                     {isLoggedIn().user &&
                       isLoggedIn().user.right ===
                         process.env.REACT_APP_ADMIN_TITLE && (
@@ -207,7 +211,7 @@ class WriteComment extends Component {
                               marginBottom: "15px",
                               cursor: "pointer",
                             }}
-                            onClick={this.deleteConfirmation}
+                            onClick={() => this.deleteConfirmation(comment)}
                           >
                             Supprimer en tant que Roi
                           </button>
