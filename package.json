@@ -4,8 +4,8 @@
   "description": "Réseau social pour pirates !",
   "main": "app.js",
   "scripts": {
-    "build": "(cd back-end && npm install) && (cd front-end && npm install",
-    "start": "(cd back-end && npm start) && (cd front-end npm start-client)"
+    "build": "(cd server && npm install) && (cd client && npm install)",
+    "start": "(cd server && npm start) && (cd client npm start)"
   },
   "repository": {
     "type": "git",
