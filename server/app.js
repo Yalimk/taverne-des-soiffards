@@ -11,7 +11,7 @@ import fs from 'fs';
 
 
 // Personal modules imports
-import { Logger, logMoment } from './src/Logger/logger.js';
+import { Logger, logMoment } from './src/logger/logger.js';
 // import * as CONST from './src/Helpers/CONSTANTS.js';
 
 // dotenv config to get access to all environment variables
