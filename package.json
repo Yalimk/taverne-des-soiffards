@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Réseau social pour pirates !",
   "main": "app.js",
+  "heroku-run-build-script": true,
   "scripts": {
-    "build": "(cd back-end && npm install) && (cd front-end && npm install",
-    "start": "(cd back-end && npm start) && (cd front-end npm start-client)"
+    "build": "npm install --prefix server && npm install --prefix client && react-scripts build --prefix client",
+    "start": "npm start --prefix server && npm start --prefix client",
   },
   "repository": {
     "type": "git",
