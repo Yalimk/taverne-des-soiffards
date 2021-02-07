@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "Réseau social pour pirates !",
   "main": "app.js",
+  "engines": {
+    "node": ">=15.6.0",
+    "npm": ">=7.4.0"
+  },
+  "engineStrict": true,
   "heroku-run-build-script": true,
   "scripts": {
-    "build": "npm install --prefix server && npm install --prefix client && react-scripts build --prefix client",
-    "start": "npm start --prefix server && npm start --prefix client",
+    "build": "(cd ./server && npm install) && (cd ./client && npm install && react-scripts build)",
+    "start": "(cd ./server && npm start) && (cd ./client && npm start)"
   },
   "repository": {
     "type": "git",
