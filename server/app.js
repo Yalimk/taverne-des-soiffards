@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fs from 'fs';
+import path from 'path';
 
 
 // Personal modules imports
@@ -28,6 +29,7 @@ const app = express();
 const PORT = process.env.PORT || 9092;
 
 // Middlewares definition
+app.use(express.static(path.join(__dirname, 'front-end', 'build')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -52,6 +54,11 @@ mongoose
   });
 mongoose.connection.on('error', (err) => {
   Logger.error(`db connection error: ${err.message}`);
+});
+
+// Linking back-end to front-end
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'front-end', 'build', 'index.html'))
 });
 
 // apiDocs

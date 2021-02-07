@@ -1,9 +1,8 @@
 // Native modules import
 import express from 'express';
-// import {body, validationResult} from 'express-validator';
 
 //Personal modules import
-import {userById, getUsers, getUser, updateUser, deleteUser, userPhoto, hasAuthorization/*, userByPseudo*/} from '../controllers/user.js';
+import {userById, getUsers, getUser, updateUser, deleteUser, userPhoto, hasAuthorization} from '../controllers/user.js';
 import {requireSignin} from '../controllers/auth.js';
 
 // Constants declaration
