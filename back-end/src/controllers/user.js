@@ -22,19 +22,6 @@ export const userById = (req, res, next, userId) => {
     });
 };
 
-// export const userByPseudo = (req, res, next, userPseudo) => {
-//   User.findOne({pseudo: userPseudo})
-//     .exec((err, user) => {
-//       if (err || !user) {
-//         return res.status(400).json({
-//           error: `Ce pirate n'existe pas ou une erreur s'est produite.`
-//         })
-//       }
-//       req.profile = user;
-//       next();
-//     });
-// };
-
 export const hasAuthorization = (req, res, next) => {
   const sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
   const adminUser = req.profile && req.auth && req.auth.right === process.env.ADMIN_TITLE;

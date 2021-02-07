@@ -4,7 +4,6 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
 // Components import
-// import SearchUser from '../user/SearchUser';
 
 // Personal modules import
 import { signout, isLoggedIn } from "../../logic/auth/index";
@@ -82,7 +81,7 @@ const Menu = ({ history }) => (
               </Link>
             </li>
 
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <Link
                 to="/post/create"
                 style={isActive(history, `/post/create`)}
@@ -90,7 +89,7 @@ const Menu = ({ history }) => (
               >
                 Envoyer un message
               </Link>
-            </li> */}
+            </li>
 
             <li className="nav-item">
               <Link
@@ -139,7 +138,6 @@ const Menu = ({ history }) => (
           </>
         )}
       </ul>
-      {/* <SearchUser /> */}
     </nav>
   </div>
 );
