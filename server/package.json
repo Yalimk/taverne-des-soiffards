@@ -1,5 +1,5 @@
 {
-  "name": "taverne-des-soiffards",
+  "name": "server",
   "version": "1.0.0",
   "description": "Social network for pirates playing Sea Of Thieves",
   "main": "app.js",
