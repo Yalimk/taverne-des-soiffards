@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Réseau social pour pirates !",
   "main": "app.js",
+  "engines": {
+    "node": ">=15.6.0",
+    "npm": ">=7.4.0"
+  },
+  "heroku-run-build-script": true,
   "scripts": {
     "build": "(cd server && npm install) && (cd client && npm install)",
     "start": "(cd server && npm start) && (cd client npm start)"
