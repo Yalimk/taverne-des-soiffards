@@ -18,10 +18,10 @@ import { Logger, logMoment } from './src/logger/logger.js';
 dotenv.config();
 
 // Adding the routes
-import postRoutes from './src/Routes/post.js';
-import authRoutes from './src/Routes/auth.js';
-import userRoutes from './src/Routes/user.js';
-import { checkSigninToken } from './src/Controllers/auth.js';
+import postRoutes from './src/routes/post.js';
+import authRoutes from './src/routes/auth.js';
+import userRoutes from './src/routes/user.js';
+import { checkSigninToken } from './src/controllers/auth.js';
 
 // Constants definition
 const app = express();
