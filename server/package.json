@@ -5,8 +5,8 @@
   "main": "app.js",
   "type": "module",
   "engines": {
-    "node": ">=15.6.0",
-    "npm": ">=7.4.0"
+    "node": "15.6.0",
+    "npm": "7.4.0"
   },
   "scripts": {
     "start": "node app.js",
