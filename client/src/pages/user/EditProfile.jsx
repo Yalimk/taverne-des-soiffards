@@ -178,10 +178,8 @@ class EditProfile extends Component {
       // console.info(`[front-end/src/user/EditProfile => updateSubmit => after updateUser:183]: data: ${data}`)
       if (data.error) {
         this.setState({ error: data.error });
-      } else if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE) {
-        updateInfo(data, () => {
+      } else if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE && (isLoggedIn().user._id !== userId)) {
           this.setState({ redirectionProfile: true });
-        });
       } else {
         // console.info(`[front-end/src/user/EditProfile => updateSubmit => before updateInfo:190]: data: ${data}`)
         updateInfo(data, () => {
