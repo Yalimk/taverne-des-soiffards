@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // Personal modules import
-import { usersPerPage /*listAllUsers*/ } from "../../logic/user/apiUser";
+import { usersPerPage } from "../../logic/user/apiUser";
 import defaultProfilePic from "../../images/default-image.png";
 
 class Users extends Component {
