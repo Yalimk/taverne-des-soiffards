@@ -37,6 +37,11 @@ app.use('/tds', authRoutes);
 app.use('/tds', postRoutes);
 app.use('/tds', userRoutes);
 app.use(favicon('public/images/favicon.png'));
+app.use(express.static(path.join(__dirname, './client/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
 
 // Connection to MongoDB Atlas database
 mongoose
