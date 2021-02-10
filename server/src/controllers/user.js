@@ -27,14 +27,14 @@ export const hasAuthorization = (req, res, next) => {
   const adminUser = req.profile && req.auth && req.auth.right === process.env.ADMIN_TITLE;
   const authorized = sameUser || adminUser;
 
-  Logger.debug(`${logMoment.dateAndTime}: 
-  [back-end/src/controllers/user.js => hasAuthorization:31] :  
-  req.user: ${req.profile}
-  req.auth: ${JSON.stringify(req.auth)}
-  sameUser: ${sameUser}
-  adminUser: ${adminUser}
-  adminTitle: ${process.env.ADMIN_TITLE}
-  `);
+  // Logger.debug(`${logMoment.dateAndTime}: 
+  // [back-end/src/controllers/user.js => hasAuthorization:31] :  
+  // req.user: ${req.profile}
+  // req.auth: ${JSON.stringify(req.auth)}
+  // sameUser: ${sameUser}
+  // adminUser: ${adminUser}
+  // adminTitle: ${process.env.ADMIN_TITLE}
+  // `);
 
   if (!authorized) {
     return res.status(403).json({
@@ -73,7 +73,7 @@ export const getUser = (req, res) => {
 };
 
 export const updateUser = (req, res, next) => {
-  Logger.debug(`[back-end/src/controllers/users.js => updateUser] : function fired.`)
+  // Logger.debug(`[back-end/src/controllers/users.js => updateUser] : function fired.`);
   let form = formidable({ multiples: true });
   form.parse(req, (err, fields, files) => {
     if (err) {
