@@ -8,8 +8,7 @@
     "npm": "7.4.0"
   },
   "scripts": {
-    "start": "cd server && npm install && npm start",
-    "heroku-postbuild": "(cd server && npm install) && (cd client && npm install && npm run build)"
+    "start": "cd server && npm install && npm start"
   },
   "repository": {
     "type": "git",
