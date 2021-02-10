@@ -179,7 +179,9 @@ class EditProfile extends Component {
       if (data.error) {
         this.setState({ error: data.error });
       } else if (isLoggedIn().user.right === process.env.REACT_APP_ADMIN_TITLE) {
-        this.setState({ redirectionProfile: true })
+        updateInfo(data, () => {
+          this.setState({ redirectionProfile: true });
+        });
       } else {
         // console.info(`[front-end/src/user/EditProfile => updateSubmit => before updateInfo:190]: data: ${data}`)
         updateInfo(data, () => {

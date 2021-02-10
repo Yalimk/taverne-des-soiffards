@@ -51,7 +51,7 @@ export const updateUser = async (userId, token, user) => {
 export const updateInfo = (user, next) => {
   if (typeof window !== "undefined") {
     if (localStorage.getItem("jwt")) {
-      // console.log(`[front-end/src/user/apiUser.js => updateInfo:67] : inside if (localStorage.getItem('jwt'))`);
+      console.log(`[front-end/src/user/apiUser.js => updateInfo:67] : inside if (localStorage.getItem('jwt'))`);
       let auth = JSON.parse(localStorage.getItem("jwt"));
       auth.user = user;
       localStorage.setItem("jwt", JSON.stringify(auth));
